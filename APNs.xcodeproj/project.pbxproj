@@ -11,6 +11,9 @@
 		70FBE781222B7DFC00B88357 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE780222B7DFC00B88357 /* ViewController.swift */; };
 		70FBE783222B7DFD00B88357 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70FBE782222B7DFD00B88357 /* Assets.xcassets */; };
 		70FBE786222B7DFD00B88357 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70FBE784222B7DFD00B88357 /* Main.storyboard */; };
+		70FBE7AF222BF0A500B88357 /* AppService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE7AE222BF0A500B88357 /* AppService.swift */; };
+		70FBE7B1222BF0E800B88357 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE7B0222BF0E800B88357 /* AppEnvironment.swift */; };
+		70FBE7B4222BF1F200B88357 /* APNs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE7B3222BF1F200B88357 /* APNs.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +24,9 @@
 		70FBE785222B7DFD00B88357 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		70FBE787222B7DFD00B88357 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		70FBE788222B7DFD00B88357 /* APNs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = APNs.entitlements; sourceTree = "<group>"; };
+		70FBE7AE222BF0A500B88357 /* AppService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppService.swift; sourceTree = "<group>"; };
+		70FBE7B0222BF0E800B88357 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
+		70FBE7B3222BF1F200B88357 /* APNs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNs.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,10 +61,29 @@
 			children = (
 				70FBE77E222B7DFC00B88357 /* AppDelegate.swift */,
 				70FBE780222B7DFC00B88357 /* ViewController.swift */,
+				70FBE7AD222BF09700B88357 /* AppKit */,
 				70FBE782222B7DFD00B88357 /* Assets.xcassets */,
 				70FBE784222B7DFD00B88357 /* Main.storyboard */,
 				70FBE787222B7DFD00B88357 /* Info.plist */,
 				70FBE788222B7DFD00B88357 /* APNs.entitlements */,
+			);
+			path = APNs;
+			sourceTree = "<group>";
+		};
+		70FBE7AD222BF09700B88357 /* AppKit */ = {
+			isa = PBXGroup;
+			children = (
+				70FBE7AE222BF0A500B88357 /* AppService.swift */,
+				70FBE7B0222BF0E800B88357 /* AppEnvironment.swift */,
+				70FBE7B2222BF1D700B88357 /* APNs */,
+			);
+			path = AppKit;
+			sourceTree = "<group>";
+		};
+		70FBE7B2222BF1D700B88357 /* APNs */ = {
+			isa = PBXGroup;
+			children = (
+				70FBE7B3222BF1F200B88357 /* APNs.swift */,
 			);
 			path = APNs;
 			sourceTree = "<group>";
@@ -95,6 +120,11 @@
 				TargetAttributes = {
 					70FBE77A222B7DFC00B88357 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -134,6 +164,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				70FBE781222B7DFC00B88357 /* ViewController.swift in Sources */,
+				70FBE7B1222BF0E800B88357 /* AppEnvironment.swift in Sources */,
+				70FBE7AF222BF0A500B88357 /* AppService.swift in Sources */,
+				70FBE7B4222BF1F200B88357 /* APNs.swift in Sources */,
 				70FBE77F222B7DFC00B88357 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
