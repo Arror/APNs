@@ -40,9 +40,9 @@ public final class APNs {
         var hostURL: URL {
             switch self {
             case .development:
-                return URL(string: "https://api.development.push.apple.com:443/3/device/")!
+                return URL(string: "https://api.development.push.apple.com")!
             case .production:
-                return URL(string: "https://api.push.apple.com:443/3/device/")!
+                return URL(string: "https://api.push.apple.com")!
             }
         }
     }
@@ -59,7 +59,7 @@ public final class APNs {
     
     public func send(server: Server, tokens: [String], payload: Data, completion: @escaping () -> Void) {
         
-        let hostURL = server.hostURL
+        let hostURL = server.hostURL.appendingPathComponent("3/device")
         
         tokens.forEach { token in
             
