@@ -33,7 +33,7 @@ public final class APNs {
         }
     }
     
-    public enum Environment {
+    public enum Server {
         
         case development, production
         
@@ -57,9 +57,9 @@ public final class APNs {
         self.session = session
     }
     
-    public func send(environment: Environment, tokens: [String], payload: Data, completion: @escaping () -> Void) {
+    public func send(server: Server, tokens: [String], payload: Data, completion: @escaping () -> Void) {
         
-        let hostURL = environment.hostURL
+        let hostURL = server.hostURL
         
         tokens.forEach { token in
             
