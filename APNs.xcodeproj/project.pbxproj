@@ -17,6 +17,7 @@
 		70FBE7AF222BF0A500B88357 /* AppService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE7AE222BF0A500B88357 /* AppService.swift */; };
 		70FBE7B1222BF0E800B88357 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE7B0222BF0E800B88357 /* AppEnvironment.swift */; };
 		70FBE7B4222BF1F200B88357 /* APNs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE7B3222BF1F200B88357 /* APNs.swift */; };
+		CA351B40222E22F7005D34E6 /* Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA351B3D222E22F6005D34E6 /* Security.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		70FBE7AE222BF0A500B88357 /* AppService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppService.swift; sourceTree = "<group>"; };
 		70FBE7B0222BF0E800B88357 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		70FBE7B3222BF1F200B88357 /* APNs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNs.swift; sourceTree = "<group>"; };
+		CA351B3D222E22F6005D34E6 /* Security.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Security.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 			children = (
 				70FBE7AE222BF0A500B88357 /* AppService.swift */,
 				70FBE7B0222BF0E800B88357 /* AppEnvironment.swift */,
+				CA351B3A222E2241005D34E6 /* Security */,
 				70802A75222D76AF0054C45E /* Storage */,
 				70FBE7B2222BF1D700B88357 /* APNs */,
 			);
@@ -103,6 +106,14 @@
 				70FBE7B3222BF1F200B88357 /* APNs.swift */,
 			);
 			path = APNs;
+			sourceTree = "<group>";
+		};
+		CA351B3A222E2241005D34E6 /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				CA351B3D222E22F6005D34E6 /* Security.swift */,
+			);
+			path = Security;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,6 +196,7 @@
 				70FBE7AF222BF0A500B88357 /* AppService.swift in Sources */,
 				70FBE7B4222BF1F200B88357 /* APNs.swift in Sources */,
 				70802A79222D772D0054C45E /* DataBaseStorage.swift in Sources */,
+				CA351B40222E22F7005D34E6 /* Security.swift in Sources */,
 				70FBE77F222B7DFC00B88357 /* AppDelegate.swift in Sources */,
 				70802A7B222D77420054C45E /* CodableStorage.swift in Sources */,
 				70802A77222D76BE0054C45E /* Storage.swift in Sources */,
