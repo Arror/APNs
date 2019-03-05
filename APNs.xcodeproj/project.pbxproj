@@ -19,6 +19,8 @@
 		70FBE7B4222BF1F200B88357 /* APNs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE7B3222BF1F200B88357 /* APNs.swift */; };
 		CA351B40222E22F7005D34E6 /* Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA351B3D222E22F6005D34E6 /* Security.swift */; };
 		CA351B53222E6C12005D34E6 /* SecKey+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA351B52222E6C12005D34E6 /* SecKey+Extension.swift */; };
+		CA351B55222E7994005D34E6 /* JSONWebToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA351B54222E7994005D34E6 /* JSONWebToken.swift */; };
+		CA351B63222E850B005D34E6 /* ASN1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA351B62222E850B005D34E6 /* ASN1.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		70FBE7B3222BF1F200B88357 /* APNs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNs.swift; sourceTree = "<group>"; };
 		CA351B3D222E22F6005D34E6 /* Security.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Security.swift; sourceTree = "<group>"; };
 		CA351B52222E6C12005D34E6 /* SecKey+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SecKey+Extension.swift"; sourceTree = "<group>"; };
+		CA351B54222E7994005D34E6 /* JSONWebToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWebToken.swift; sourceTree = "<group>"; };
+		CA351B62222E850B005D34E6 /* ASN1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASN1.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,8 @@
 			children = (
 				CA351B3D222E22F6005D34E6 /* Security.swift */,
 				CA351B52222E6C12005D34E6 /* SecKey+Extension.swift */,
+				CA351B62222E850B005D34E6 /* ASN1.swift */,
+				CA351B54222E7994005D34E6 /* JSONWebToken.swift */,
 			);
 			path = Security;
 			sourceTree = "<group>";
@@ -194,7 +200,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA351B63222E850B005D34E6 /* ASN1.swift in Sources */,
 				70FBE781222B7DFC00B88357 /* ViewController.swift in Sources */,
+				CA351B55222E7994005D34E6 /* JSONWebToken.swift in Sources */,
 				70FBE7B1222BF0E800B88357 /* AppEnvironment.swift in Sources */,
 				70FBE7AF222BF0A500B88357 /* AppService.swift in Sources */,
 				70FBE7B4222BF1F200B88357 /* APNs.swift in Sources */,
