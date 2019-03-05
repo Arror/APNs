@@ -22,35 +22,43 @@ public final class JSONWebTokenController {
     
     private var _pair: Pair? = nil
     
+    private var tokenStorageKey: String {
+        return "\(self.teamID)\(self.keyID)"
+    }
+    
     public var token: String? {
         if let p = self._pair, !p.token.isExpired {
             return p.tokenString
         } else {
-            self._pair = nil
-            let newToken = JSONWebToken(
-                keyID: self.keyID,
-                teamID: self.teamID,
-                issueDate: Date(timeIntervalSinceNow: 0),
-                expireDate: Date(timeIntervalSinceNow: 3600)
-            )
-            guard
-                let digestString = newToken.digestString,
-                let data = digestString.data(using: .utf8) else {
-                    return nil
-            }
             do {
+                self._pair = nil
+                try self.storage.set(item: self._pair, for: self.tokenStorageKey)
+                let newToken = JSONWebToken(
+                    keyID: self.keyID,
+                    teamID: self.teamID,
+                    issueDate: Date(timeIntervalSinceNow: 0),
+                    expireDate: Date(timeIntervalSinceNow: 3600)
+                )
+                guard
+                    let digestString = newToken.digestString,
+                    let data = digestString.data(using: .utf8) else {
+                        return nil
+                }
                 let signature = try self.wrapper.sign(digest: data.sha256(), withScheme: .x962, digestAlgorithm: .sha256)
                 guard
                     let rawData = ASN1.toRawSignature(data: signature as Data) else {
                         return nil
                 }
                 self._pair = Pair(token: newToken, tokenString: rawData.base64URLEncodedString())
+                try self.storage.set(item: self._pair, for: self.tokenStorageKey)
                 return self._pair?.tokenString
             } catch {
                 return nil
             }
         }
     }
+    
+    private let storage: DefaultsStorage
     
     public init?(keyID: String, teamID: String, keyString: String) {
         guard
@@ -60,6 +68,12 @@ public final class JSONWebTokenController {
         self.wrapper = wrapper
         self.keyID = keyID
         self.teamID = teamID
+        self.storage = DefaultsStorage()
+        do {
+            self._pair = try self.storage.item(for: self.tokenStorageKey)
+        } catch {
+            self._pair = nil
+        }
     }
 }
 
