@@ -54,31 +54,38 @@ final class JSONWebTokenSigner {
     
     func sign(token: JSONWebToken) -> String? {
         do {
-            let headerString = self.base64URLEncodedString(data: try JSONEncoder().encode(token.header))
-            let claimsString = self.base64URLEncodedString(data: try JSONEncoder().encode(token.claims))
+            let headerString = try JSONEncoder().encode(token.header).base64URLEncodedString()
+            let claimsString = try JSONEncoder().encode(token.claims).base64URLEncodedString()
             let digestString = "\(headerString).\(claimsString)"
             guard
                 let origin = digestString.data(using: .utf8) else {
                     return nil
             }
-            var hash = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
-            CC_SHA256((origin as NSData).bytes, CC_LONG(origin.count), &hash)
-            let digest = Data(bytes: hash)
+            let digest = origin.sha256()
             let signature = try self.wrapper.sign(digest: digest, withScheme: .x962, digestAlgorithm: .sha256)
             guard
                 let rawData = ASN1.toRawSignature(data: signature as Data) else {
                     return nil
             }
-            return self.base64URLEncodedString(data: rawData)
+            return rawData.base64URLEncodedString()
         } catch {
             return nil
         }
     }
+}
+
+extension Data {
     
-    private func base64URLEncodedString(data: Data) -> String {
-        return data.base64EncodedString()
+    func base64URLEncodedString() -> String {
+        return self.base64EncodedString()
             .replacingOccurrences(of: "=", with: "")
             .replacingOccurrences(of: "+", with: "-")
             .replacingOccurrences(of: "/", with: "_")
+    }
+    
+    func sha256() -> Data {
+        var temp = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
+        CC_SHA256((self as NSData).bytes, CC_LONG(self.count), &temp)
+        return Data(bytes: temp)
     }
 }
