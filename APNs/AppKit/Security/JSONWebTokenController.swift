@@ -15,11 +15,16 @@ public final class JSONWebTokenController {
     private let keyID: String
     private let teamID: String
     
-    private var _pair: (JSONWebToken, String)? = nil
+    private struct Pair: Codable {
+        let token: JSONWebToken
+        let tokenString: String
+    }
     
-    public var pair: (JSONWebToken, String)? {
-        if let p = self._pair, !p.0.isExpired {
-            return p
+    private var _pair: Pair? = nil
+    
+    public var token: String? {
+        if let p = self._pair, !p.token.isExpired {
+            return p.tokenString
         } else {
             self._pair = nil
             let newToken = JSONWebToken(
@@ -39,8 +44,8 @@ public final class JSONWebTokenController {
                     let rawData = ASN1.toRawSignature(data: signature as Data) else {
                         return nil
                 }
-                self._pair = (newToken, rawData.base64URLEncodedString())
-                return self._pair
+                self._pair = Pair(token: newToken, tokenString: rawData.base64URLEncodedString())
+                return self._pair?.tokenString
             } catch {
                 return nil
             }
