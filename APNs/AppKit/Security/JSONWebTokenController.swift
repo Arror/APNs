@@ -49,7 +49,7 @@ public final class JSONWebTokenController {
                     let rawData = ASN1.toRawSignature(data: signature as Data) else {
                         return nil
                 }
-                self._pair = Pair(token: newToken, tokenString: rawData.base64URLEncodedString())
+                self._pair = Pair(token: newToken, tokenString: "\(digestString).\(rawData.base64URLEncodedString())")
                 try self.storage.set(item: self._pair, for: self.tokenStorageKey)
                 return self._pair?.tokenString
             } catch {
@@ -60,7 +60,7 @@ public final class JSONWebTokenController {
     
     private let storage: DefaultsStorage
     
-    public init?(keyID: String, teamID: String, keyString: String) {
+    public init?(teamID: String, keyID: String, keyString: String) {
         guard
             let wrapper = ECPrivateKeyWrapper.make(withP8String: keyString) else {
                 return nil
