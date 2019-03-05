@@ -21,29 +21,29 @@ extension PrivateKeyWrapper {
         
         let (result, _) = ASN1.toASN1Element(data: derData)
         guard
-            case let ASN1.ASN1Element.seq(elements: es) = result, es.count > 2,
-            case let ASN1.ASN1Element.seq(elements: ids) = es[1], ids.count > 1 else {
+            case let ASN1.Element.seq(elements: es) = result, es.count > 2,
+            case let ASN1.Element.seq(elements: ids) = es[1], ids.count > 1 else {
                 return nil
         }
         guard
-            case let ASN1.ASN1Element.bytes(data: privateOctest) = es[2] else {
+            case let ASN1.Element.bytes(data: privateOctest) = es[2] else {
                 return nil
         }
         let (octest, _) = ASN1.toASN1Element(data: privateOctest)
         guard
-            case let ASN1.ASN1Element.seq(elements: seq) = octest, seq.count >= 3,
-            case let ASN1.ASN1Element.bytes(data: privateKeyData) = seq[1] else {
+            case let ASN1.Element.seq(elements: seq) = octest, seq.count >= 3,
+            case let ASN1.Element.bytes(data: privateKeyData) = seq[1] else {
                 return nil
         }
         let _publicKeyData: Data
         if
-            case let ASN1.ASN1Element.constructed(tag: 1, elem: publicElement) = seq[2],
-            case let ASN1.ASN1Element.bytes(data: pubKeyData) = publicElement {
+            case let ASN1.Element.constructed(tag: 1, elem: publicElement) = seq[2],
+            case let ASN1.Element.bytes(data: pubKeyData) = publicElement {
             _publicKeyData = pubKeyData
         } else if
             seq.count >= 4,
-            case let ASN1.ASN1Element.constructed(tag: 1, elem: publicElement) = seq[3],
-            case let ASN1.ASN1Element.bytes(data: pubKeyData) = publicElement {
+            case let ASN1.Element.constructed(tag: 1, elem: publicElement) = seq[3],
+            case let ASN1.Element.bytes(data: pubKeyData) = publicElement {
             _publicKeyData = pubKeyData
         } else {
             return nil
@@ -66,15 +66,15 @@ extension PrivateKeyWrapper {
     
     private struct ASN1 {
         
-        indirect enum ASN1Element {
-            case seq(elements: [ASN1Element])
+        indirect enum Element {
+            case seq(elements: [Element])
             case integer(int: Int)
             case bytes(data: Data)
-            case constructed(tag: Int, elem: ASN1Element)
+            case constructed(tag: Int, elem: Element)
             case unknown
         }
         
-        static func toASN1Element(data: Data) -> (ASN1Element, Int) {
+        static func toASN1Element(data: Data) -> (Element, Int) {
             guard
                 data.count >= 2 else {
                     return (.unknown, data.count)
@@ -83,7 +83,7 @@ extension PrivateKeyWrapper {
             switch data[0] {
             case 0x30:
                 let (length, lengthOfLength) = readLength(data: data.advanced(by: 1))
-                var result: [ASN1Element] = []
+                var result: [Element] = []
                 var subdata = data.advanced(by: 1 + lengthOfLength)
                 var alreadyRead = 0
                 
