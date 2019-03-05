@@ -21,7 +21,7 @@ public struct JSONWebToken: Codable {
         }
     }
     
-    private struct Claims: Codable {
+    private struct Payload: Codable {
         
         let teamID: String
         let issueDate: Date
@@ -35,22 +35,22 @@ public struct JSONWebToken: Codable {
     }
     
     private let header: Header
-    private let claims: Claims
+    private let payload: Payload
     
     public init(keyID: String, teamID: String, issueDate: Date, expireDate: Date) {
         self.header = Header(keyID: keyID)
-        self.claims = Claims(teamID: teamID, issueDate: issueDate, expireDate: expireDate)
+        self.payload = Payload(teamID: teamID, issueDate: issueDate, expireDate: expireDate)
     }
     
     public var isExpired: Bool {
-        return self.claims.expireDate.compare(Date(timeIntervalSinceNow: 0)) == .orderedAscending
+        return self.payload.expireDate.compare(Date(timeIntervalSinceNow: 0)) == .orderedAscending
     }
     
     public var digestString: String? {
         do {
             let headerString = try JSONEncoder().encode(self.header).base64URLEncodedString()
-            let claimsString = try JSONEncoder().encode(self.claims).base64URLEncodedString()
-            return "\(headerString).\(claimsString)"
+            let payloadString = try JSONEncoder().encode(self.payload).base64URLEncodedString()
+            return "\(headerString).\(payloadString)"
         } catch {
             return nil
         }
