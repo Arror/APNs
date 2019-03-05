@@ -10,7 +10,7 @@ import Foundation
 
 public struct ASN1 {
     
-    indirect enum Element {
+    public indirect enum Element {
         case seq(elements: [Element])
         case integer(int: Int)
         case bytes(data: Data)
@@ -39,7 +39,7 @@ public struct ASN1 {
         return self.dropLeadingBytes(data: sigR) + self.dropLeadingBytes(data: sigS)
     }
     
-    static func toASN1Element(data: Data) -> (Element, Int) {
+    public static func toASN1Element(data: Data) -> (Element, Int) {
         guard
             data.count >= 2 else {
                 return (.unknown, data.count)
@@ -86,7 +86,7 @@ public struct ASN1 {
         }
     }
     
-    static private func readLength(data: Data) -> (Int, Int) {
+    private static func readLength(data: Data) -> (Int, Int) {
         if data[0] & 0x80 == 0x00 {
             return (Int(data[0]), 1)
         } else {
