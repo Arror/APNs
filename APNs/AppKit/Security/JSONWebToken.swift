@@ -27,6 +27,26 @@ public struct JSONWebToken: Codable {
         let issueDate: Date
         let expireDate: Date
         
+        init(teamID: String, issueDate: Date, expireDate: Date) {
+            self.teamID = teamID
+            self.issueDate = issueDate
+            self.expireDate = expireDate
+        }
+        
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.teamID = try container.decode(String.self, forKey: .teamID)
+            self.issueDate = Date(timeIntervalSince1970: TimeInterval(try container.decode(Int64.self, forKey: .issueDate)).rounded())
+            self.expireDate = Date(timeIntervalSince1970: TimeInterval(try container.decode(Int64.self, forKey: .expireDate)).rounded())
+        }
+        
+        func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encode(self.teamID, forKey: .teamID)
+            try container.encode(Int64(self.issueDate.timeIntervalSince1970.rounded()), forKey: .issueDate)
+            try container.encode(Int64(self.expireDate.timeIntervalSince1970.rounded()), forKey: .expireDate)
+        }
+        
         private enum CodingKeys: String, CodingKey {
             case teamID     = "iss"
             case issueDate  = "iat"

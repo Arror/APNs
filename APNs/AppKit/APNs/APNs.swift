@@ -28,7 +28,7 @@ public final class APNs {
     private let session: URLSession
     private let controller: JSONWebTokenController
     
-    public init?(teamID: String, keyID: String, keyString: String) throws {
+    public init(teamID: String, keyID: String, keyString: String) throws {
         self.controller = try JSONWebTokenController(teamID: teamID, keyID: keyID, keyString: keyString)
         self.session = URLSession.shared
     }
@@ -46,11 +46,11 @@ public final class APNs {
                 req.httpMethod = "POST"
                 req.httpBody = payload
                 var reval = req.allHTTPHeaderFields ?? [:]
-                reval["authorization"] = self.controller.token
+                reval["authorization"] = self.controller.token.flatMap { "bearer \($0)" }
                 reval["apns-id"] = UUID().uuidString
                 reval["apns-expiration"] = "0"
                 reval["apns-priority"] = "10"
-                reval["apns-topic"] = "com.Arror.APNs"
+                reval["apns-topic"] = "com.Arror.Sample"
                 req.allHTTPHeaderFields = reval
                 return req
             }()
@@ -59,9 +59,7 @@ public final class APNs {
                 if let err = error {
                     print(err)
                 } else {
-                    // token
-                    // data
-                    // response
+                    
                 }
             }
             

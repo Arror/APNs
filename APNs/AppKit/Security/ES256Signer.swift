@@ -40,11 +40,11 @@ public final class ES256Signer {
     }
     
     public init(P8DERData: Data) throws {
-        let (result, _) = ASN1.toASN1Element(data: P8DERData)
+        let (result, _) = ASN1.toElement(data: P8DERData)
         guard
-            case let ASN1.ASN1Element.seq(elements: es) = result, es.count > 2,
-            case let ASN1.ASN1Element.seq(elements: ids) = es[1], ids.count > 1,
-            case let ASN1.ASN1Element.bytes(data: privateKeyID) = ids[1] else {
+            case let ASN1.Element.seq(elements: es) = result, es.count > 2,
+            case let ASN1.Element.seq(elements: ids) = es[1], ids.count > 1,
+            case let ASN1.Element.bytes(data: privateKeyID) = ids[1] else {
                 throw Error.failedASN1Decoding
         }
         guard
@@ -52,24 +52,24 @@ public final class ES256Signer {
                 throw Error.unsupportedCurve
         }
         guard
-            case let ASN1.ASN1Element.bytes(data: privateOctest) = es[2] else {
+            case let ASN1.Element.bytes(data: privateOctest) = es[2] else {
                 throw Error.failedASN1Decoding
         }
-        let (octest, _) = ASN1.toASN1Element(data: privateOctest)
+        let (octest, _) = ASN1.toElement(data: privateOctest)
         guard
-            case let ASN1.ASN1Element.seq(elements: seq) = octest, seq.count >= 3,
-            case let ASN1.ASN1Element.bytes(data: privateKeyData) = seq[1] else {
+            case let ASN1.Element.seq(elements: seq) = octest, seq.count >= 3,
+            case let ASN1.Element.bytes(data: privateKeyData) = seq[1] else {
                 throw Error.failedASN1Decoding
         }
         let publicKeyData: Data
         if
-            case let ASN1.ASN1Element.constructed(tag: 1, elem: publicElement) = seq[2],
-            case let ASN1.ASN1Element.bytes(data: pubKeyData) = publicElement {
+            case let ASN1.Element.constructed(tag: 1, elem: publicElement) = seq[2],
+            case let ASN1.Element.bytes(data: pubKeyData) = publicElement {
             publicKeyData = pubKeyData
         } else if
             seq.count >= 4,
-            case let ASN1.ASN1Element.constructed(tag: 1, elem: publicElement) = seq[3],
-            case let ASN1.ASN1Element.bytes(data: pubKeyData) = publicElement {
+            case let ASN1.Element.constructed(tag: 1, elem: publicElement) = seq[3],
+            case let ASN1.Element.bytes(data: pubKeyData) = publicElement {
             publicKeyData = pubKeyData
         } else {
             throw Error.failedASN1Decoding
@@ -106,7 +106,7 @@ public final class ES256Signer {
         
         var error: Unmanaged<CFError>? = nil
         guard
-            let signature = SecKeyCreateSignature(self.secKey, .eciesEncryptionStandardVariableIVX963SHA256AESGCM, hash as CFData, &error) else {
+            let signature = SecKeyCreateSignature(self.secKey, .ecdsaSignatureDigestX962SHA256, hash as CFData, &error) else {
                 if let thrownError = error?.takeRetainedValue() {
                     throw thrownError
                 } else {
@@ -125,11 +125,11 @@ public final class ES256Signer {
             signatureLength = 132
         }
         
-        let (asnSig, _) = ASN1.toASN1Element(data: asn1)
+        let (asnSig, _) = ASN1.toElement(data: asn1)
         guard
-            case let ASN1.ASN1Element.seq(elements: seq) = asnSig, seq.count >= 2,
-            case let ASN1.ASN1Element.bytes(data: rData) = seq[0],
-            case let ASN1.ASN1Element.bytes(data: sData) = seq[1] else {
+            case let ASN1.Element.seq(elements: seq) = asnSig, seq.count >= 2,
+            case let ASN1.Element.bytes(data: rData) = seq[0],
+            case let ASN1.Element.bytes(data: sData) = seq[1] else {
                 throw Error.failedASN1Decoding
         }
         let trimmedRData: Data
@@ -152,15 +152,15 @@ public final class ES256Signer {
 
 private struct ASN1 {
     
-    indirect enum ASN1Element {
-        case seq(elements: [ASN1Element])
+    indirect enum Element {
+        case seq(elements: [Element])
         case integer(int: Int)
         case bytes(data: Data)
-        case constructed(tag: Int, elem: ASN1Element)
+        case constructed(tag: Int, elem: Element)
         case unknown
     }
     
-    static func toASN1Element(data: Data) -> (ASN1Element, Int) {
+    static func toElement(data: Data) -> (Element, Int) {
         guard
             data.count >= 2 else {
                 return (.unknown, data.count)
@@ -169,11 +169,11 @@ private struct ASN1 {
         switch data[0] {
         case 0x30:
             let (length, lengthOfLength) = readLength(data: data.advanced(by: 1))
-            var result: [ASN1Element] = []
+            var result: [Element] = []
             var subdata = data.advanced(by: 1 + lengthOfLength)
             var alreadyRead = 0
             while alreadyRead < length {
-                let (e, l) = toASN1Element(data: subdata)
+                let (e, l) = toElement(data: subdata)
                 result.append(e)
                 subdata = subdata.count > l ? subdata.advanced(by: l) : Data()
                 alreadyRead += l
@@ -197,7 +197,7 @@ private struct ASN1 {
             let tag = Int(s & 0x1f)
             let (length, lengthOfLength) = readLength(data: data.advanced(by: 1))
             let subdata = data.advanced(by: 1 + lengthOfLength)
-            let (e, _) = toASN1Element(data: subdata)
+            let (e, _) = toElement(data: subdata)
             return (.constructed(tag: tag, elem: e), 1 + lengthOfLength + length)
             
         default:
