@@ -13,18 +13,21 @@ public final class JSONWebTokenController {
     
     private let teamID: String
     private let keyID: String
-    private let signer: ES256Signer
+    private let es256: ES256
     private let storage: DefaultsStorage
     
-    private var tokenStorageKey: String {
-        return "\(self.teamID)\(self.keyID)"
+    private let tokenStorageKey: String
+    
+    private struct Pair: Codable {
+        let jwt: JSONWebToken
+        let token: String
     }
     
-    private var pair: (JSONWebToken, String)? = nil
+    private var pair: Pair? = nil
     
     public var token: String? {
-        if let p = self.pair, !p.0.isExpired {
-            return p.1
+        if let p = self.pair, !p.jwt.isExpired {
+            return p.token
         } else {
             do {
                 self.pair = nil
@@ -40,10 +43,10 @@ public final class JSONWebTokenController {
                     let data = digestString.data(using: .utf8) else {
                         return nil
                 }
-                let signature = try self.signer.sign(data: data)
-                self.pair = (jwt, "\(digestString).\(signature.base64URLEncodedString())")
-                try self.storage.set(item: self.pair?.1, for: self.tokenStorageKey)
-                return self.pair?.1
+                let signature = try self.es256.sign(data: data)
+                self.pair = Pair(jwt: jwt, token: "\(digestString).\(signature.base64URLEncodedString())")
+                try self.storage.set(item: self.pair, for: self.tokenStorageKey)
+                return self.pair?.token
             } catch {
                 return nil
             }
@@ -51,18 +54,13 @@ public final class JSONWebTokenController {
     }
     
     public init(teamID: String, keyID: String, keyString: String) throws {
-        self.signer = try ES256Signer(P8String: keyString)
+        self.es256 = try ES256(P8String: keyString)
         self.keyID = keyID
         self.teamID = teamID
+        self.tokenStorageKey = "\(teamID)\(keyID)"
         self.storage = DefaultsStorage()
         do {
-            let value: String? = try self.storage.item(for: self.tokenStorageKey)
-            guard
-                let tokenString = value, let jwt = JSONWebToken(tokenString: tokenString), !jwt.isExpired else {
-                    self.pair = nil
-                    return
-            }
-            self.pair = (jwt, tokenString)
+            self.pair = try self.storage.item(for: self.tokenStorageKey)
         } catch {
             self.pair = nil
         }

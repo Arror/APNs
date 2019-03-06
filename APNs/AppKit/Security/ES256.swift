@@ -2,7 +2,7 @@ import Foundation
 import CommonCrypto
 
 @available(OSX 10.13, *)
-public final class ES256Signer {
+public final class ES256 {
     
     private enum Error: LocalizedError {
         

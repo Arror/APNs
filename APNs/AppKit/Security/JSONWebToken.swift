@@ -62,22 +62,6 @@ public struct JSONWebToken: Codable {
         self.payload = Payload(teamID: teamID, issueDate: issueDate, expireDate: expireDate)
     }
     
-    public init?(tokenString: String) {
-        let components = tokenString.components(separatedBy: ".")
-        guard
-            components.count == 3,
-            let headerData = Data(base64URLEncoded: components[0]),
-            let payloadData = Data(base64URLEncoded: components[1]) else {
-                return nil
-        }
-        do {
-            self.header = try JSONDecoder().decode(Header.self, from: headerData)
-            self.payload = try JSONDecoder().decode(Payload.self, from: payloadData)
-        } catch {
-            return nil
-        }
-    }
-    
     public var isExpired: Bool {
         return Date(timeIntervalSinceNow: 0).compare(self.payload.expireDate) == .orderedAscending
     }
