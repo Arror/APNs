@@ -8,14 +8,13 @@
 
 import Foundation
 
-public final class APNs {
+public enum APNs {
     
     public enum Server {
         
-        case development
-        case production
+        case development, production
         
-        var hostURL: URL {
+        public var hostURL: URL {
             switch self {
             case .development:
                 return URL(string: "https://api.development.push.apple.com")!
@@ -25,33 +24,99 @@ public final class APNs {
         }
     }
     
-    public final class TokenBasedSession: APNsProvider {
-        
-        private let tokenController: TokenController
-        
-        public let session: URLSession
-        
-        public init(teamID: String, keyID: String, keyString: String) throws {
-            self.tokenController = try TokenController(teamID: teamID, keyID: keyID, keyString: keyString)
-            self.session = URLSession.shared
+    public enum Based {
+        case certificate(identity: SecIdentity)
+        case token(teamID: String, keyID: String, keyString: String)
+    }
+    
+    public static func makeProvider(based: Based) throws -> Provider {
+        switch based {
+        case .certificate(let identity):
+            return CertificateBasedProvider(identity: identity)
+        case .token(let teamID, let keyID, let keyString):
+            return try TokenBasedProvider(teamID: teamID, keyID: keyID, keyString: keyString)
         }
     }
     
-    public final class CertificateBasedSession: APNsProvider {
+    open class Provider {
         
-        private let sessionDelegate: CertificateBasedURLSessionDelegate
+        private let queue: DispatchQueue
         
-        public let session: URLSession
+        open var session: URLSession { fatalError() }
         
-        public init(identity: SecIdentity) {
-            let sessionDelegate = CertificateBasedURLSessionDelegate(identity: identity)
-            let session = URLSession(configuration: .default, delegate: sessionDelegate, delegateQueue: .main)
-            self.sessionDelegate = sessionDelegate
-            self.session = session
+        public init() {
+            self.queue = DispatchQueue(label: "", attributes: .concurrent)
+        }
+        
+        open var authorization: String? {
+            return nil
+        }
+        
+        public final func send(server: APNs.Server, tokens: [String], payload: Data, completion: @escaping () -> Void) {
+            
+            self.queue.async {
+                
+                let hostURL = server.hostURL.appendingPathComponent("3/device")
+                
+                tokens.forEach { token in
+                    
+                    let url = hostURL.appendingPathComponent(token)
+                    
+                    let request: URLRequest = {
+                        var req = URLRequest(url: url)
+                        req.httpMethod = "POST"
+                        req.httpBody = payload
+                        var reval = req.allHTTPHeaderFields ?? [:]
+                        reval["authorization"] = self.authorization.flatMap { "bearer \($0)" }
+                        reval["apns-id"] = UUID().uuidString
+                        reval["apns-expiration"] = "0"
+                        reval["apns-priority"] = "10"
+                        reval["apns-topic"] = "com.Arror.Sample"
+                        req.allHTTPHeaderFields = reval
+                        return req
+                    }()
+                    
+                    let task = self.session.dataTask(with: request) { data, response, error in
+                        if let err = error {
+                            print(err)
+                        } else {
+                            let httpURLResponse = response as! HTTPURLResponse
+                            print(httpURLResponse.statusCode)
+                        }
+                        DispatchQueue.main.sync {
+                            
+                        }
+                    }
+                    
+                    task.resume()
+                }
+            }
         }
     }
+}
+
+private class TokenBasedProvider: APNs.Provider {
     
-    private class CertificateBasedURLSessionDelegate: NSObject, URLSessionDelegate {
+    override var session: URLSession {
+        return self._session
+    }
+    
+    override var authorization: String? {
+        return self._tokenController.token
+    }
+    
+    private let _session: URLSession
+    private let _tokenController: TokenController
+    
+    public init(teamID: String, keyID: String, keyString: String) throws {
+        self._session = URLSession.shared
+        self._tokenController = try TokenController(teamID: teamID, keyID: keyID, keyString: keyString)
+    }
+}
+
+private class CertificateBasedProvider: APNs.Provider {
+    
+    private class _URLSessionDelegate: NSObject, URLSessionDelegate {
         
         private let identity: SecIdentity
         
@@ -73,85 +138,17 @@ public final class APNs {
             completionHandler(.useCredential, credential)
         }
     }
-}
-
-public protocol APNsProvider: class {
     
-    var session: URLSession { get }
+    private let _sessionDelegate: _URLSessionDelegate
+    private let _session: URLSession
     
-    func send(server: APNs.Server, tokens: [String], payload: Data, completion: @escaping () -> Void)
-}
-
-extension APNsProvider {
-    
-    public func send(server: APNs.Server, tokens: [String], payload: Data, completion: @escaping () -> Void) {
-        
-        let hostURL = server.hostURL.appendingPathComponent("3/device")
-        
-        tokens.forEach { token in
-            
-            let url = hostURL.appendingPathComponent(token)
-            
-            let request: URLRequest = {
-                var req = URLRequest(url: url)
-                req.httpMethod = "POST"
-                req.httpBody = payload
-                var reval = req.allHTTPHeaderFields ?? [:]
-//                reval["authorization"] = self.tokenController.token.flatMap { "bearer \($0)" }
-                reval["apns-id"] = UUID().uuidString
-                reval["apns-expiration"] = "0"
-                reval["apns-priority"] = "10"
-                reval["apns-topic"] = "com.Arror.Sample"
-                req.allHTTPHeaderFields = reval
-                return req
-            }()
-            
-            let task = self.session.dataTask(with: request) { data, response, error in
-                if let err = error {
-                    print(err)
-                } else {
-                    let httpURLResponse = response as! HTTPURLResponse
-                    print(httpURLResponse.statusCode)
-                }
-            }
-            
-            task.resume()
-        }
+    public override var session: URLSession {
+        return self._session
     }
-}
-
-public protocol SafeCompatible {
     
-    associatedtype CompatibleType
-    
-    var safe: CompatibleType { get }
-}
-
-extension SafeCompatible {
-    
-    public var safe: Safe<Self> { return Safe(self) }
-}
-
-public struct Safe<Base> {
-    
-    let base: Base
-    
-    init(_ base: Base) {
-        self.base = base
-    }
-}
-
-extension DispatchQueue: SafeCompatible {}
-
-extension Safe where Base == DispatchQueue {
-    
-    public func sync(execute: () -> Void) {
-        if Thread.current == self.base {
-            execute()
-        } else {
-            self.base.sync {
-                execute()
-            }
-        }
+    public init(identity: SecIdentity) {
+        let delegate = _URLSessionDelegate(identity: identity)
+        self._sessionDelegate = delegate
+        self._session = URLSession(configuration: .default, delegate: delegate, delegateQueue: .main)
     }
 }
