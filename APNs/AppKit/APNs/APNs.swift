@@ -25,14 +25,14 @@ public enum APNs {
     }
     
     public enum Based {
-        case certificate(identity: SecIdentity)
+        case certificate(p12FilePath: String, passphrase: String)
         case token(teamID: String, keyID: String, keyString: String)
     }
     
     public static func makeProvider(based: Based) throws -> Provider {
         switch based {
-        case .certificate(let identity):
-            return CertificateBasedProvider(identity: identity)
+        case .certificate(let p12FilePath, let passphrase):
+            return try CertificateBasedProvider(p12FilePath: p12FilePath, passphrase: passphrase)
         case .token(let teamID, let keyID, let keyString):
             return try TokenBasedProvider(teamID: teamID, keyID: keyID, keyString: keyString)
         }
@@ -137,11 +137,24 @@ private class CertificateBasedProvider: APNs.Provider {
     private let _sessionDelegate: _URLSessionDelegate
     private let _session: URLSession
     
-    public override var session: URLSession {
+    override var session: URLSession {
         return self._session
     }
     
-    public init(identity: SecIdentity) {
+    convenience init(p12FilePath: String, passphrase: String) throws {
+        let data = try Data(contentsOf: URL(fileURLWithPath: p12FilePath))
+        let options = [kSecImportExportPassphrase as String: passphrase] as CFDictionary
+        var reval: CFArray?
+        guard
+            SecPKCS12Import(data as CFData, options, &reval) == errSecSuccess,
+            let items = reval, CFArrayGetCount(items) > 0 else {
+                throw NSError(domain: "APNs", code: -1, userInfo: [:])
+        }
+        let identity = (items as [AnyObject])[0][kSecImportItemIdentity as String] as! SecIdentity
+        self.init(identity: identity)
+    }
+    
+    init(identity: SecIdentity) {
         let delegate = _URLSessionDelegate(identity: identity)
         self._sessionDelegate = delegate
         self._session = URLSession(configuration: .default, delegate: delegate, delegateQueue: .main)
