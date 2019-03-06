@@ -9,7 +9,7 @@
 import Foundation
 import CommonCrypto
 
-public final class JSONWebTokenController {
+public final class TokenController {
     
     private let teamID: String
     private let keyID: String

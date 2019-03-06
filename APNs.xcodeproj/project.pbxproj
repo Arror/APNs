@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		70802A77222D76BE0054C45E /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70802A76222D76BE0054C45E /* Storage.swift */; };
+		70802A77222D76BE0054C45E /* DefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70802A76222D76BE0054C45E /* DefaultsStorage.swift */; };
 		70802A79222D772D0054C45E /* DataBaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70802A78222D772D0054C45E /* DataBaseStorage.swift */; };
 		70802A7B222D77420054C45E /* CodableStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70802A7A222D77420054C45E /* CodableStorage.swift */; };
 		70FBE77F222B7DFC00B88357 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE77E222B7DFC00B88357 /* AppDelegate.swift */; };
@@ -18,13 +18,13 @@
 		70FBE7B1222BF0E800B88357 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE7B0222BF0E800B88357 /* AppEnvironment.swift */; };
 		70FBE7B4222BF1F200B88357 /* APNs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE7B3222BF1F200B88357 /* APNs.swift */; };
 		CA351B55222E7994005D34E6 /* JSONWebToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA351B54222E7994005D34E6 /* JSONWebToken.swift */; };
-		CA351B65222E98BA005D34E6 /* JSONWebTokenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA351B64222E98BA005D34E6 /* JSONWebTokenController.swift */; };
 		CA351B67222F6F2C005D34E6 /* ES256.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA351B66222F6F2C005D34E6 /* ES256.swift */; };
 		CA351B69222FA75C005D34E6 /* Data+Base64URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA351B68222FA75C005D34E6 /* Data+Base64URL.swift */; };
+		CA351B6B222FA7CC005D34E6 /* TokenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA351B6A222FA7CC005D34E6 /* TokenController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		70802A76222D76BE0054C45E /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		70802A76222D76BE0054C45E /* DefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsStorage.swift; sourceTree = "<group>"; };
 		70802A78222D772D0054C45E /* DataBaseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseStorage.swift; sourceTree = "<group>"; };
 		70802A7A222D77420054C45E /* CodableStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableStorage.swift; sourceTree = "<group>"; };
 		70FBE77B222B7DFC00B88357 /* APNs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APNs.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -38,9 +38,9 @@
 		70FBE7B0222BF0E800B88357 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		70FBE7B3222BF1F200B88357 /* APNs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNs.swift; sourceTree = "<group>"; };
 		CA351B54222E7994005D34E6 /* JSONWebToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWebToken.swift; sourceTree = "<group>"; };
-		CA351B64222E98BA005D34E6 /* JSONWebTokenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWebTokenController.swift; sourceTree = "<group>"; };
 		CA351B66222F6F2C005D34E6 /* ES256.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ES256.swift; sourceTree = "<group>"; };
 		CA351B68222FA75C005D34E6 /* Data+Base64URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Base64URL.swift"; sourceTree = "<group>"; };
+		CA351B6A222FA7CC005D34E6 /* TokenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +57,7 @@
 		70802A75222D76AF0054C45E /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				70802A76222D76BE0054C45E /* Storage.swift */,
+				70802A76222D76BE0054C45E /* DefaultsStorage.swift */,
 				70802A7A222D77420054C45E /* CodableStorage.swift */,
 				70802A78222D772D0054C45E /* DataBaseStorage.swift */,
 			);
@@ -110,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				70FBE7B3222BF1F200B88357 /* APNs.swift */,
+				CA351B6A222FA7CC005D34E6 /* TokenController.swift */,
 			);
 			path = APNs;
 			sourceTree = "<group>";
@@ -120,7 +121,6 @@
 				CA351B66222F6F2C005D34E6 /* ES256.swift */,
 				CA351B68222FA75C005D34E6 /* Data+Base64URL.swift */,
 				CA351B54222E7994005D34E6 /* JSONWebToken.swift */,
-				CA351B64222E98BA005D34E6 /* JSONWebTokenController.swift */,
 			);
 			path = JSONWebToken;
 			sourceTree = "<group>";
@@ -200,6 +200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA351B6B222FA7CC005D34E6 /* TokenController.swift in Sources */,
 				70FBE781222B7DFC00B88357 /* ViewController.swift in Sources */,
 				CA351B55222E7994005D34E6 /* JSONWebToken.swift in Sources */,
 				70FBE7B1222BF0E800B88357 /* AppEnvironment.swift in Sources */,
@@ -210,8 +211,7 @@
 				70802A79222D772D0054C45E /* DataBaseStorage.swift in Sources */,
 				70FBE77F222B7DFC00B88357 /* AppDelegate.swift in Sources */,
 				70802A7B222D77420054C45E /* CodableStorage.swift in Sources */,
-				70802A77222D76BE0054C45E /* Storage.swift in Sources */,
-				CA351B65222E98BA005D34E6 /* JSONWebTokenController.swift in Sources */,
+				70802A77222D76BE0054C45E /* DefaultsStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
