@@ -12,7 +12,8 @@ public final class APNs {
     
     public enum Server {
         
-        case development, production
+        case development
+        case production
         
         var hostURL: URL {
             switch self {
@@ -25,16 +26,11 @@ public final class APNs {
     }
     
     private let session: URLSession
-    
     private let controller: JSONWebTokenController
     
-    public init?(teamID: String, keyID: String, keyString: String) {
-        guard
-            let controller = JSONWebTokenController(teamID: teamID, keyID: keyID, keyString: keyString) else {
-                return nil
-        }
-        self.controller = controller
-        self.session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
+    public init?(teamID: String, keyID: String, keyString: String) throws {
+        self.controller = try JSONWebTokenController(teamID: teamID, keyID: keyID, keyString: keyString)
+        self.session = URLSession.shared
     }
     
     public func send(server: Server, tokens: [String], payload: Data, completion: @escaping () -> Void) {

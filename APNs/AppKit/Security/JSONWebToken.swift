@@ -42,17 +42,29 @@ public struct JSONWebToken: Codable {
         self.payload = Payload(teamID: teamID, issueDate: issueDate, expireDate: expireDate)
     }
     
-    public var isExpired: Bool {
-        return self.payload.expireDate.compare(Date(timeIntervalSinceNow: 0)) == .orderedAscending
-    }
-    
-    public var digestString: String? {
+    public init?(tokenString: String) {
+        let components = tokenString.components(separatedBy: ".")
+        guard
+            components.count == 3,
+            let headerData = Data(base64URLEncoded: components[0]),
+            let payloadData = Data(base64URLEncoded: components[1]) else {
+                return nil
+        }
         do {
-            let headerString = try JSONEncoder().encode(self.header).base64URLEncodedString()
-            let payloadString = try JSONEncoder().encode(self.payload).base64URLEncodedString()
-            return "\(headerString).\(payloadString)"
+            self.header = try JSONDecoder().decode(Header.self, from: headerData)
+            self.payload = try JSONDecoder().decode(Payload.self, from: payloadData)
         } catch {
             return nil
         }
+    }
+    
+    public var isExpired: Bool {
+        return Date(timeIntervalSinceNow: 0).compare(self.payload.expireDate) == .orderedAscending
+    }
+    
+    public func digestString() throws -> String {
+        let headerString = try JSONEncoder().encode(self.header).base64URLEncodedString()
+        let payloadString = try JSONEncoder().encode(self.payload).base64URLEncodedString()
+        return "\(headerString).\(payloadString)"
     }
 }

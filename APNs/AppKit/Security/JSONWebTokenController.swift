@@ -11,84 +11,80 @@ import CommonCrypto
 
 public final class JSONWebTokenController {
     
-    private let wrapper: ECPrivateKeyWrapper
-    private let keyID: String
     private let teamID: String
-    
-    private struct Pair: Codable {
-        let token: JSONWebToken
-        let tokenString: String
-    }
-    
-    private var _pair: Pair? = nil
+    private let keyID: String
+    private let signer: ES256Signer
+    private let storage: DefaultsStorage
     
     private var tokenStorageKey: String {
         return "\(self.teamID)\(self.keyID)"
     }
     
+    private var pair: (JSONWebToken, String)? = nil
+    
     public var token: String? {
-        if let p = self._pair, !p.token.isExpired {
-            return p.tokenString
+        if let p = self.pair, !p.0.isExpired {
+            return p.1
         } else {
             do {
-                self._pair = nil
-                try self.storage.set(item: self._pair, for: self.tokenStorageKey)
-                let newToken = JSONWebToken(
+                self.pair = nil
+                try self.storage.clear(for: self.tokenStorageKey)
+                let jwt = JSONWebToken(
                     keyID: self.keyID,
                     teamID: self.teamID,
                     issueDate: Date(timeIntervalSinceNow: 0),
-                    expireDate: Date(timeIntervalSinceNow: 3600)
+                    expireDate: Date(timeIntervalSinceNow: 60 * 60)
                 )
+                let digestString = try jwt.digestString()
                 guard
-                    let digestString = newToken.digestString,
                     let data = digestString.data(using: .utf8) else {
                         return nil
                 }
-                let signature = try self.wrapper.sign(digest: data.sha256(), withScheme: .x962, digestAlgorithm: .sha256)
-                guard
-                    let rawData = ASN1.toRawSignature(data: signature as Data) else {
-                        return nil
-                }
-                self._pair = Pair(token: newToken, tokenString: "\(digestString).\(rawData.base64URLEncodedString())")
-                try self.storage.set(item: self._pair, for: self.tokenStorageKey)
-                return self._pair?.tokenString
+                let signature = try self.signer.sign(data: data)
+                self.pair = (jwt, "\(digestString).\(signature.base64URLEncodedString())")
+                try self.storage.set(item: self.pair?.1, for: self.tokenStorageKey)
+                return self.pair?.1
             } catch {
                 return nil
             }
         }
     }
     
-    private let storage: DefaultsStorage
-    
-    public init?(teamID: String, keyID: String, keyString: String) {
-        guard
-            let wrapper = ECPrivateKeyWrapper.make(withP8String: keyString) else {
-                return nil
-        }
-        self.wrapper = wrapper
+    public init(teamID: String, keyID: String, keyString: String) throws {
+        self.signer = try ES256Signer(P8String: keyString)
         self.keyID = keyID
         self.teamID = teamID
         self.storage = DefaultsStorage()
         do {
-            self._pair = try self.storage.item(for: self.tokenStorageKey)
+            let value: String? = try self.storage.item(for: self.tokenStorageKey)
+            guard
+                let tokenString = value, let jwt = JSONWebToken(tokenString: tokenString), !jwt.isExpired else {
+                    self.pair = nil
+                    return
+            }
+            self.pair = (jwt, tokenString)
         } catch {
-            self._pair = nil
+            self.pair = nil
         }
     }
 }
 
 extension Data {
     
-    func base64URLEncodedString() -> String {
+    public func base64URLEncodedString() -> String {
         return self.base64EncodedString()
             .replacingOccurrences(of: "=", with: "")
             .replacingOccurrences(of: "+", with: "-")
             .replacingOccurrences(of: "/", with: "_")
     }
     
-    func sha256() -> Data {
-        var temp = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
-        CC_SHA256((self as NSData).bytes, CC_LONG(self.count), &temp)
-        return Data(bytes: temp)
+    public init?(base64URLEncoded: String) {
+        let paddingLength = 4 - base64URLEncoded.count % 4
+        let padding = (paddingLength < 4) ? String(repeating: "=", count: paddingLength) : ""
+        let base64EncodedString = base64URLEncoded
+            .replacingOccurrences(of: "-", with: "+")
+            .replacingOccurrences(of: "_", with: "/")
+            + padding
+        self.init(base64Encoded: base64EncodedString)
     }
 }
