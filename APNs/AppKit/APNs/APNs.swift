@@ -25,16 +25,16 @@ public enum APNs {
     }
     
     public enum Based {
-        case certificate(p12FilePath: String, passphrase: String)
-        case token(teamID: String, keyID: String, keyString: String)
+        case certificate(P12FilePath: String, passphrase: String)
+        case token(teamID: String, keyID: String, P8FilePath: String)
     }
     
     public static func makeProvider(based: Based) throws -> Provider {
         switch based {
-        case .certificate(let p12FilePath, let passphrase):
-            return try CertificateBasedProvider(p12FilePath: p12FilePath, passphrase: passphrase)
-        case .token(let teamID, let keyID, let keyString):
-            return try TokenBasedProvider(teamID: teamID, keyID: keyID, keyString: keyString)
+        case .certificate(let P12FilePath, let passphrase):
+            return try CertificateBasedProvider(P12FilePath: P12FilePath, passphrase: passphrase)
+        case .token(let teamID, let keyID, let P8FilePath):
+            return try TokenBasedProvider(teamID: teamID, keyID: keyID, P8FilePath: P8FilePath)
         }
     }
     
@@ -103,9 +103,10 @@ private class TokenBasedProvider: APNs.Provider {
     private let _session: URLSession
     private let _tokenController: TokenController
     
-    public init(teamID: String, keyID: String, keyString: String) throws {
+    public init(teamID: String, keyID: String, P8FilePath: String) throws {
+        let P8KeyString = try String(contentsOf: URL(fileURLWithPath: P8FilePath))
         self._session = URLSession.shared
-        self._tokenController = try TokenController(teamID: teamID, keyID: keyID, keyString: keyString)
+        self._tokenController = try TokenController(teamID: teamID, keyID: keyID, P8KeyString: P8KeyString)
     }
 }
 
@@ -141,8 +142,8 @@ private class CertificateBasedProvider: APNs.Provider {
         return self._session
     }
     
-    convenience init(p12FilePath: String, passphrase: String) throws {
-        let data = try Data(contentsOf: URL(fileURLWithPath: p12FilePath))
+    convenience init(P12FilePath: String, passphrase: String) throws {
+        let data = try Data(contentsOf: URL(fileURLWithPath: P12FilePath))
         let options = [kSecImportExportPassphrase as String: passphrase] as CFDictionary
         var reval: CFArray?
         guard

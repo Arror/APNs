@@ -47,8 +47,8 @@ public final class TokenController {
         }
     }
     
-    public init(teamID: String, keyID: String, keyString: String) throws {
-        self.es256 = try ES256(P8String: keyString)
+    public init(teamID: String, keyID: String, P8KeyString: String) throws {
+        self.es256 = try ES256(P8String: P8KeyString)
         self.keyID = keyID
         self.teamID = teamID
         self.tokenStorageKey = "\(teamID)\(keyID)"
