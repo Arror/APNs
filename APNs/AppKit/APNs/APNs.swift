@@ -52,7 +52,7 @@ public enum APNs {
             return nil
         }
         
-        public final func send(server: APNs.Server, tokens: [String], payload: Data, completion: @escaping () -> Void) {
+        public final func send(server: APNs.Server, tokens: [String], payload: Data, completion: @escaping (APNs.Response) -> Void) {
             
             self.queue.async {
                 
@@ -77,14 +77,9 @@ public enum APNs {
                     }()
                     
                     let task = self.session.dataTask(with: request) { data, response, error in
-                        if let err = error {
-                            print(err)
-                        } else {
-                            let httpURLResponse = response as! HTTPURLResponse
-                            print(httpURLResponse.statusCode)
-                        }
+                        let response = APNs.Response(response: response, data: data, error: error)
                         DispatchQueue.main.sync {
-                            
+                            completion(response)
                         }
                     }
                     
