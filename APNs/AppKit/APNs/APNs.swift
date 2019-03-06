@@ -25,45 +25,47 @@ public final class APNs {
         }
     }
     
-    private let session: URLSession
-    private let tokenController: TokenController
-    
-    public init(teamID: String, keyID: String, keyString: String) throws {
-        self.tokenController = try TokenController(teamID: teamID, keyID: keyID, keyString: keyString)
-        self.session = URLSession.shared
-    }
-    
-    public func send(server: Server, tokens: [String], payload: Data, completion: @escaping () -> Void) {
+    public final class TokenBasedSession {
         
-        let hostURL = server.hostURL.appendingPathComponent("3/device")
+        private let session: URLSession
+        private let tokenController: TokenController
         
-        tokens.forEach { token in
+        public init(teamID: String, keyID: String, keyString: String) throws {
+            self.tokenController = try TokenController(teamID: teamID, keyID: keyID, keyString: keyString)
+            self.session = URLSession.shared
+        }
+        
+        public func send(server: Server, tokens: [String], payload: Data, completion: @escaping () -> Void) {
             
-            let url = hostURL.appendingPathComponent(token)
+            let hostURL = server.hostURL.appendingPathComponent("3/device")
             
-            let request: URLRequest = {
-                var req = URLRequest(url: url)
-                req.httpMethod = "POST"
-                req.httpBody = payload
-                var reval = req.allHTTPHeaderFields ?? [:]
-                reval["authorization"] = self.tokenController.token.flatMap { "bearer \($0)" }
-                reval["apns-id"] = UUID().uuidString
-                reval["apns-expiration"] = "0"
-                reval["apns-priority"] = "10"
-                reval["apns-topic"] = "com.Arror.Sample"
-                req.allHTTPHeaderFields = reval
-                return req
-            }()
-            
-            let task = self.session.dataTask(with: request) { data, response, error in
-                if let err = error {
-                    print(err)
-                } else {
-                    
-                }
+            tokens.forEach { token in
+                
+                let url = hostURL.appendingPathComponent(token)
+                
+                let request: URLRequest = {
+                    var req = URLRequest(url: url)
+                    req.httpMethod = "POST"
+                    req.httpBody = payload
+                    var reval = req.allHTTPHeaderFields ?? [:]
+                    reval["authorization"] = self.tokenController.token.flatMap { "bearer \($0)" }
+                    reval["apns-id"] = UUID().uuidString
+                    reval["apns-expiration"] = "0"
+                    reval["apns-priority"] = "10"
+                    reval["apns-topic"] = "com.Arror.Sample"
+                    req.allHTTPHeaderFields = reval
+                    return req
+                }()
+                
+                self.session.dataTask(with: request) { data, response, error in
+                    if let err = error {
+                        print(err)
+                    } else {
+                        let httpURLResponse = response as! HTTPURLResponse
+                        print(httpURLResponse.statusCode)
+                    }
+                }.resume()
             }
-            
-            task.resume()
         }
     }
 }
