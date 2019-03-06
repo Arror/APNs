@@ -38,13 +38,7 @@ public final class TokenController {
                     issueDate: Date(timeIntervalSinceNow: 0),
                     expireDate: Date(timeIntervalSinceNow: 60 * 60)
                 )
-                let digestString = try jwt.digestString()
-                guard
-                    let data = digestString.data(using: .utf8) else {
-                        return nil
-                }
-                let signature = try self.es256.sign(data: data)
-                self.pair = Pair(jwt: jwt, token: "\(digestString).\(signature.base64URLEncodedString())")
+                self.pair = Pair(jwt: jwt, token: try jwt.sign(by: self.es256))
                 try self.storage.set(item: self.pair, for: self.tokenStorageKey)
                 return self.pair?.token
             } catch {

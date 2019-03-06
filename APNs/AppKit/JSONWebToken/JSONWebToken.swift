@@ -63,12 +63,21 @@ public struct JSONWebToken: Codable {
     }
     
     public var isExpired: Bool {
-        return Date(timeIntervalSinceNow: 0).compare(self.payload.expireDate) == .orderedAscending
+        return self.payload.expireDate.compare(Date(timeIntervalSinceNow: 0)) == .orderedAscending
     }
     
     public func digestString() throws -> String {
         let headerString = try JSONEncoder().encode(self.header).base64URLEncodedString()
         let payloadString = try JSONEncoder().encode(self.payload).base64URLEncodedString()
         return "\(headerString).\(payloadString)"
+    }
+    
+    public func sign(by es256: ES256) throws -> String {
+        let digestString = try self.digestString()
+        guard
+            let digest = digestString.data(using: .utf8) else {
+                throw NSError(domain: "APNs", code: -1, userInfo: [NSLocalizedDescriptionKey: "Digest string convert to data failed"])
+        }
+        return "\(digestString).\(try es256.sign(data: digest).base64URLEncodedString())"
     }
 }
