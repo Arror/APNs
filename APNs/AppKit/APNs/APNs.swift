@@ -49,50 +49,42 @@ public enum APNs {
     
     open class Provider {
         
-        private let queue: DispatchQueue
-        
         open var session: URLSession { fatalError() }
         
-        public init() {
-            self.queue = DispatchQueue(label: "com.APNs.Provider", attributes: .concurrent)
-        }
+        public init() {}
         
         open var authorization: String? {
             return nil
         }
         
-        public final func send(server: APNs.Server, tokens: [String], payload: Data, completion: @escaping (APNs.Response) -> Void) {
+        public final func send(server: APNs.Server, token: String, payload: Data, completion: @escaping (APNs.Response) -> Void) {
             
-            self.queue.async {
-                
-                let hostURL = server.hostURL.appendingPathComponent("3/device")
-                
-                tokens.forEach { token in
-                    
-                    let url = hostURL.appendingPathComponent(token)
-                    
-                    let request: URLRequest = {
-                        var req = URLRequest(url: url)
-                        req.httpMethod = "POST"
-                        req.httpBody = payload
-                        var reval = req.allHTTPHeaderFields ?? [:]
-                        reval["authorization"] = self.authorization.flatMap { "bearer \($0)" }
-                        reval["apns-id"] = UUID().uuidString
-                        reval["apns-expiration"] = "0"
-                        reval["apns-priority"] = "10"
-                        reval["apns-topic"] = "com.Arror.Sample"
-                        req.allHTTPHeaderFields = reval
-                        return req
-                    }()
-                    
-                    let task = self.session.dataTask(with: request) { data, response, error in
-                        let response = APNs.Response(response: response, data: data, error: error)
-                        completion(response)
-                    }
-                    
-                    task.resume()
+            let hostURL = server.hostURL.appendingPathComponent("3/device")
+            
+            let url = hostURL.appendingPathComponent(token)
+            
+            let request: URLRequest = {
+                var req = URLRequest(url: url)
+                req.httpMethod = "POST"
+                req.httpBody = payload
+                var reval = req.allHTTPHeaderFields ?? [:]
+                reval["authorization"] = self.authorization.flatMap { "bearer \($0)" }
+                reval["apns-id"] = UUID().uuidString
+                reval["apns-expiration"] = "0"
+                reval["apns-priority"] = "10"
+                reval["apns-topic"] = "com.Arror.Sample"
+                req.allHTTPHeaderFields = reval
+                return req
+            }()
+            
+            let task = self.session.dataTask(with: request) { data, response, error in
+                DispatchQueue.main.safe.sync {
+                    let response = APNs.Response(response: response, data: data, error: error)
+                    completion(response)
                 }
             }
+            
+            task.resume()
         }
     }
 }
@@ -107,13 +99,17 @@ private class TokenBasedProvider: APNs.Provider {
         return self._tokenController.token
     }
     
-    private let _session: URLSession
     private let _tokenController: TokenController
+    private let _session: URLSession
+    private let _queue: OperationQueue
     
     public init(teamID: String, keyID: String, P8FilePath: String) throws {
         let P8KeyString = try String(contentsOf: URL(fileURLWithPath: P8FilePath))
-        self._session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
         self._tokenController = try TokenController(teamID: teamID, keyID: keyID, P8KeyString: P8KeyString)
+        let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 10
+        self._session = URLSession(configuration: .default, delegate: nil, delegateQueue: queue)
+        self._queue = queue
     }
 }
 
@@ -140,6 +136,7 @@ private class CertificateBasedProvider: APNs.Provider {
     
     private let _sessionDelegate: _URLSessionDelegate
     private let _session: URLSession
+    private let _queue: OperationQueue
     
     override var session: URLSession {
         return self._session
@@ -180,8 +177,11 @@ private class CertificateBasedProvider: APNs.Provider {
     }
     
     init(identity: SecIdentity, certificate: SecCertificate) {
+        let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 10
         let delegate = _URLSessionDelegate(identity: identity, certificate: certificate)
         self._sessionDelegate = delegate
-        self._session = URLSession(configuration: .default, delegate: delegate, delegateQueue: .main)
+        self._session = URLSession(configuration: .default, delegate: delegate, delegateQueue: queue)
+        self._queue = queue
     }
 }
