@@ -117,16 +117,16 @@ extension APNs {
         
         public init(response: URLResponse?, data: Data?, error: Swift.Error?) {
             do {
-                guard
-                    let httpResponse = response as? HTTPURLResponse,
-                    let resultData = data,
-                    let json = try JSONSerialization.jsonObject(with: resultData, options: []) as? [String: Any],
-                    let reason = json["reason"] as? String else {
-                        throw NSError(domain: "APNs", code: -1, userInfo: [NSLocalizedDescriptionKey: "Response error."])
-                }
+                let httpResponse = response as! HTTPURLResponse
                 if httpResponse.statusCode == 200 {
-                    self = .success
+                     self = .success
                 } else {
+                    guard
+                        let resultData = data,
+                        let json = try JSONSerialization.jsonObject(with: resultData, options: []) as? [String: Any],
+                        let reason = json["reason"] as? String else {
+                            throw NSError(domain: "APNs", code: -1, userInfo: [NSLocalizedDescriptionKey: "Response error."])
+                    }
                     throw APNs.Error(code: reason)
                 }
             } catch {

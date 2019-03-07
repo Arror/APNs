@@ -25,14 +25,14 @@ public enum APNs {
     }
     
     public enum Based {
-        case certificate(P12FilePath: String, passphrase: String)
+        case certificate(filePath: String)
         case token(teamID: String, keyID: String, P8FilePath: String)
     }
     
     public static func makeProvider(based: Based) throws -> Provider {
         switch based {
-        case .certificate(let P12FilePath, let passphrase):
-            return try CertificateBasedProvider(P12FilePath: P12FilePath, passphrase: passphrase)
+        case .certificate(let filePath):
+            return try CertificateBasedProvider(certificateFilePath: filePath)
         case .token(let teamID, let keyID, let P8FilePath):
             return try TokenBasedProvider(teamID: teamID, keyID: keyID, P8FilePath: P8FilePath)
         }
@@ -45,7 +45,7 @@ public enum APNs {
         open var session: URLSession { fatalError() }
         
         public init() {
-            self.queue = DispatchQueue(label: "", attributes: .concurrent)
+            self.queue = DispatchQueue(label: "com.APNs.Provider", attributes: .concurrent)
         }
         
         open var authorization: String? {
@@ -78,9 +78,7 @@ public enum APNs {
                     
                     let task = self.session.dataTask(with: request) { data, response, error in
                         let response = APNs.Response(response: response, data: data, error: error)
-                        DispatchQueue.main.sync {
-                            completion(response)
-                        }
+                        completion(response)
                     }
                     
                     task.resume()
@@ -105,7 +103,7 @@ private class TokenBasedProvider: APNs.Provider {
     
     public init(teamID: String, keyID: String, P8FilePath: String) throws {
         let P8KeyString = try String(contentsOf: URL(fileURLWithPath: P8FilePath))
-        self._session = URLSession.shared
+        self._session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
         self._tokenController = try TokenController(teamID: teamID, keyID: keyID, P8KeyString: P8KeyString)
     }
 }
@@ -115,21 +113,17 @@ private class CertificateBasedProvider: APNs.Provider {
     private class _URLSessionDelegate: NSObject, URLSessionDelegate {
         
         private let identity: SecIdentity
+        private let certificate: SecCertificate
         
-        init(identity: SecIdentity) {
+        init(identity: SecIdentity, certificate: SecCertificate) {
             self.identity = identity
+            self.certificate = certificate
             super.init()
         }
         
         func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
             
-            let certificate: SecCertificate = {
-                var cert: SecCertificate?
-                SecIdentityCopyCertificate(self.identity, &cert)
-                return cert!
-            }()
-            
-            let credential = URLCredential(identity: self.identity, certificates: [certificate], persistence: .forSession)
+            let credential = URLCredential(identity: self.identity, certificates: [self.certificate], persistence: .forSession)
             
             completionHandler(.useCredential, credential)
         }
@@ -142,21 +136,24 @@ private class CertificateBasedProvider: APNs.Provider {
         return self._session
     }
     
-    convenience init(P12FilePath: String, passphrase: String) throws {
-        let data = try Data(contentsOf: URL(fileURLWithPath: P12FilePath))
-        let options = [kSecImportExportPassphrase as String: passphrase] as CFDictionary
-        var reval: CFArray?
+    convenience init(certificateFilePath: String) throws {
+        let certData = try Data(contentsOf: URL(fileURLWithPath: certificateFilePath))
         guard
-            SecPKCS12Import(data as CFData, options, &reval) == errSecSuccess,
-            let items = reval, CFArrayGetCount(items) > 0 else {
-                throw NSError(domain: "APNs", code: -1, userInfo: [:])
+            let certificate = SecCertificateCreateWithData(kCFAllocatorDefault, certData as CFData) else {
+                throw NSError(domain: "APNs", code: -1, userInfo: [NSLocalizedDescriptionKey: "Certificate create failed."])
         }
-        let identity = (items as [AnyObject])[0][kSecImportItemIdentity as String] as! SecIdentity
-        self.init(identity: identity)
+        var reval: SecIdentity? = nil
+        
+        guard
+            SecIdentityCreateWithCertificate(nil, certificate, &reval) == errSecSuccess,
+            let identify = reval else {
+                throw NSError(domain: "APNs", code: -1, userInfo: [NSLocalizedDescriptionKey: "Identity create failed."])
+        }
+        self.init(identity: identify, certificate: certificate)
     }
     
-    init(identity: SecIdentity) {
-        let delegate = _URLSessionDelegate(identity: identity)
+    init(identity: SecIdentity, certificate: SecCertificate) {
+        let delegate = _URLSessionDelegate(identity: identity, certificate: certificate)
         self._sessionDelegate = delegate
         self._session = URLSession(configuration: .default, delegate: delegate, delegateQueue: .main)
     }
