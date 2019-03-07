@@ -25,14 +25,23 @@ public enum APNs {
     }
     
     public enum Based {
-        case certificate(filePath: String)
+        public enum Certificate {
+            case cer(filePath: String)
+            case p12(filePath: String, passphrase: String)
+        }
+        case certificate(Certificate)
         case token(teamID: String, keyID: String, P8FilePath: String)
     }
     
     public static func makeProvider(based: Based) throws -> Provider {
         switch based {
-        case .certificate(let filePath):
-            return try CertificateBasedProvider(certificateFilePath: filePath)
+        case .certificate(let cert):
+            switch cert {
+            case .cer(let filePath):
+                return try CertificateBasedProvider(certificateFilePath: filePath)
+            case .p12(let filePath, let passphrase):
+                return try CertificateBasedProvider(P12FilePath: filePath, passphrase: passphrase)
+            }
         case .token(let teamID, let keyID, let P8FilePath):
             return try TokenBasedProvider(teamID: teamID, keyID: keyID, P8FilePath: P8FilePath)
         }
@@ -150,6 +159,24 @@ private class CertificateBasedProvider: APNs.Provider {
                 throw NSError(domain: "APNs", code: -1, userInfo: [NSLocalizedDescriptionKey: "Identity create failed."])
         }
         self.init(identity: identify, certificate: certificate)
+    }
+    
+    convenience init(P12FilePath: String, passphrase: String) throws {
+        let data = try Data(contentsOf: URL(fileURLWithPath: P12FilePath))
+        let options = [kSecImportExportPassphrase as String: passphrase] as CFDictionary
+        var reval: CFArray?
+        guard
+            SecPKCS12Import(data as CFData, options, &reval) == errSecSuccess,
+            let items = reval, CFArrayGetCount(items) > 0 else {
+                throw NSError(domain: "APNs", code: -1, userInfo: [:])
+        }
+        let identity = (items as [AnyObject])[0][kSecImportItemIdentity as String] as! SecIdentity
+        let certificate: SecCertificate = {
+            var reval: SecCertificate? = nil
+            SecIdentityCopyCertificate(identity, &reval)
+            return reval!
+        }()
+        self.init(identity: identity, certificate: certificate)
     }
     
     init(identity: SecIdentity, certificate: SecCertificate) {
