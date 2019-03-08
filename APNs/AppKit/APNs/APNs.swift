@@ -51,34 +51,36 @@ public enum APNs {
             return nil
         }
         
-        public final func send(server: APNs.Server, token: String, payload: Data, completion: @escaping (APNs.Response) -> Void) {
-            
-            let hostURL = server.hostURL.appendingPathComponent("3/device")
-            
-            let url = hostURL.appendingPathComponent(token)
-            
-            let request: URLRequest = {
-                var req = URLRequest(url: url)
-                req.httpMethod = "POST"
-                req.httpBody = payload
-                var reval = req.allHTTPHeaderFields ?? [:]
-                reval["authorization"] = self.authorization.flatMap { "bearer \($0)" }
-                reval["apns-id"] = UUID().uuidString
-                reval["apns-expiration"] = "0"
-                reval["apns-priority"] = "10"
-                reval["apns-topic"] = "com.Arror.Sample"
-                req.allHTTPHeaderFields = reval
-                return req
-            }()
-            
-            let task = self.session.dataTask(with: request) { data, response, error in
+        public final func send(server: APNs.Server, options: Options, token: String, payload: PayloadConvertable, completion: @escaping (APNs.Response) -> Void) {
+            do {
+                let data = try payload.asData()
+                let hostURL = server.hostURL.appendingPathComponent("3/device")
+                let url = hostURL.appendingPathComponent(token)
+                let request: URLRequest = {
+                    var req = URLRequest(url: url)
+                    req.httpMethod = "POST"
+                    req.httpBody = data
+                    var reval = req.allHTTPHeaderFields ?? [:]
+                    reval["authorization"] = self.authorization.flatMap { "bearer \($0)" }
+                    reval["apns-id"] = UUID().uuidString
+                    reval["apns-expiration"] = "\(options.expiration)"
+                    reval["apns-priority"] = "\(options.priority)"
+                    reval["apns-topic"] = options.topic
+                    req.allHTTPHeaderFields = reval
+                    return req
+                }()
+                let task = self.session.dataTask(with: request) { data, response, error in
+                    DispatchQueue.main.safe.sync {
+                        let response = APNs.Response(response: response, data: data, error: error)
+                        completion(response)
+                    }
+                }
+                task.resume()
+            } catch {
                 DispatchQueue.main.safe.sync {
-                    let response = APNs.Response(response: response, data: data, error: error)
-                    completion(response)
+                    completion(.failure(error))
                 }
             }
-            
-            task.resume()
         }
     }
 }

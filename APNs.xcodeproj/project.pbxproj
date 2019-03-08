@@ -10,6 +10,8 @@
 		70802A77222D76BE0054C45E /* DefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70802A76222D76BE0054C45E /* DefaultsStorage.swift */; };
 		70802A79222D772D0054C45E /* DataBaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70802A78222D772D0054C45E /* DataBaseStorage.swift */; };
 		70802A7B222D77420054C45E /* CodableStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70802A7A222D77420054C45E /* CodableStorage.swift */; };
+		7087B94B2231F34E00347F20 /* APNs+Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7087B94A2231F34E00347F20 /* APNs+Options.swift */; };
+		7087B94D2231F37100347F20 /* APNs+Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7087B94C2231F37100347F20 /* APNs+Payload.swift */; };
 		70F399D12230046B00D54A14 /* SafeCompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F399D02230046B00D54A14 /* SafeCompatible.swift */; };
 		70F399D32230048800D54A14 /* DispatchQueue+Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F399D22230048800D54A14 /* DispatchQueue+Safe.swift */; };
 		70F399D52230107A00D54A14 /* APNs+Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F399D42230107A00D54A14 /* APNs+Response.swift */; };
@@ -30,6 +32,8 @@
 		70802A76222D76BE0054C45E /* DefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsStorage.swift; sourceTree = "<group>"; };
 		70802A78222D772D0054C45E /* DataBaseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseStorage.swift; sourceTree = "<group>"; };
 		70802A7A222D77420054C45E /* CodableStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableStorage.swift; sourceTree = "<group>"; };
+		7087B94A2231F34E00347F20 /* APNs+Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APNs+Options.swift"; sourceTree = "<group>"; };
+		7087B94C2231F37100347F20 /* APNs+Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APNs+Payload.swift"; sourceTree = "<group>"; };
 		70F399D02230046B00D54A14 /* SafeCompatible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCompatible.swift; sourceTree = "<group>"; };
 		70F399D22230048800D54A14 /* DispatchQueue+Safe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Safe.swift"; sourceTree = "<group>"; };
 		70F399D42230107A00D54A14 /* APNs+Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APNs+Response.swift"; sourceTree = "<group>"; };
@@ -112,9 +116,9 @@
 		70FBE7AD222BF09700B88357 /* AppKit */ = {
 			isa = PBXGroup;
 			children = (
-				70F399CF2230044A00D54A14 /* Safe */,
 				70FBE7AE222BF0A500B88357 /* AppService.swift */,
 				70FBE7B0222BF0E800B88357 /* AppEnvironment.swift */,
+				70F399CF2230044A00D54A14 /* Safe */,
 				CA351B3A222E2241005D34E6 /* JSONWebToken */,
 				70802A75222D76AF0054C45E /* Storage */,
 				70FBE7B2222BF1D700B88357 /* APNs */,
@@ -126,6 +130,8 @@
 			isa = PBXGroup;
 			children = (
 				70FBE7B3222BF1F200B88357 /* APNs.swift */,
+				7087B94A2231F34E00347F20 /* APNs+Options.swift */,
+				7087B94C2231F37100347F20 /* APNs+Payload.swift */,
 				70F399D42230107A00D54A14 /* APNs+Response.swift */,
 				CA351B6A222FA7CC005D34E6 /* TokenController.swift */,
 			);
@@ -221,8 +227,10 @@
 				70FBE781222B7DFC00B88357 /* ViewController.swift in Sources */,
 				CA351B55222E7994005D34E6 /* JSONWebToken.swift in Sources */,
 				70F399D12230046B00D54A14 /* SafeCompatible.swift in Sources */,
+				7087B94D2231F37100347F20 /* APNs+Payload.swift in Sources */,
 				70F399D32230048800D54A14 /* DispatchQueue+Safe.swift in Sources */,
 				70FBE7B1222BF0E800B88357 /* AppEnvironment.swift in Sources */,
+				7087B94B2231F34E00347F20 /* APNs+Options.swift in Sources */,
 				70FBE7AF222BF0A500B88357 /* AppService.swift in Sources */,
 				70F399D52230107A00D54A14 /* APNs+Response.swift in Sources */,
 				CA351B69222FA75C005D34E6 /* Data+Base64URL.swift in Sources */,
