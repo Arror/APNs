@@ -24,26 +24,20 @@ public enum APNs {
         }
     }
     
-    public enum Based {
-        public enum Certificate {
-            case cer(filePath: String)
-            case p12(filePath: String, passphrase: String)
-        }
-        case certificate(Certificate)
-        case token(teamID: String, keyID: String, P8FilePath: String)
+    public enum Certificate {
+        case cer(filePath: String)
+        case p12(filePath: String, passphrase: String)
+        case p8(filePath: String, teamID: String, keyID: String)
     }
     
-    public static func makeProvider(based: Based) throws -> Provider {
-        switch based {
-        case .certificate(let cert):
-            switch cert {
-            case .cer(let filePath):
-                return try CertificateBasedProvider(certificateFilePath: filePath)
-            case .p12(let filePath, let passphrase):
-                return try CertificateBasedProvider(P12FilePath: filePath, passphrase: passphrase)
-            }
-        case .token(let teamID, let keyID, let P8FilePath):
-            return try TokenBasedProvider(teamID: teamID, keyID: keyID, P8FilePath: P8FilePath)
+    public static func makeProvider(certificate: Certificate) throws -> Provider {
+        switch certificate {
+        case .cer(let filePath):
+            return try CertificateBasedProvider(certificateFilePath: filePath)
+        case .p12(let filePath, let passphrase):
+            return try CertificateBasedProvider(P12FilePath: filePath, passphrase: passphrase)
+        case .p8(let filePath, let teamID, let keyID):
+            return try TokenBasedProvider(teamID: teamID, keyID: keyID, P8FilePath: filePath)
         }
     }
     
