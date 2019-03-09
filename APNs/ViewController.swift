@@ -11,7 +11,7 @@ import Cocoa
 class ViewController: NSViewController {
     
     @IBOutlet weak var certTab: CertificateTabView!
-    @IBOutlet weak var tokenListView: TokenListView!
+    @IBOutlet weak var tokenTab: TokenTabView!
     @IBOutlet var jsonTextView: NSTextView! {
         didSet {
             self.jsonTextView.isAutomaticQuoteSubstitutionEnabled = false
@@ -41,26 +41,27 @@ class ViewController: NSViewController {
     
     @IBAction func buttonTapped(_ sender: NSButton) {
         do {
-            let tokenInfo = self.tokenListView.tokenInfo
+            let tokenPair = self.tokenTab.tokenPair
             guard
-                !tokenInfo.0.isEmpty else {
-                    throw APNs.makeError(message: "No Token")
+                !tokenPair.1.isEmpty else {
+                    throw APNs.makeError(message: "Token empty")
             }
             guard
                 let payload = self.jsonTextView.string.data(using: .utf8) else {
-                    throw APNs.makeError(message: "")
+                    throw APNs.makeError(message: "Payload error")
             }
             guard
                 let cert = self.certTab.certificate else {
-                    throw APNs.makeError(message: "")
+                    throw APNs.makeError(message: "Certificate error")
             }
             try AppEnvironment.current.updateProvider(withCertificate: cert)
             guard
                 let provider = AppEnvironment.current.provider else {
-                    throw APNs.makeError(message: "")
+                    throw APNs.makeError(message: "Provider error")
             }
-            tokenInfo.0.forEach { token in
-                provider.send(server: tokenInfo.1, options: .default, token: token, payload: payload) { resp in
+            let server = tokenPair.0
+            tokenPair.1.forEach { token in
+                provider.send(server: server, options: .default, token: token, payload: payload) { resp in
                     
                 }
             }

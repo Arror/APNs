@@ -33,7 +33,11 @@
 		CA80D636223373F900376814 /* TappedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D635223373F900376814 /* TappedLabel.swift */; };
 		CA80D6382233741900376814 /* InputSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D6372233741900376814 /* InputSheetViewController.swift */; };
 		CA80D63A2233745A00376814 /* NSOpenPanel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D6392233745A00376814 /* NSOpenPanel+Ext.swift */; };
-		CA80D63D22337BB900376814 /* TokenListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D63C22337BB900376814 /* TokenListView.swift */; };
+		CA80D6412233CD1500376814 /* TokenTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D6402233CD1500376814 /* TokenTabView.swift */; };
+		CA80D6432233CD7100376814 /* TokenListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D6422233CD7100376814 /* TokenListView.swift */; };
+		CA80D6452233D08900376814 /* SandboxTokenListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D6442233D08900376814 /* SandboxTokenListView.swift */; };
+		CA80D6472233D0A000376814 /* ProductionTokenListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D6462233D0A000376814 /* ProductionTokenListView.swift */; };
+		CA80D6492233D0F800376814 /* TokenListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D6482233D0F800376814 /* TokenListController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,7 +70,11 @@
 		CA80D635223373F900376814 /* TappedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappedLabel.swift; sourceTree = "<group>"; };
 		CA80D6372233741900376814 /* InputSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSheetViewController.swift; sourceTree = "<group>"; };
 		CA80D6392233745A00376814 /* NSOpenPanel+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSOpenPanel+Ext.swift"; sourceTree = "<group>"; };
-		CA80D63C22337BB900376814 /* TokenListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenListView.swift; sourceTree = "<group>"; };
+		CA80D6402233CD1500376814 /* TokenTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenTabView.swift; sourceTree = "<group>"; };
+		CA80D6422233CD7100376814 /* TokenListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenListView.swift; sourceTree = "<group>"; };
+		CA80D6442233D08900376814 /* SandboxTokenListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SandboxTokenListView.swift; sourceTree = "<group>"; };
+		CA80D6462233D0A000376814 /* ProductionTokenListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionTokenListView.swift; sourceTree = "<group>"; };
+		CA80D6482233D0F800376814 /* TokenListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenListController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,7 +191,11 @@
 		CA80D63B22337B8300376814 /* Token Tab */ = {
 			isa = PBXGroup;
 			children = (
-				CA80D63C22337BB900376814 /* TokenListView.swift */,
+				CA80D6402233CD1500376814 /* TokenTabView.swift */,
+				CA80D6422233CD7100376814 /* TokenListView.swift */,
+				CA80D6442233D08900376814 /* SandboxTokenListView.swift */,
+				CA80D6462233D0A000376814 /* ProductionTokenListView.swift */,
+				CA80D6482233D0F800376814 /* TokenListController.swift */,
 			);
 			path = "Token Tab";
 			sourceTree = "<group>";
@@ -274,19 +286,23 @@
 				70FBE7B1222BF0E800B88357 /* AppEnvironment.swift in Sources */,
 				CA80D636223373F900376814 /* TappedLabel.swift in Sources */,
 				7087B94B2231F34E00347F20 /* APNs+Options.swift in Sources */,
+				CA80D6492233D0F800376814 /* TokenListController.swift in Sources */,
+				CA80D6472233D0A000376814 /* ProductionTokenListView.swift in Sources */,
 				70FBE7AF222BF0A500B88357 /* AppService.swift in Sources */,
 				CA80D62C2233735500376814 /* CertificateTabView.swift in Sources */,
 				CA80D6382233741900376814 /* InputSheetViewController.swift in Sources */,
 				70F399D52230107A00D54A14 /* APNs+Response.swift in Sources */,
-				CA80D63D22337BB900376814 /* TokenListView.swift in Sources */,
 				CA351B69222FA75C005D34E6 /* Data+Base64URL.swift in Sources */,
 				70FBE7B4222BF1F200B88357 /* APNs.swift in Sources */,
 				CA80D634223373DA00376814 /* P12TabItemView.swift in Sources */,
+				CA80D6432233CD7100376814 /* TokenListView.swift in Sources */,
+				CA80D6452233D08900376814 /* SandboxTokenListView.swift in Sources */,
 				CA80D632223373BA00376814 /* CerTabItemView.swift in Sources */,
 				CA351B67222F6F2C005D34E6 /* ES256.swift in Sources */,
 				70802A79222D772D0054C45E /* DataBaseStorage.swift in Sources */,
 				70FBE77F222B7DFC00B88357 /* AppDelegate.swift in Sources */,
 				70802A7B222D77420054C45E /* CodableStorage.swift in Sources */,
+				CA80D6412233CD1500376814 /* TokenTabView.swift in Sources */,
 				70802A77222D76BE0054C45E /* DefaultsStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
