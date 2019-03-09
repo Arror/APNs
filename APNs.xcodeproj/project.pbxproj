@@ -38,6 +38,7 @@
 		CA80D6452233D08900376814 /* SandboxTokenListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D6442233D08900376814 /* SandboxTokenListView.swift */; };
 		CA80D6472233D0A000376814 /* ProductionTokenListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D6462233D0A000376814 /* ProductionTokenListView.swift */; };
 		CA80D6492233D0F800376814 /* TokenListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D6482233D0F800376814 /* TokenListController.swift */; };
+		CA80D64C2233ED3700376814 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D64B2233ED3700376814 /* Log.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 		CA80D6442233D08900376814 /* SandboxTokenListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SandboxTokenListView.swift; sourceTree = "<group>"; };
 		CA80D6462233D0A000376814 /* ProductionTokenListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionTokenListView.swift; sourceTree = "<group>"; };
 		CA80D6482233D0F800376814 /* TokenListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenListController.swift; sourceTree = "<group>"; };
+		CA80D64B2233ED3700376814 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +146,7 @@
 			children = (
 				70FBE7AE222BF0A500B88357 /* AppService.swift */,
 				70FBE7B0222BF0E800B88357 /* AppEnvironment.swift */,
+				CA80D64A2233EC8500376814 /* Log */,
 				70F399CF2230044A00D54A14 /* Safe */,
 				CA351B3A222E2241005D34E6 /* JSONWebToken */,
 				70802A75222D76AF0054C45E /* Storage */,
@@ -198,6 +201,14 @@
 				CA80D6482233D0F800376814 /* TokenListController.swift */,
 			);
 			path = "Token Tab";
+			sourceTree = "<group>";
+		};
+		CA80D64A2233EC8500376814 /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				CA80D64B2233ED3700376814 /* Log.swift */,
+			);
+			path = Log;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,6 +288,7 @@
 			files = (
 				70FBE781222B7DFC00B88357 /* ViewController.swift in Sources */,
 				CA80D6302233739500376814 /* P8TabItemView.swift in Sources */,
+				CA80D64C2233ED3700376814 /* Log.swift in Sources */,
 				CA80D62E2233737100376814 /* CertificateTabItemView.swift in Sources */,
 				CA351B55222E7994005D34E6 /* JSONWebToken.swift in Sources */,
 				70F399D12230046B00D54A14 /* SafeCompatible.swift in Sources */,

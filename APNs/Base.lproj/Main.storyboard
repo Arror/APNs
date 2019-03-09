@@ -258,25 +258,25 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Lba-fx-Q9M" customClass="TappedLabel" customModule="APNs" customModuleProvider="target">
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5y4-AL-RZA" customClass="TappedLabel" customModule="APNs" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="384" width="194" height="21"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" borderStyle="border" drawsBackground="YES" id="eI1-j8-Fsg">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" borderStyle="border" drawsBackground="YES" id="pLp-7Y-UKI">
                                                         <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="5y4-AL-RZA" firstAttribute="leading" secondItem="mEA-QV-S7W" secondAttribute="leading" constant="20" id="6Dd-oz-Kv6"/>
                                                 <constraint firstItem="FqJ-f0-u8G" firstAttribute="top" secondItem="mEA-QV-S7W" secondAttribute="top" constant="20" id="KaW-d1-qgZ"/>
                                                 <constraint firstAttribute="trailing" secondItem="FqJ-f0-u8G" secondAttribute="trailing" constant="20" id="Tc6-BQ-k3J"/>
-                                                <constraint firstAttribute="trailing" secondItem="Lba-fx-Q9M" secondAttribute="trailing" constant="20" id="pVx-az-eL3"/>
+                                                <constraint firstItem="5y4-AL-RZA" firstAttribute="top" secondItem="FqJ-f0-u8G" secondAttribute="bottom" constant="8" id="UET-RW-42n"/>
+                                                <constraint firstAttribute="trailing" secondItem="5y4-AL-RZA" secondAttribute="trailing" constant="20" id="nNX-1j-5dK"/>
                                                 <constraint firstItem="FqJ-f0-u8G" firstAttribute="leading" secondItem="mEA-QV-S7W" secondAttribute="leading" constant="20" id="x1B-3a-0hE"/>
-                                                <constraint firstItem="Lba-fx-Q9M" firstAttribute="leading" secondItem="mEA-QV-S7W" secondAttribute="leading" constant="20" id="yOX-zf-mqC"/>
-                                                <constraint firstItem="Lba-fx-Q9M" firstAttribute="top" secondItem="FqJ-f0-u8G" secondAttribute="bottom" constant="8" id="zqK-vs-i6d"/>
                                             </constraints>
                                             <connections>
-                                                <outlet property="certLabel" destination="Lba-fx-Q9M" id="6C1-Mp-SqV"/>
+                                                <outlet property="certLabel" destination="5y4-AL-RZA" id="OZZ-ef-Kpr"/>
                                             </connections>
                                         </view>
                                     </tabViewItem>
@@ -459,13 +459,13 @@
                                             <rect key="frame" x="10" y="33" width="234" height="310"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vfq-gP-Hat">
+                                                <scrollView autohidesScrollers="YES" horizontalLineScroll="44" horizontalPageScroll="10" verticalLineScroll="44" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vfq-gP-Hat">
                                                     <rect key="frame" x="0.0" y="33" width="234" height="277"/>
                                                     <clipView key="contentView" id="u1t-H9-sBR">
                                                         <rect key="frame" x="1" y="0.0" width="232" height="276"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="t5d-Ty-xwb" viewBased="YES" id="hCN-0e-9xD">
+                                                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="42" rowSizeStyle="automatic" headerView="t5d-Ty-xwb" viewBased="YES" id="hCN-0e-9xD">
                                                                 <rect key="frame" x="0.0" y="0.0" width="503" height="251"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -569,7 +569,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="612" height="120"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" spellingCorrection="YES" smartInsertDelete="YES" id="L8n-vd-xrX">
+                                        <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="L8n-vd-xrX">
                                             <rect key="frame" x="0.0" y="0.0" width="612" height="120"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>

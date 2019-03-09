@@ -38,11 +38,12 @@ class ViewController: NSViewController {
             }
         }
         """
-    }
-
-    override var representedObject: Any? {
-        didSet {
+        let destination = StringDestination(name: "com.APNs.StringDestination")
+        destination.logUpdate = { d in
+            self.logTextView.string = d.log
+            self.logTextView.scrollRangeToVisible(NSRange(location: d.log.utf16.count, length: 0))
         }
+        AppService.current.logger.add(destination: destination)
     }
     
     @IBAction func buttonTapped(_ sender: NSButton) {
@@ -50,7 +51,7 @@ class ViewController: NSViewController {
             let tokenPair = self.tokenTab.tokenPair
             guard
                 !tokenPair.1.isEmpty else {
-                    throw APNs.makeError(message: "Token empty")
+                    throw APNs.makeError(message: "No Token")
             }
             guard
                 let payload = self.jsonTextView.string.data(using: .utf8) else {
@@ -58,7 +59,7 @@ class ViewController: NSViewController {
             }
             guard
                 let cert = self.certTab.certificate else {
-                    throw APNs.makeError(message: "Certificate error")
+                    throw APNs.makeError(message: "Certificate info error")
             }
             try AppEnvironment.current.updateProvider(withCertificate: cert)
             guard
@@ -67,12 +68,26 @@ class ViewController: NSViewController {
             }
             let server = tokenPair.0
             tokenPair.1.forEach { token in
+                let str: String = {
+                    switch server {
+                    case .sandbox:
+                        return "Sandbox"
+                    case .production:
+                        return "Productuon"
+                    }
+                }()
+                AppService.current.logger.log(level: .debug, message: "Send Notification, Server: \(str), Token: \(token)")
                 provider.send(server: server, options: .default, token: token, payload: payload) { resp in
-                    
+                    switch resp {
+                    case .success:
+                        AppService.current.logger.log(level: .debug, message: "Send Notification success")
+                    case .failure(let error):
+                        AppService.current.logger.log(level: .error, message: error.localizedDescription)
+                    }
                 }
             }
         } catch {
-            print(error.localizedDescription)
+            AppService.current.logger.log(level: .error, message: error.localizedDescription)
         }
     }
 }
