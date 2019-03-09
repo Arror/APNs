@@ -36,7 +36,7 @@ public class P12TabItemView: CertificateTabItemView {
             }
         }
         self.passphraseLabel.tapped = { _ in
-            let vc = InputSheetViewController.makeViewController(title: "Team ID", initialValue: self.passphraseLabel.stringValue) { result in
+            let vc = InputSheetViewController.makeViewController(title: "Passphrase", initialValue: self.passphraseLabel.stringValue) { result in
                 switch result {
                 case .some(let value):
                     self.passphrase = value
