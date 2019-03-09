@@ -25,6 +25,14 @@
 		CA351B55222E7994005D34E6 /* JSONWebToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA351B54222E7994005D34E6 /* JSONWebToken.swift */; };
 		CA351B67222F6F2C005D34E6 /* ES256.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA351B66222F6F2C005D34E6 /* ES256.swift */; };
 		CA351B69222FA75C005D34E6 /* Data+Base64URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA351B68222FA75C005D34E6 /* Data+Base64URL.swift */; };
+		CA80D62C2233735500376814 /* CertificateTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D62B2233735500376814 /* CertificateTabView.swift */; };
+		CA80D62E2233737100376814 /* CertificateTabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D62D2233737100376814 /* CertificateTabItemView.swift */; };
+		CA80D6302233739500376814 /* P8TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D62F2233739500376814 /* P8TabItemView.swift */; };
+		CA80D632223373BA00376814 /* CerTabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D631223373BA00376814 /* CerTabItemView.swift */; };
+		CA80D634223373DA00376814 /* P12TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D633223373DA00376814 /* P12TabItemView.swift */; };
+		CA80D636223373F900376814 /* TappedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D635223373F900376814 /* TappedLabel.swift */; };
+		CA80D6382233741900376814 /* InputSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D6372233741900376814 /* InputSheetViewController.swift */; };
+		CA80D63A2233745A00376814 /* NSOpenPanel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D6392233745A00376814 /* NSOpenPanel+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +57,14 @@
 		CA351B54222E7994005D34E6 /* JSONWebToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWebToken.swift; sourceTree = "<group>"; };
 		CA351B66222F6F2C005D34E6 /* ES256.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ES256.swift; sourceTree = "<group>"; };
 		CA351B68222FA75C005D34E6 /* Data+Base64URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Base64URL.swift"; sourceTree = "<group>"; };
+		CA80D62B2233735500376814 /* CertificateTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateTabView.swift; sourceTree = "<group>"; };
+		CA80D62D2233737100376814 /* CertificateTabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateTabItemView.swift; sourceTree = "<group>"; };
+		CA80D62F2233739500376814 /* P8TabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P8TabItemView.swift; sourceTree = "<group>"; };
+		CA80D631223373BA00376814 /* CerTabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CerTabItemView.swift; sourceTree = "<group>"; };
+		CA80D633223373DA00376814 /* P12TabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P12TabItemView.swift; sourceTree = "<group>"; };
+		CA80D635223373F900376814 /* TappedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappedLabel.swift; sourceTree = "<group>"; };
+		CA80D6372233741900376814 /* InputSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSheetViewController.swift; sourceTree = "<group>"; };
+		CA80D6392233745A00376814 /* NSOpenPanel+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSOpenPanel+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +118,7 @@
 			children = (
 				70FBE77E222B7DFC00B88357 /* AppDelegate.swift */,
 				70FBE780222B7DFC00B88357 /* ViewController.swift */,
+				CA80D62A2233733800376814 /* Certificate Tab */,
 				70FBE7AD222BF09700B88357 /* AppKit */,
 				70FBE782222B7DFD00B88357 /* Assets.xcassets */,
 				70FBE784222B7DFD00B88357 /* Main.storyboard */,
@@ -143,6 +160,21 @@
 				CA351B54222E7994005D34E6 /* JSONWebToken.swift */,
 			);
 			path = JSONWebToken;
+			sourceTree = "<group>";
+		};
+		CA80D62A2233733800376814 /* Certificate Tab */ = {
+			isa = PBXGroup;
+			children = (
+				CA80D62B2233735500376814 /* CertificateTabView.swift */,
+				CA80D62D2233737100376814 /* CertificateTabItemView.swift */,
+				CA80D62F2233739500376814 /* P8TabItemView.swift */,
+				CA80D631223373BA00376814 /* CerTabItemView.swift */,
+				CA80D633223373DA00376814 /* P12TabItemView.swift */,
+				CA80D635223373F900376814 /* TappedLabel.swift */,
+				CA80D6372233741900376814 /* InputSheetViewController.swift */,
+				CA80D6392233745A00376814 /* NSOpenPanel+Ext.swift */,
+			);
+			path = "Certificate Tab";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,16 +253,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				70FBE781222B7DFC00B88357 /* ViewController.swift in Sources */,
+				CA80D6302233739500376814 /* P8TabItemView.swift in Sources */,
+				CA80D62E2233737100376814 /* CertificateTabItemView.swift in Sources */,
 				CA351B55222E7994005D34E6 /* JSONWebToken.swift in Sources */,
 				70F399D12230046B00D54A14 /* SafeCompatible.swift in Sources */,
 				7087B94D2231F37100347F20 /* APNs+Payload.swift in Sources */,
 				70F399D32230048800D54A14 /* DispatchQueue+Safe.swift in Sources */,
+				CA80D63A2233745A00376814 /* NSOpenPanel+Ext.swift in Sources */,
 				70FBE7B1222BF0E800B88357 /* AppEnvironment.swift in Sources */,
+				CA80D636223373F900376814 /* TappedLabel.swift in Sources */,
 				7087B94B2231F34E00347F20 /* APNs+Options.swift in Sources */,
 				70FBE7AF222BF0A500B88357 /* AppService.swift in Sources */,
+				CA80D62C2233735500376814 /* CertificateTabView.swift in Sources */,
+				CA80D6382233741900376814 /* InputSheetViewController.swift in Sources */,
 				70F399D52230107A00D54A14 /* APNs+Response.swift in Sources */,
 				CA351B69222FA75C005D34E6 /* Data+Base64URL.swift in Sources */,
 				70FBE7B4222BF1F200B88357 /* APNs.swift in Sources */,
+				CA80D634223373DA00376814 /* P12TabItemView.swift in Sources */,
+				CA80D632223373BA00376814 /* CerTabItemView.swift in Sources */,
 				CA351B67222F6F2C005D34E6 /* ES256.swift in Sources */,
 				70802A79222D772D0054C45E /* DataBaseStorage.swift in Sources */,
 				70FBE77F222B7DFC00B88357 /* AppDelegate.swift in Sources */,
