@@ -10,6 +10,14 @@ import AppKit
 
 public class InputSheetViewController: NSViewController {
     
+    public override init(nibName nibNameOrNil: NSNib.Name?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     private var value: Optional<String>
     
     private var compeltion: (Optional<String>) -> Void = { _ in }
