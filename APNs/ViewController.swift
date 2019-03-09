@@ -28,7 +28,13 @@ class ViewController: NSViewController {
         self.jsonTextView.string = """
         {
             "aps": {
-                "alert": "Your message Here"
+                "content-available": 1,
+                "alert": {
+                    "title": "Title",
+                    "body": "Your message here."
+                },
+                "badge": 9,
+                "sound": "default"
             }
         }
         """
