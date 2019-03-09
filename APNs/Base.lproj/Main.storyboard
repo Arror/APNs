@@ -568,7 +568,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="certTab" destination="vjp-nn-7QH" id="ItI-KW-r34"/>
+                        <outlet property="certTab" destination="vjp-nn-7QH" id="rBa-7n-iHe"/>
+                        <outlet property="jsonTextView" destination="uIM-Up-6Bi" id="OwS-Wg-l5Z"/>
+                        <outlet property="logTextView" destination="L8n-vd-xrX" id="ym0-A4-gRq"/>
+                        <outlet property="tokenListView" destination="nPy-6P-WUh" id="vbp-rF-HYe"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

@@ -10,7 +10,18 @@ import Cocoa
 
 class ViewController: NSViewController {
     
-    @IBOutlet weak var certTab: NSTabView!
+    @IBOutlet weak var certTab: CertificateTabView!
+    @IBOutlet weak var tokenListView: TokenListView!
+    @IBOutlet var jsonTextView: NSTextView! {
+        didSet {
+            self.jsonTextView.isAutomaticQuoteSubstitutionEnabled = false
+        }
+    }
+    @IBOutlet var logTextView: NSTextView! {
+        didSet {
+            self.logTextView.isAutomaticQuoteSubstitutionEnabled = false
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
