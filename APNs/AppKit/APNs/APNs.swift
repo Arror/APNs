@@ -12,11 +12,11 @@ public enum APNs {
     
     public enum Server {
         
-        case development, production
+        case sandbox, production
         
         public var hostURL: URL {
             switch self {
-            case .development:
+            case .sandbox:
                 return URL(string: "https://api.development.push.apple.com")!
             case .production:
                 return URL(string: "https://api.push.apple.com")!

@@ -33,6 +33,7 @@
 		CA80D636223373F900376814 /* TappedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D635223373F900376814 /* TappedLabel.swift */; };
 		CA80D6382233741900376814 /* InputSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D6372233741900376814 /* InputSheetViewController.swift */; };
 		CA80D63A2233745A00376814 /* NSOpenPanel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D6392233745A00376814 /* NSOpenPanel+Ext.swift */; };
+		CA80D63D22337BB900376814 /* TokenListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80D63C22337BB900376814 /* TokenListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		CA80D635223373F900376814 /* TappedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappedLabel.swift; sourceTree = "<group>"; };
 		CA80D6372233741900376814 /* InputSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSheetViewController.swift; sourceTree = "<group>"; };
 		CA80D6392233745A00376814 /* NSOpenPanel+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSOpenPanel+Ext.swift"; sourceTree = "<group>"; };
+		CA80D63C22337BB900376814 /* TokenListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 				70FBE77E222B7DFC00B88357 /* AppDelegate.swift */,
 				70FBE780222B7DFC00B88357 /* ViewController.swift */,
 				CA80D62A2233733800376814 /* Certificate Tab */,
+				CA80D63B22337B8300376814 /* Token Tab */,
 				70FBE7AD222BF09700B88357 /* AppKit */,
 				70FBE782222B7DFD00B88357 /* Assets.xcassets */,
 				70FBE784222B7DFD00B88357 /* Main.storyboard */,
@@ -175,6 +178,14 @@
 				CA80D6392233745A00376814 /* NSOpenPanel+Ext.swift */,
 			);
 			path = "Certificate Tab";
+			sourceTree = "<group>";
+		};
+		CA80D63B22337B8300376814 /* Token Tab */ = {
+			isa = PBXGroup;
+			children = (
+				CA80D63C22337BB900376814 /* TokenListView.swift */,
+			);
+			path = "Token Tab";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,6 +278,7 @@
 				CA80D62C2233735500376814 /* CertificateTabView.swift in Sources */,
 				CA80D6382233741900376814 /* InputSheetViewController.swift in Sources */,
 				70F399D52230107A00D54A14 /* APNs+Response.swift in Sources */,
+				CA80D63D22337BB900376814 /* TokenListView.swift in Sources */,
 				CA351B69222FA75C005D34E6 /* Data+Base64URL.swift in Sources */,
 				70FBE7B4222BF1F200B88357 /* APNs.swift in Sources */,
 				CA80D634223373DA00376814 /* P12TabItemView.swift in Sources */,
