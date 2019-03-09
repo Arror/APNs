@@ -10,8 +10,9 @@ import AppKit
 
 public class P12TabItemView: CertificateTabItemView {
     
-    private var certURL: Optional<URL> = .none
-    private var passphrase: Optional<String> = .none
+    private var cerData: Optional<Data> = .none
+    private var cerName: String = ""
+    private var passphrase: String = ""
     
     @IBOutlet weak var certLabel: TappedLabel!
     @IBOutlet weak var passphraseLabel: TappedLabel!
@@ -25,8 +26,9 @@ public class P12TabItemView: CertificateTabItemView {
             }
             NSOpenPanel.chooseCertificateFile(type: "p12", from: window) { result in
                 switch result {
-                case .some(let value):
-                    self.certURL = value
+                case .some(let pair):
+                    self.cerData = pair.1
+                    self.cerName = pair.0.lastPathComponent
                     self.updateViews()
                 case .none:
                     break
@@ -48,19 +50,11 @@ public class P12TabItemView: CertificateTabItemView {
     }
     
     private func updateViews() {
-        self.certLabel.stringValue = self.certURL.flatMap { $0.lastPathComponent } ?? ""
-        self.passphraseLabel.stringValue = self.passphrase ?? ""
+        self.certLabel.stringValue = self.cerName
+        self.passphraseLabel.stringValue = self.passphrase
     }
     
-    public override func makeProvider() -> Optional<APNs.Provider> {
-        guard
-            let url = self.certURL, let passphrase = self.passphrase else {
-                return .none
-        }
-        do {
-            return try APNs.makeProvider(certificate: .p12(filePath: url.absoluteString, passphrase: passphrase))
-        } catch {
-            return .none
-        }
+    public override var certificate: Optional<APNs.Certificate> {
+        return self.cerData.flatMap { .p12(data: $0, passphrase: self.passphrase) }
     }
 }

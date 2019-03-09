@@ -10,7 +10,8 @@ import AppKit
 
 public class CerTabItemView: CertificateTabItemView {
     
-    private var certURL: Optional<URL> = .none
+    private var cerData: Optional<Data> = .none
+    private var cerName: String = ""
     
     @IBOutlet weak var certLabel: TappedLabel!
     
@@ -23,8 +24,9 @@ public class CerTabItemView: CertificateTabItemView {
             }
             NSOpenPanel.chooseCertificateFile(type: "cer", from: window) { result in
                 switch result {
-                case .some(let value):
-                    self.certURL = value
+                case .some(let pair):
+                    self.cerData = pair.1
+                    self.cerName = pair.0.lastPathComponent
                     self.updateViews()
                 case .none:
                     break
@@ -34,18 +36,10 @@ public class CerTabItemView: CertificateTabItemView {
     }
     
     private func updateViews() {
-        self.certLabel.stringValue = self.certURL.flatMap { $0.lastPathComponent } ?? ""
+        self.certLabel.stringValue = self.cerName
     }
     
-    public override func makeProvider() -> Optional<APNs.Provider> {
-        guard
-            let url = self.certURL else {
-                return .none
-        }
-        do {
-            return try APNs.makeProvider(certificate: .cer(filePath: url.absoluteString))
-        } catch {
-            return .none
-        }
+    public override var certificate: Optional<APNs.Certificate> {
+        return self.cerData.flatMap { .cer(data: $0) }
     }
 }

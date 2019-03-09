@@ -15,11 +15,11 @@ public class TokenListView: NSView, NSTableViewDelegate, NSTableViewDataSource {
     @IBOutlet weak var segmentedControl: NSSegmentedControl!
     @IBOutlet weak var tableView: NSTableView!
     
-    public var tokens: [String] {
+    public var tokenInfo: ([String], APNs.Server) {
         if self.server == .sandbox {
-            return self.sandboxTokens
+            return (self.sandboxTokens, .sandbox)
         } else {
-            return self.productionTokens
+            return (self.productionTokens, .production)
         }
     }
     
@@ -54,7 +54,12 @@ public class TokenListView: NSView, NSTableViewDelegate, NSTableViewDataSource {
     }
     
     public func numberOfRows(in tableView: NSTableView) -> Int {
-        return self.tokens.count
+        switch self.server {
+        case .sandbox:
+            return self.sandboxTokens.count
+        case .production:
+            return self.productionTokens.count
+        }
     }
     
     private enum Identifier: String {
@@ -67,7 +72,14 @@ public class TokenListView: NSView, NSTableViewDelegate, NSTableViewDataSource {
             let identifier = Identifier(rawValue: columnID.rawValue) else {
                 return nil
         }
-        let token = self.tokens[row]
+        let token: String = {
+            switch self.server {
+            case .sandbox:
+                return self.sandboxTokens[row]
+            case .production:
+                return self.productionTokens[row]
+            }
+        }()
         let view = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(identifier.rawValue), owner: nil) as? NSTableCellView
         switch identifier {
         case .token:

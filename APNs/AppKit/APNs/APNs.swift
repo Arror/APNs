@@ -24,20 +24,34 @@ public enum APNs {
         }
     }
     
-    public enum Certificate {
-        case cer(filePath: String)
-        case p12(filePath: String, passphrase: String)
-        case p8(filePath: String, teamID: String, keyID: String)
+    public enum Certificate: Equatable {
+        
+        case cer(data: Data)
+        case p12(data: Data, passphrase: String)
+        case p8(data: Data, teamID: String, keyID: String, topic: String)
+        
+        public static func ==(lhs: Certificate, rhs: Certificate) -> Bool {
+            switch (lhs, rhs) {
+            case let (.cer(l), .cer(r)):
+                return l == r
+            case let (.p12(l), .p12(r)):
+                return (l.data == r.data) && (l.passphrase == r.passphrase)
+            case let (.p8(l), .p8(r)):
+                return (l.data == r.data) && (l.teamID == r.teamID) && (l.keyID == r.keyID)
+            default:
+                return false
+            }
+        }
     }
     
     public static func makeProvider(certificate: Certificate) throws -> Provider {
         switch certificate {
-        case .cer(let filePath):
-            return try CertificateBasedProvider(certificateFilePath: filePath)
-        case .p12(let filePath, let passphrase):
-            return try CertificateBasedProvider(P12FilePath: filePath, passphrase: passphrase)
-        case .p8(let filePath, let teamID, let keyID):
-            return try TokenBasedProvider(teamID: teamID, keyID: keyID, P8FilePath: filePath)
+        case .cer(let data):
+            return try CertificateBasedProvider(cerData: data)
+        case .p12(let data, let passphrase):
+            return try CertificateBasedProvider(P12Data: data, passphrase: passphrase)
+        case .p8(let data, let teamID, let keyID, let topic):
+            return try TokenBasedProvider(P8Data: data, teamID: teamID, keyID: keyID, topic: topic)
         }
     }
     
@@ -48,6 +62,10 @@ public enum APNs {
         public init() {}
         
         open var authorization: String? {
+            return nil
+        }
+        
+        open var topic: String? {
             return nil
         }
         
@@ -65,7 +83,7 @@ public enum APNs {
                     reval["apns-id"] = UUID().uuidString
                     reval["apns-expiration"] = "\(options.expiration)"
                     reval["apns-priority"] = "\(options.priority)"
-                    reval["apns-topic"] = options.topic
+                    reval["apns-topic"] = self.topic
                     req.allHTTPHeaderFields = reval
                     return req
                 }()
@@ -123,7 +141,11 @@ private final class TokenController {
         }
     }
     
-    init(teamID: String, keyID: String, P8KeyString: String) throws {
+    init(teamID: String, keyID: String, P8Data: Data) throws {
+        guard
+            let P8KeyString = String(data: P8Data, encoding: .utf8) else {
+                throw NSError(domain: "APNs", code: -1, userInfo: [NSLocalizedDescriptionKey: "Read .p8 file data failed."])
+        }
         self.es256 = try ES256(P8String: P8KeyString)
         self.keyID = keyID
         self.teamID = teamID
@@ -147,13 +169,18 @@ private class TokenBasedProvider: APNs.Provider {
         return self._tokenController.token
     }
     
+    override var topic: String? {
+        return self._topic
+    }
+    
     private let _tokenController: TokenController
     private let _session: URLSession
     private let _queue: OperationQueue
+    private let _topic: String
     
-    public init(teamID: String, keyID: String, P8FilePath: String) throws {
-        let P8KeyString = try String(contentsOf: URL(fileURLWithPath: P8FilePath))
-        self._tokenController = try TokenController(teamID: teamID, keyID: keyID, P8KeyString: P8KeyString)
+    public init(P8Data: Data, teamID: String, keyID: String, topic: String) throws {
+        self._topic = topic
+        self._tokenController = try TokenController(teamID: teamID, keyID: keyID, P8Data: P8Data)
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 10
         self._session = URLSession(configuration: .default, delegate: nil, delegateQueue: queue)
@@ -190,10 +217,9 @@ private class CertificateBasedProvider: APNs.Provider {
         return self._session
     }
     
-    convenience init(certificateFilePath: String) throws {
-        let certData = try Data(contentsOf: URL(fileURLWithPath: certificateFilePath))
+    convenience init(cerData: Data) throws {
         guard
-            let certificate = SecCertificateCreateWithData(kCFAllocatorDefault, certData as CFData) else {
+            let certificate = SecCertificateCreateWithData(kCFAllocatorDefault, cerData as CFData) else {
                 throw NSError(domain: "APNs", code: -1, userInfo: [NSLocalizedDescriptionKey: "Certificate create failed."])
         }
         var reval: SecIdentity? = nil
@@ -206,12 +232,11 @@ private class CertificateBasedProvider: APNs.Provider {
         self.init(identity: identify, certificate: certificate)
     }
     
-    convenience init(P12FilePath: String, passphrase: String) throws {
-        let data = try Data(contentsOf: URL(fileURLWithPath: P12FilePath))
+    convenience init(P12Data: Data, passphrase: String) throws {
         let options = [kSecImportExportPassphrase as String: passphrase] as CFDictionary
         var reval: CFArray?
         guard
-            SecPKCS12Import(data as CFData, options, &reval) == errSecSuccess,
+            SecPKCS12Import(P12Data as CFData, options, &reval) == errSecSuccess,
             let items = reval, CFArrayGetCount(items) > 0 else {
                 throw NSError(domain: "APNs", code: -1, userInfo: [:])
         }
@@ -224,12 +249,23 @@ private class CertificateBasedProvider: APNs.Provider {
         self.init(identity: identity, certificate: certificate)
     }
     
-    init(identity: SecIdentity, certificate: SecCertificate) {
+    private init(identity: SecIdentity, certificate: SecCertificate) {
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 10
         let delegate = _URLSessionDelegate(identity: identity, certificate: certificate)
         self._sessionDelegate = delegate
         self._session = URLSession(configuration: .default, delegate: delegate, delegateQueue: queue)
         self._queue = queue
+    }
+}
+
+extension URL {
+    
+    public func readFile<R>(execute: (URL) throws -> R) throws -> R {
+        _ = self.startAccessingSecurityScopedResource()
+        defer {
+            self.stopAccessingSecurityScopedResource()
+        }
+        return try execute(self)
     }
 }

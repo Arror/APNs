@@ -10,7 +10,11 @@ import Foundation
 
 public final class AppService {
     
-    init() {
-        
+    public static let current: AppService = AppService()
+    
+    public let environment: AppEnvironment
+    
+    private init() {
+        self.environment = AppEnvironment(identifier: .production)
     }
 }

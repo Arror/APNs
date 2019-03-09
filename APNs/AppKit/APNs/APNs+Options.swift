@@ -14,12 +14,10 @@ extension APNs {
         
         public let expiration: UInt
         public let priority: UInt
-        public let topic: Optional<String>
         
-        public init(expiration: UInt = 0, priority: UInt = 10, topic: Optional<String> = .none) {
+        public init(expiration: UInt = 0, priority: UInt = 10) {
             self.expiration = expiration
             self.priority = priority
-            self.topic = topic
         }
         
         public static let `default` = APNs.Options()

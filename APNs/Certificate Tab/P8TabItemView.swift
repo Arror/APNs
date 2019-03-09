@@ -10,10 +10,11 @@ import AppKit
 
 public class P8TabItemView: CertificateTabItemView {
     
-    private var certURL: Optional<URL> = .none
-    private var teamID: Optional<String> = .none
-    private var keyID: Optional<String> = .none
-    private var topicID: Optional<String> = .none
+    private var cerData: Optional<Data> = .none
+    private var cerName: String = ""
+    private var teamID: String = ""
+    private var keyID: String = ""
+    private var topic: String = ""
     
     @IBOutlet weak var certLabel: TappedLabel!
     @IBOutlet weak var teamLabel: TappedLabel!
@@ -29,8 +30,9 @@ public class P8TabItemView: CertificateTabItemView {
             }
             NSOpenPanel.chooseCertificateFile(type: "p8", from: window) { result in
                 switch result {
-                case .some(let value):
-                    self.certURL = value
+                case .some(let pair):
+                    self.cerData = pair.1
+                    self.cerName = pair.0.lastPathComponent
                     self.updateViews()
                 case .none:
                     break
@@ -65,7 +67,7 @@ public class P8TabItemView: CertificateTabItemView {
             let vc = InputSheetViewController.makeViewController(title: "Bundle ID", initialValue: self.topicLabel.stringValue) { result in
                 switch result {
                 case .some(let value):
-                    self.topicID = value
+                    self.topic = value
                     self.updateViews()
                 case .none:
                     break
@@ -76,24 +78,17 @@ public class P8TabItemView: CertificateTabItemView {
     }
     
     private func updateViews() {
-        self.certLabel.stringValue = self.certURL.flatMap { $0.lastPathComponent } ?? ""
-        self.teamLabel.stringValue = self.teamID ?? ""
-        self.keyLabel.stringValue = self.keyID ?? ""
-        self.topicLabel.stringValue = self.topicID ?? ""
+        self.certLabel.stringValue = self.cerName
+        self.teamLabel.stringValue = self.teamID
+        self.keyLabel.stringValue = self.keyID
+        self.topicLabel.stringValue = self.topic
     }
     
-    public override func makeProvider() -> Optional<APNs.Provider> {
+    public override var certificate: Optional<APNs.Certificate> {
         guard
-            let url = self.certURL,
-            let teamIDString = self.teamID, !teamIDString.isEmpty,
-            let keyIDString = self.keyID, !keyIDString.isEmpty,
-            let topicString = self.topicID, !topicString.isEmpty else {
+            !self.teamID.isEmpty, !self.keyID.isEmpty, !self.topic.isEmpty else {
                 return .none
         }
-        do {
-            return try APNs.makeProvider(certificate: .p8(filePath: url.absoluteString, teamID: teamIDString, keyID: keyIDString))
-        } catch {
-            return .none
-        }
+        return self.cerData.flatMap { .p8(data: $0, teamID: self.teamID, keyID: self.keyID, topic: self.topic) }
     }
 }

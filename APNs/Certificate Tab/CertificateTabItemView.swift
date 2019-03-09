@@ -10,7 +10,7 @@ import AppKit
 
 public class CertificateTabItemView: NSView {
     
-    public func makeProvider() -> Optional<APNs.Provider> {
+    public var certificate: Optional<APNs.Certificate> {
         return .none
     }
 }

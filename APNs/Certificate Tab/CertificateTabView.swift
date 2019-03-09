@@ -10,11 +10,11 @@ import AppKit
 
 public class CertificateTabView: NSTabView {
     
-    public func makeProvider() -> Optional<APNs.Provider> {
+    public var certificate: Optional<APNs.Certificate> {
         guard
             let view = self.selectedTabViewItem?.view as? CertificateTabItemView else {
                 return .none
         }
-        return view.makeProvider()
+        return view.certificate
     }
 }
