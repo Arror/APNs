@@ -120,7 +120,10 @@ extension APNs {
                 if let err = error {
                     throw err
                 }
-                let httpResponse = response as! HTTPURLResponse
+                guard
+                    let httpResponse = response as? HTTPURLResponse else {
+                        throw NSError(domain: "APNs", code: -1, userInfo: [NSLocalizedDescriptionKey: "No response."])
+                }
                 if httpResponse.statusCode == 200 {
                      self = .success
                 } else {
