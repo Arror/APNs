@@ -105,7 +105,7 @@ extension APNs {
             case .shutdown:
                 return "The APNs server is shutting down."
             case .other:
-                return "Unknown error."
+                return "Other error."
             }
         }
     }
@@ -117,6 +117,9 @@ extension APNs {
         
         public init(response: URLResponse?, data: Data?, error: Swift.Error?) {
             do {
+                if let err = error {
+                    throw err
+                }
                 let httpResponse = response as! HTTPURLResponse
                 if httpResponse.statusCode == 200 {
                      self = .success
