@@ -92,6 +92,31 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Window" id="Wwv-kf-EXd">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Window" systemMenu="window" id="gDY-71-47Z">
+                                    <items>
+                                        <menuItem title="Minimize" keyEquivalent="m" id="7sG-EK-ZRr">
+                                            <connections>
+                                                <action selector="performMiniaturize:" target="Ady-hI-5gd" id="Wvz-s6-XH5"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Zoom" id="idv-5W-kS4">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="performZoom:" target="Ady-hI-5gd" id="9sd-A0-LTl"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="QN7-hg-qeE"/>
+                                        <menuItem title="Bring All to Front" id="WBi-Cv-Ldk">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="arrangeInFront:" target="Ady-hI-5gd" id="qQa-Bf-qa3"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                         </items>
                     </menu>
                     <connections>
@@ -463,7 +488,7 @@
                                                     <rect key="frame" x="0.0" y="33" width="234" height="277"/>
                                                     <clipView key="contentView" id="u1t-H9-sBR">
                                                         <rect key="frame" x="1" y="0.0" width="232" height="276"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="42" rowSizeStyle="automatic" headerView="t5d-Ty-xwb" viewBased="YES" id="hCN-0e-9xD">
                                                                 <rect key="frame" x="0.0" y="0.0" width="503" height="251"/>
