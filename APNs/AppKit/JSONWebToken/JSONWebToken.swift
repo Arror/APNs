@@ -76,7 +76,7 @@ public struct JSONWebToken: Codable {
         let digestString = try self.digestString()
         guard
             let digest = digestString.data(using: .utf8) else {
-                throw NSError(domain: "APNs", code: -1, userInfo: [NSLocalizedDescriptionKey: "Digest string convert to data failed"])
+                throw NSError.makeMessageError(message: "Digest string convert to data failed")
         }
         return "\(digestString).\(try es256.sign(data: digest).base64URLEncodedString())"
     }

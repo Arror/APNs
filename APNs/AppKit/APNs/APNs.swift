@@ -144,7 +144,7 @@ private final class TokenController {
     init(teamID: String, keyID: String, P8Data: Data) throws {
         guard
             let P8KeyString = String(data: P8Data, encoding: .utf8) else {
-                throw NSError(domain: "APNs", code: -1, userInfo: [NSLocalizedDescriptionKey: "Read .p8 file data failed."])
+                throw NSError.makeMessageError(message: "Read .p8 file data failed.")
         }
         self.es256 = try ES256(P8String: P8KeyString)
         self.keyID = keyID
@@ -220,14 +220,14 @@ private class CertificateBasedProvider: APNs.Provider {
     convenience init(cerData: Data) throws {
         guard
             let certificate = SecCertificateCreateWithData(kCFAllocatorDefault, cerData as CFData) else {
-                throw NSError(domain: "APNs", code: -1, userInfo: [NSLocalizedDescriptionKey: "Certificate create failed."])
+                throw NSError.makeMessageError(message: "Certificate create failed.")
         }
         var reval: SecIdentity? = nil
         
         guard
             SecIdentityCreateWithCertificate(nil, certificate, &reval) == errSecSuccess,
             let identify = reval else {
-                throw NSError(domain: "APNs", code: -1, userInfo: [NSLocalizedDescriptionKey: "Identity create failed."])
+                throw NSError.makeMessageError(message: "Identity create failed.")
         }
         self.init(identity: identify, certificate: certificate)
     }
@@ -238,7 +238,7 @@ private class CertificateBasedProvider: APNs.Provider {
         guard
             SecPKCS12Import(P12Data as CFData, options, &reval) == errSecSuccess,
             let items = reval, CFArrayGetCount(items) > 0 else {
-                throw NSError(domain: "APNs", code: -1, userInfo: [:])
+                throw NSError.makeMessageError(message: "Generate P12 Certificate failed.")
         }
         let identity = (items as [AnyObject])[0][kSecImportItemIdentity as String] as! SecIdentity
         let certificate: SecCertificate = {
@@ -258,3 +258,11 @@ private class CertificateBasedProvider: APNs.Provider {
         self._queue = queue
     }
 }
+
+extension NSError {
+    
+    static func makeMessageError(message: String) -> NSError {
+        return NSError(domain: "APNs", code: -1, userInfo: [NSLocalizedDescriptionKey: message])
+    }
+}
+
