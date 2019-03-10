@@ -258,14 +258,3 @@ private class CertificateBasedProvider: APNs.Provider {
         self._queue = queue
     }
 }
-
-extension URL {
-    
-    public func readFile<R>(execute: (URL) throws -> R) throws -> R {
-        _ = self.startAccessingSecurityScopedResource()
-        defer {
-            self.stopAccessingSecurityScopedResource()
-        }
-        return try execute(self)
-    }
-}
