@@ -10,13 +10,28 @@ import AppKit
 
 public class CerTabItemView: CertificateTabItemView {
     
-    private var cerData: Optional<Data> = .none
-    private var cerName: String = ""
+    private struct Info: Codable {
+        
+        var cerData: Optional<Data> = .none
+        var cerName: String = ""
+        
+        init() {}
+    }
+    
+    private var info = Info()
+    
+    private let storageKey = "p12.info"
     
     @IBOutlet weak var certLabel: TappedLabel!
     
     public override func awakeFromNib() {
         super.awakeFromNib()
+        do {
+            self.info = try AppUser.current.storage.item(for: self.storageKey) ?? Info()
+        } catch {
+            AppService.current.logger.log(level: .error, message: error.localizedDescription)
+        }
+        self.updateViews()
         self.certLabel.tapped = { _ in
             guard
                 let window = self.window else {
@@ -25,8 +40,8 @@ public class CerTabItemView: CertificateTabItemView {
             NSOpenPanel.chooseCertificateFile(type: "cer", from: window) { result in
                 switch result {
                 case .some(let pair):
-                    self.cerData = pair.1
-                    self.cerName = pair.0.lastPathComponent
+                    self.info.cerData = pair.1
+                    self.info.cerName = pair.0.lastPathComponent
                     self.updateViews()
                 case .none:
                     break
@@ -36,10 +51,18 @@ public class CerTabItemView: CertificateTabItemView {
     }
     
     private func updateViews() {
-        self.certLabel.stringValue = self.cerName
+        self.certLabel.stringValue = self.info.cerName
+    }
+    
+    private func updateStorage() {
+        do {
+            try AppUser.current.storage.set(item: self.info, for: self.storageKey)
+        } catch {
+            AppService.current.logger.log(level: .error, message: error.localizedDescription)
+        }
     }
     
     public override var certificate: Optional<APNs.Certificate> {
-        return self.cerData.flatMap { .cer(name: self.cerName, data: $0) }
+        return self.info.cerData.flatMap { .cer(data: $0) }
     }
 }

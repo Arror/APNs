@@ -26,18 +26,18 @@ public enum APNs {
     
     public enum Certificate: Equatable {
         
-        case cer(name: String, data: Data)
-        case p12(name: String, data: Data, passphrase: String)
-        case p8(name: String, data: Data, teamID: String, keyID: String, topic: String)
+        case cer(data: Data)
+        case p12(data: Data, passphrase: String)
+        case p8(data: Data, teamID: String, keyID: String, topic: String)
         
         public static func ==(lhs: Certificate, rhs: Certificate) -> Bool {
             switch (lhs, rhs) {
             case let (.cer(l), .cer(r)):
-                return (l.name == r.name) && (l.data == r.data)
+                return l == r
             case let (.p12(l), .p12(r)):
-                return (l.name == r.name) && (l.data == r.data) && (l.passphrase == r.passphrase)
+                return (l.data == r.data) && (l.passphrase == r.passphrase)
             case let (.p8(l), .p8(r)):
-                return (l.name == r.name) && (l.data == r.data) && (l.teamID == r.teamID) && (l.keyID == r.keyID)
+                return (l.data == r.data) && (l.teamID == r.teamID) && (l.keyID == r.keyID)
             default:
                 return false
             }
@@ -46,11 +46,11 @@ public enum APNs {
     
     public static func makeProvider(certificate: Certificate) throws -> Provider {
         switch certificate {
-        case .cer(_, let data):
+        case .cer(let data):
             return try CertificateBasedProvider(cerData: data)
-        case .p12(_, let data, let passphrase):
+        case .p12(let data, let passphrase):
             return try CertificateBasedProvider(P12Data: data, passphrase: passphrase)
-        case .p8(_, let data, let teamID, let keyID, let topic):
+        case .p8(let data, let teamID, let keyID, let topic):
             return try TokenBasedProvider(P8Data: data, teamID: teamID, keyID: keyID, topic: topic)
         }
     }
