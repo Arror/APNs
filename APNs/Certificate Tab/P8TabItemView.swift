@@ -89,6 +89,6 @@ public class P8TabItemView: CertificateTabItemView {
             !self.teamID.isEmpty, !self.keyID.isEmpty, !self.topic.isEmpty else {
                 return .none
         }
-        return self.cerData.flatMap { .p8(data: $0, teamID: self.teamID, keyID: self.keyID, topic: self.topic) }
+        return self.cerData.flatMap { .p8(name: self.cerName, data: $0, teamID: self.teamID, keyID: self.keyID, topic: self.topic) }
     }
 }

@@ -40,6 +40,6 @@ public class CerTabItemView: CertificateTabItemView {
     }
     
     public override var certificate: Optional<APNs.Certificate> {
-        return self.cerData.flatMap { .cer(data: $0) }
+        return self.cerData.flatMap { .cer(name: self.cerName, data: $0) }
     }
 }

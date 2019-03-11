@@ -55,6 +55,6 @@ public class P12TabItemView: CertificateTabItemView {
     }
     
     public override var certificate: Optional<APNs.Certificate> {
-        return self.cerData.flatMap { .p12(data: $0, passphrase: self.passphrase) }
+        return self.cerData.flatMap { .p12(name: self.cerName, data: $0, passphrase: self.passphrase) }
     }
 }
