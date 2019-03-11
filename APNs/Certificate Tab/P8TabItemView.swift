@@ -10,19 +10,34 @@ import AppKit
 
 public class P8TabItemView: CertificateTabItemView {
     
-    private var cerData: Optional<Data> = .none
-    private var cerName: String = ""
-    private var teamID: String = ""
-    private var keyID: String = ""
-    private var topic: String = ""
+    private struct Info: Codable {
+        
+        var cerData: Optional<Data> = .none
+        var cerName: String = ""
+        var teamID: String = ""
+        var keyID: String = ""
+        var topic: String = ""
+        
+        init() {}
+    }
+    
+    private var info = Info()
     
     @IBOutlet weak var certLabel: TappedLabel!
     @IBOutlet weak var teamLabel: TappedLabel!
     @IBOutlet weak var keyLabel: TappedLabel!
     @IBOutlet weak var topicLabel: TappedLabel!
     
+    private let storageKey = "p8.info"
+    
     public override func awakeFromNib() {
         super.awakeFromNib()
+        do {
+            self.info = try AppUser.current.storage.item(for: self.storageKey) ?? Info()
+        } catch {
+            AppService.current.logger.log(level: .error, message: error.localizedDescription)
+        }
+        self.updateViews()
         self.certLabel.tapped = { _ in
             guard
                 let window = self.window else {
@@ -31,9 +46,10 @@ public class P8TabItemView: CertificateTabItemView {
             NSOpenPanel.chooseCertificateFile(type: "p8", from: window) { result in
                 switch result {
                 case .some(let pair):
-                    self.cerData = pair.1
-                    self.cerName = pair.0.lastPathComponent
+                    self.info.cerData = pair.1
+                    self.info.cerName = pair.0.lastPathComponent
                     self.updateViews()
+                    self.updateStorage()
                 case .none:
                     break
                 }
@@ -43,8 +59,9 @@ public class P8TabItemView: CertificateTabItemView {
             let vc = InputSheetViewController.makeViewController(title: "Team ID", initialValue: self.teamLabel.stringValue) { result in
                 switch result {
                 case .some(let value):
-                    self.teamID = value
+                    self.info.teamID = value
                     self.updateViews()
+                    self.updateStorage()
                 case .none:
                     break
                 }
@@ -55,8 +72,9 @@ public class P8TabItemView: CertificateTabItemView {
             let vc = InputSheetViewController.makeViewController(title: "Key ID", initialValue: self.keyLabel.stringValue) { result in
                 switch result {
                 case .some(let value):
-                    self.keyID = value
+                    self.info.keyID = value
                     self.updateViews()
+                    self.updateStorage()
                 case .none:
                     break
                 }
@@ -67,8 +85,9 @@ public class P8TabItemView: CertificateTabItemView {
             let vc = InputSheetViewController.makeViewController(title: "Bundle ID", initialValue: self.topicLabel.stringValue) { result in
                 switch result {
                 case .some(let value):
-                    self.topic = value
+                    self.info.topic = value
                     self.updateViews()
+                    self.updateStorage()
                 case .none:
                     break
                 }
@@ -78,17 +97,25 @@ public class P8TabItemView: CertificateTabItemView {
     }
     
     private func updateViews() {
-        self.certLabel.stringValue = self.cerName
-        self.teamLabel.stringValue = self.teamID
-        self.keyLabel.stringValue = self.keyID
-        self.topicLabel.stringValue = self.topic
+        self.certLabel.stringValue = self.info.cerName
+        self.teamLabel.stringValue = self.info.teamID
+        self.keyLabel.stringValue = self.info.keyID
+        self.topicLabel.stringValue = self.info.topic
+    }
+    
+    private func updateStorage() {
+        do {
+            try AppUser.current.storage.set(item: self.info, for: self.storageKey)
+        } catch {
+            AppService.current.logger.log(level: .error, message: error.localizedDescription)
+        }
     }
     
     public override var certificate: Optional<APNs.Certificate> {
         guard
-            !self.teamID.isEmpty, !self.keyID.isEmpty, !self.topic.isEmpty else {
+            !self.info.teamID.isEmpty, !self.info.keyID.isEmpty, !self.info.topic.isEmpty else {
                 return .none
         }
-        return self.cerData.flatMap { .p8(data: $0, teamID: self.teamID, keyID: self.keyID, topic: self.topic) }
+        return self.info.cerData.flatMap { .p8(data: $0, teamID: self.info.teamID, keyID: self.info.keyID, topic: self.info.topic) }
     }
 }

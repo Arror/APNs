@@ -164,7 +164,6 @@ private struct ASN1 {
             data.count >= 2 else {
                 return (.unknown, data.count)
         }
-        
         switch data[0] {
         case 0x30:
             let (length, lengthOfLength) = readLength(data: data.advanced(by: 1))
@@ -178,7 +177,6 @@ private struct ASN1 {
                 alreadyRead += l
             }
             return (.seq(elements: result), 1 + lengthOfLength + length)
-            
         case 0x02:
             let (length, lengthOfLength) = readLength(data: data.advanced(by: 1))
             if length < 8 {
@@ -190,8 +188,6 @@ private struct ASN1 {
                 return (.integer(int: result), 1 + lengthOfLength + length)
             }
             return (.bytes(data: data.subdata(in: (1 + lengthOfLength) ..< (1 + lengthOfLength + length))), 1 + lengthOfLength + length)
-            
-            
         case let s where (s & 0xe0) == 0xa0:
             let tag = Int(s & 0x1f)
             let (length, lengthOfLength) = readLength(data: data.advanced(by: 1))

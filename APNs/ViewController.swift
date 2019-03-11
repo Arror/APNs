@@ -51,20 +51,20 @@ class ViewController: NSViewController {
             let tokenPair = self.tokenTab.tokenPair
             guard
                 !tokenPair.1.isEmpty else {
-                    throw APNs.makeError(message: "No Token")
+                    throw NSError.makeMessageError(message: "No Token")
             }
             guard
                 let payload = self.jsonTextView.string.data(using: .utf8) else {
-                    throw APNs.makeError(message: "Payload error")
+                    throw NSError.makeMessageError(message: "Payload error")
             }
             guard
                 let cert = self.certTab.certificate else {
-                    throw APNs.makeError(message: "Certificate info error")
+                    throw NSError.makeMessageError(message: "Certificate info error")
             }
-            try AppEnvironment.current.updateProvider(withCertificate: cert)
+            try AppUser.current.updateProvider(withCertificate: cert)
             guard
-                let provider = AppEnvironment.current.provider else {
-                    throw APNs.makeError(message: "Provider error")
+                let provider = AppUser.current.provider else {
+                    throw NSError.makeMessageError(message: "Provider error")
             }
             let server = tokenPair.0
             tokenPair.1.forEach { token in
@@ -89,12 +89,5 @@ class ViewController: NSViewController {
         } catch {
             AppService.current.logger.log(level: .error, message: error.localizedDescription)
         }
-    }
-}
-
-extension APNs {
-    
-    static func makeError(message: String) -> NSError {
-        return NSError(domain: "APNs", code: -1, userInfo: [NSLocalizedDescriptionKey: message])
     }
 }
