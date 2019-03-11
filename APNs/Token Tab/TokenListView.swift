@@ -10,14 +10,12 @@ import AppKit
 
 public class TokenListView: NSView {
     
-    public let controller = TokenListController()
-    
-    public var tokenInfo: (APNs.Server, [String]) {
-        return (self.server, self.controller.tokens)
+    public var controller: TokenListController {
+        fatalError()
     }
     
-    public var server: APNs.Server {
-        fatalError()
+    public var tokenInfo: (APNs.Server, [String]) {
+        return (self.controller.server, self.controller.tokens)
     }
     
     public func addToken(completion: @escaping () -> Void) {

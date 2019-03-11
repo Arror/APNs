@@ -10,9 +10,11 @@ import AppKit
 
 public class SandboxTokenListView: TokenListView, NSTableViewDelegate, NSTableViewDataSource {
     
-    public override var server: APNs.Server {
-        return .sandbox
+    public override var controller: TokenListController {
+        return self._controller
     }
+    
+    private let _controller = TokenListController(server: .sandbox)
     
     @IBOutlet weak var tableView: NSTableView!
     
@@ -20,6 +22,7 @@ public class SandboxTokenListView: TokenListView, NSTableViewDelegate, NSTableVi
         super.awakeFromNib()
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.reloadData()
     }
     
     public func numberOfRows(in tableView: NSTableView) -> Int {

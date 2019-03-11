@@ -10,7 +10,7 @@ import Foundation
 
 public enum APNs {
     
-    public enum Server {
+    public enum Server: String {
         
         case sandbox, production
         

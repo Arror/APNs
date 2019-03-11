@@ -11,8 +11,20 @@ import Foundation
 public class TokenListController {
     
     public private(set) var tokens: [String] = []
+    public let server: APNs.Server
     
-    public init() {}
+    private var srotageKey: String {
+        return "\(self.server.rawValue).tokens".lowercased()
+    }
+    
+    public init(server: APNs.Server) {
+        self.server = server
+        do {
+            self.tokens = try AppUser.current.storage.item(for: self.srotageKey) ?? []
+        } catch {
+            self.tokens = []
+        }
+    }
     
     @discardableResult
     public func add(token: String) -> Bool {
@@ -20,7 +32,16 @@ public class TokenListController {
             return false
         } else {
             self.tokens.append(token)
+            self.updateStorage()
             return true
+        }
+    }
+    
+    private func updateStorage() {
+        do {
+            try AppUser.current.storage.set(item: self.tokens, for: self.srotageKey)
+        } catch {
+            AppService.current.logger.log(level: .error, message: error.localizedDescription)
         }
     }
     
@@ -28,6 +49,7 @@ public class TokenListController {
     public func delete(token: String) -> Bool {
         if let idx = self.tokens.firstIndex(of: token) {
             self.tokens.remove(at: idx)
+            self.updateStorage()
             return true
         } else {
             return false
