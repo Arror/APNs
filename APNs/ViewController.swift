@@ -61,9 +61,9 @@ class ViewController: NSViewController {
                 let cert = self.certTab.certificate else {
                     throw NSError.makeMessageError(message: "Certificate info error")
             }
-            try AppEnvironment.current.updateProvider(withCertificate: cert)
+            try AppUser.current.updateProvider(withCertificate: cert)
             guard
-                let provider = AppEnvironment.current.provider else {
+                let provider = AppUser.current.provider else {
                     throw NSError.makeMessageError(message: "Provider error")
             }
             let server = tokenPair.0
