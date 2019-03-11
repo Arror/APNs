@@ -20,7 +20,7 @@ public class CerTabItemView: CertificateTabItemView {
     
     private var info = Info()
     
-    private let storageKey = "p12.info"
+    private let storageKey = "cer.info"
     
     @IBOutlet weak var certLabel: TappedLabel!
     
@@ -43,6 +43,7 @@ public class CerTabItemView: CertificateTabItemView {
                     self.info.cerData = pair.1
                     self.info.cerName = pair.0.lastPathComponent
                     self.updateViews()
+                    self.updateStorage()
                 case .none:
                     break
                 }

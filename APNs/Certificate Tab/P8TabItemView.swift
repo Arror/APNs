@@ -49,6 +49,7 @@ public class P8TabItemView: CertificateTabItemView {
                     self.info.cerData = pair.1
                     self.info.cerName = pair.0.lastPathComponent
                     self.updateViews()
+                    self.updateStorage()
                 case .none:
                     break
                 }
@@ -60,6 +61,7 @@ public class P8TabItemView: CertificateTabItemView {
                 case .some(let value):
                     self.info.teamID = value
                     self.updateViews()
+                    self.updateStorage()
                 case .none:
                     break
                 }
@@ -72,6 +74,7 @@ public class P8TabItemView: CertificateTabItemView {
                 case .some(let value):
                     self.info.keyID = value
                     self.updateViews()
+                    self.updateStorage()
                 case .none:
                     break
                 }
@@ -84,6 +87,7 @@ public class P8TabItemView: CertificateTabItemView {
                 case .some(let value):
                     self.info.topic = value
                     self.updateViews()
+                    self.updateStorage()
                 case .none:
                     break
                 }
