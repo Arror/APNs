@@ -1,5 +1,5 @@
 //
-//  MainWindow.swift
+//  Window.swift
 //  APNsFlutter
 //
 //  Created by Arror on 2019/3/14.
@@ -9,7 +9,7 @@
 import Cocoa
 import FlutterMacOS
 
-class MainWindow: NSWindow {
+class Window: NSWindow {
     
     @IBOutlet weak var flutterViewController: FLEViewController!
     
