@@ -1,3 +1,11 @@
+//
+//  AppDelegate.swift
+//  APNsFlutter
+//
+//  Created by Arror on 2019/3/14.
+//  Copyright © 2019 Arror. All rights reserved.
+//
+
 import Cocoa
 
 @NSApplicationMain
