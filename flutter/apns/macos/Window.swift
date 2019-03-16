@@ -11,7 +11,7 @@ import FlutterMacOS
 
 class Window: NSWindow {
     
-    @IBOutlet weak var flutterViewController: FLEViewController!
+    @IBOutlet weak var flutter: FLEViewController!
     
     override func awakeFromNib() {
         let assets = URL(fileURLWithPath: "flutter_assets", relativeTo: Bundle.main.resourceURL)
@@ -22,7 +22,7 @@ class Window: NSWindow {
             return []
             #endif
         }()
-        self.flutterViewController.launchEngine(withAssetsPath: assets, commandLineArguments: arguments)
+        self.flutter.launchEngine(withAssetsPath: assets, commandLineArguments: arguments)
         super.awakeFromNib()
     }
 }

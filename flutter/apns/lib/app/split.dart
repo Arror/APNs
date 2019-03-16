@@ -15,6 +15,10 @@ class Split extends StatelessWidget {
           flex: 1,
           child: this.left,
         ),
+        Container(
+          width: 0.1,
+          color: Colors.grey,
+        ),
         Expanded(
           flex: 2,
           child: this.right,
