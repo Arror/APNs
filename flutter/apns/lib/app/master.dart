@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'server_card.dart';
 
 class Master extends StatelessWidget {
 
@@ -63,6 +64,7 @@ class APNsBody extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return ServerCard(
                   name: 'Arror Sever Provider',
+                  isSelected: index % 2 == 0,
                   editTapped: () {
 
                   },
@@ -114,91 +116,6 @@ class APNsBody extends StatelessWidget {
             ),
           )
         ],
-      ),
-    );
-  }
-}
-
-class ServerCard extends StatelessWidget {
-
-  ServerCard({Key key, @required this.name, this.editTapped, this.deleteTapped}) : super(key:key);
-
-  final String name;
-  final VoidCallback editTapped;
-  final VoidCallback deleteTapped;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(8.0),
-      child: Card(
-        child: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Radio(
-                  value: true,
-                  groupValue: true,
-                  onChanged: (bool changed) {
-
-                  },
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 12.0),
-                    child: Text(
-                      this.name,
-                      style: TextStyle(
-                        fontFamily: 'PingFang-SC',
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black54,
-                      ),
-                      softWrap: false,
-                      overflow: TextOverflow.fade,
-                    ),
-                  ),
-                )
-              ],
-            ),
-            Container(
-              padding: EdgeInsets.only(left: 100.0, right: 12.0),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 1,
-                    child: FlatButton(
-                      child: Text(
-                        '编辑',
-                        style: TextStyle(
-                          fontFamily: 'PingFang-SC',
-                          fontSize: 12.0,
-                          color: Colors.blue
-                        ),
-                      ),
-                      onPressed: this.editTapped,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: FlatButton(
-                      child: Text(
-                        '删除',
-                        style: TextStyle(
-                          fontFamily: 'PingFang-SC',
-                          fontSize: 12.0,
-                          color: Colors.red
-                        ),
-                      ),
-                      onPressed: this.deleteTapped,
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
       ),
     );
   }
