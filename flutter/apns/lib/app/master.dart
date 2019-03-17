@@ -59,40 +59,16 @@ class APNsBody extends StatelessWidget {
           Expanded(
             flex: 1,
             child: ListView.builder(
+              padding: EdgeInsets.only(top: 4.0, bottom: 4.0),
               itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  margin: EdgeInsets.only(left: 12.0, top: 4.0, right: 12.0, bottom: 4.0),
-                  child: Container(
-                    padding: EdgeInsets.all(4.0),
-                    child: Row(
-                      children: <Widget>[
-                        Radio(
-                          value: '$index',
-                          groupValue: '$index',
-                          onChanged: (String newVlaue) {
-                            print(index);
-                          },
-                        ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text('Item $index'),
-                              Text('Type $index')
-                            ],
-                          ),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.delete),
-                          color: Colors.grey,
-                          onPressed: () {
-                            print(index);
-                          },
-                        )
-                      ],
-                    ),
-                  ),
+                return ServerCard(
+                  name: 'Arror Sever Provider',
+                  editTapped: () {
+
+                  },
+                  deleteTapped: () {
+
+                  },
                 );
               },
               itemCount: 10,
@@ -138,6 +114,91 @@ class APNsBody extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class ServerCard extends StatelessWidget {
+
+  ServerCard({Key key, @required this.name, this.editTapped, this.deleteTapped}) : super(key:key);
+
+  final String name;
+  final VoidCallback editTapped;
+  final VoidCallback deleteTapped;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      child: Card(
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Radio(
+                  value: true,
+                  groupValue: true,
+                  onChanged: (bool changed) {
+
+                  },
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 12.0),
+                    child: Text(
+                      this.name,
+                      style: TextStyle(
+                        fontFamily: 'PingFang-SC',
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black54,
+                      ),
+                      softWrap: false,
+                      overflow: TextOverflow.fade,
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Container(
+              padding: EdgeInsets.only(left: 100.0, right: 12.0),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    flex: 1,
+                    child: FlatButton(
+                      child: Text(
+                        '编辑',
+                        style: TextStyle(
+                          fontFamily: 'PingFang-SC',
+                          fontSize: 12.0,
+                          color: Colors.blue
+                        ),
+                      ),
+                      onPressed: this.editTapped,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: FlatButton(
+                      child: Text(
+                        '删除',
+                        style: TextStyle(
+                          fontFamily: 'PingFang-SC',
+                          fontSize: 12.0,
+                          color: Colors.red
+                        ),
+                      ),
+                      onPressed: this.deleteTapped,
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
