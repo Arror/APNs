@@ -16,10 +16,10 @@ class Window: NSWindow {
     override func awakeFromNib() {
         let assets = URL(fileURLWithPath: "flutter_assets", relativeTo: Bundle.main.resourceURL)
         let arguments: [String] = {
-            #if !DEBUG
-            return ["--disable-dart-asserts"]
-            #else
+            #if DEBUG
             return ["--observatory-port=49494"]
+            #else
+            return ["--disable-dart-asserts"]
             #endif
         }()
         self.flutter.launchEngine(withAssetsPath: assets, commandLineArguments: arguments)
