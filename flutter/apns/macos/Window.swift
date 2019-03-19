@@ -19,7 +19,7 @@ class Window: NSWindow {
             #if !DEBUG
             return ["--disable-dart-asserts"]
             #else
-            return []
+            return ["--observatory-port=49494"]
             #endif
         }()
         self.flutter.launchEngine(withAssetsPath: assets, commandLineArguments: arguments)
