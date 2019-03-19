@@ -39,7 +39,7 @@ class _DetailState extends State<Detail> {
                       Expanded(
                         flex: 1,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 12.0),
+                          padding: const EdgeInsets.only(left: 12.0, right: 12.0),
                           child: Text(
                             'Production',
                             style: TextStyle(
@@ -62,28 +62,37 @@ class _DetailState extends State<Detail> {
                 ),
               ),
             ),
-            Container(
-              color: Colors.white,
-              constraints: BoxConstraints(
-                minWidth: double.infinity,
-                maxWidth: double.infinity,
-                minHeight: 160.0,
-                maxHeight: 160.0
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(12.0),
-                child: Container(
-                  color: Colors.grey[50],
-                ),
-              ),
-            ),
             Expanded(
               child: Container(
                 color: Colors.white,
+                constraints: BoxConstraints(
+                  minWidth: double.infinity,
+                  maxWidth: double.infinity,
+                  minHeight: double.infinity,
+                  maxHeight: double.infinity
+                ),
                 child: Padding(
-                  padding: EdgeInsets.only(left: 12.0, right: 12.0),
+                  padding: EdgeInsets.only(left: 12.0, top: 12.0, right: 12.0),
                   child: Container(
                     color: Colors.grey[50],
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              color: Colors.white,
+              child: Padding(
+                padding: EdgeInsets.only(left: 12.0, top: 12.0, right: 12.0),
+                child: Container(
+                  color: Colors.grey[50],
+                  child: TextFormField(
+                      decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.zero,
+                      ),
+                      labelText: 'Notification',
+                    ),
+                    maxLines: 8,
                   ),
                 ),
               ),
@@ -100,6 +109,20 @@ class _DetailState extends State<Detail> {
                 padding: EdgeInsets.all(12.0),
                 child: Container(
                   color: Colors.grey[50],
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Text(
+                            '[2019 12-31 09:12] $index'
+                          ),
+                        );
+                      },
+                      itemCount: 100,
+                    ),
+                  ),
                 ),
               ),
             )
