@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'const.dart';
 
 class Detail extends StatefulWidget {
 
@@ -86,9 +87,10 @@ class _DetailState extends State<Detail> {
                 child: Container(
                   color: Colors.grey[50],
                   child: TextFormField(
-                      decoration: InputDecoration(
+                    initialValue: message,
+                    decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.zero,
+                        borderRadius: BorderRadius.circular(4.0),
                       ),
                       labelText: 'Notification',
                     ),
