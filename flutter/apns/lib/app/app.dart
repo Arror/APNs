@@ -3,6 +3,7 @@ import 'split.dart';
 import 'master.dart';
 import 'detail.dart';
 
+
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

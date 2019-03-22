@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'const.dart';
+import 'package:apns/app/const/const.dart';
+import 'package:apns/app/detail/environment_swtich.dart';
 
 class Detail extends StatelessWidget {
   @override
@@ -17,7 +18,7 @@ class Detail extends StatelessWidget {
                   maxHeight: 56.0),
               child: Padding(
                 padding: EdgeInsets.only(left: 12.0, top: 12.0, right: 12.0),
-                child: EnvironmentWidget(),
+                child: EnvironmentSwtich(),
               ),
             ),
             Expanded(
@@ -83,33 +84,6 @@ class Detail extends StatelessWidget {
             )
           ],
         ),
-      ),
-    );
-  }
-}
-
-class EnvironmentWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.grey[50],
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 12.0, right: 12.0),
-              child: Text(
-                'Production',
-                style: TextStyle(fontSize: 15.0, color: Colors.black54),
-              ),
-            ),
-          ),
-          Switch(
-            value: true,
-            onChanged: (bool changed) {},
-          )
-        ],
       ),
     );
   }
