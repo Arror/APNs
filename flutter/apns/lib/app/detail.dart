@@ -1,22 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:apns/bloc.dart';
 import 'const.dart';
+import 'app_service.dart';
 
-class Detail extends StatefulWidget {
-
-  @override
-  _DetailState createState() => _DetailState();
-}
-
-class _DetailState extends State<Detail> {
-
-  bool _isProduction;
-
-  @override
-  void initState() {
-    _isProduction = false;
-    super.initState();
-  }
-
+class Detail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,52 +13,23 @@ class _DetailState extends State<Detail> {
             Container(
               color: Colors.white,
               constraints: BoxConstraints(
-                minWidth: double.infinity,
-                maxWidth: double.infinity,
-                minHeight: 56.0,
-                maxHeight: 56.0
-              ),
+                  minWidth: double.infinity,
+                  maxWidth: double.infinity,
+                  minHeight: 56.0,
+                  maxHeight: 56.0),
               child: Padding(
                 padding: EdgeInsets.only(left: 12.0, top: 12.0, right: 12.0),
-                child: Container(
-                  color: Colors.grey[50],
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 12.0, right: 12.0),
-                          child: Text(
-                            'Production',
-                            style: TextStyle(
-                              fontSize: 15.0,
-                              color: Colors.black54
-                            ),
-                          ),
-                        ),
-                      ),
-                      Switch(
-                        value: _isProduction,
-                        onChanged: (bool changed) {
-                          setState(() {
-                            _isProduction = changed;
-                          });
-                        },
-                      )
-                    ],
-                  ),
-                ),
+                child: EnvironmentWidget(),
               ),
             ),
             Expanded(
               child: Container(
                 color: Colors.white,
                 constraints: BoxConstraints(
-                  minWidth: double.infinity,
-                  maxWidth: double.infinity,
-                  minHeight: double.infinity,
-                  maxHeight: double.infinity
-                ),
+                    minWidth: double.infinity,
+                    maxWidth: double.infinity,
+                    minHeight: double.infinity,
+                    maxHeight: double.infinity),
                 child: Padding(
                   padding: EdgeInsets.only(left: 12.0, top: 12.0, right: 12.0),
                   child: Container(
@@ -102,11 +60,10 @@ class _DetailState extends State<Detail> {
             Container(
               color: Colors.white,
               constraints: BoxConstraints(
-                minWidth: double.infinity,
-                maxWidth: double.infinity,
-                minHeight: 120.0,
-                maxHeight: 120.0
-              ),
+                  minWidth: double.infinity,
+                  maxWidth: double.infinity,
+                  minHeight: 120.0,
+                  maxHeight: 120.0),
               child: Padding(
                 padding: EdgeInsets.all(12.0),
                 child: Container(
@@ -117,9 +74,7 @@ class _DetailState extends State<Detail> {
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text(
-                            '[2019 12-31 09:12] $index'
-                          ),
+                          child: Text('[2019 12-31 09:12] $index'),
                         );
                       },
                       itemCount: 100,
@@ -131,6 +86,46 @@ class _DetailState extends State<Detail> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class EnvironmentWidget extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+
+    final appService = BLoCProvider.of<AppService>(context);
+
+    return StreamBuilder(
+      stream: appService.environmentStream,
+      initialData: false,
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+        return Container(
+          color: Colors.grey[50],
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+                  child: Text(
+                    'Production',
+                    style: TextStyle(fontSize: 15.0, color: Colors.black54),
+                  ),
+                ),
+              ),
+              Switch(
+                value: snapshot.data,
+                onChanged: (bool changed) {
+                  appService.environmentChangeSink.add(changed);
+                  print(changed);
+                },
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }
