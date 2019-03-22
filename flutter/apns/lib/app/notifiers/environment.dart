@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 
 class Environment with ChangeNotifier {
-
   bool _isProduction;
   bool get isProduction => _isProduction;
 

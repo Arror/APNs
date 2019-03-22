@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:apns/app/notifiers/environment.dart';
 import 'package:provide/provide.dart';
@@ -21,7 +20,8 @@ class EnvironmentSwtich extends StatelessWidget {
             ),
           ),
           Provide<Environment>(
-            builder: (BuildContext context, Widget child, Environment environment) {
+            builder:
+                (BuildContext context, Widget child, Environment environment) {
               return Switch(
                 value: environment.isProduction,
                 onChanged: (bool changed) {

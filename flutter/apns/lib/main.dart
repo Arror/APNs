@@ -5,12 +5,10 @@ import 'app/notifiers/environment.dart';
 import 'app/app.dart';
 
 void main() {
-
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
 
   final providers = Providers();
-  providers
-    ..provide(Provider.value(Environment()));
+  providers..provide(Provider.value(Environment()));
 
   runApp(ProviderNode(
     providers: providers,

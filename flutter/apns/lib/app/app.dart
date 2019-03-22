@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:apns/app/detail/detail.dart';
 import 'split.dart';
 import 'master.dart';
-import 'detail.dart';
-
 
 class App extends StatelessWidget {
   @override
