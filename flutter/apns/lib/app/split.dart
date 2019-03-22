@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Split extends StatelessWidget {
-
   Split({Key key, @required this.left, @required this.right}) : super(key: key);
 
   final Widget left;
@@ -20,6 +19,6 @@ class Split extends StatelessWidget {
           child: this.right,
         )
       ],
-    ); 
+    );
   }
 }
