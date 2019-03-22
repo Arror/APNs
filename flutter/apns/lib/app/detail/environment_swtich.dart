@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:apns/app/notifiers/environment.dart';
+import 'package:apns/app/models/environment.dart';
 import 'package:provide/provide.dart';
 
 class EnvironmentSwtich extends StatelessWidget {
