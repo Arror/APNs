@@ -1,62 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:provide/provide.dart';
-import 'package:apns/app/models/certificate.dart';
+import 'package:flutter/services.dart';
 
 class Master extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final certificate = Provide.value<Certificate>(context);
+    final _inputController =InputController();
 
     return Scaffold(
         appBar: AppBar(title: Text('APNs Provider')),
-        body: Column(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Team ID',
-                      hintText: '请输入 Team ID',
-                      contentPadding: EdgeInsets.only(bottom: 2.0)
-                    ),
-                    onChanged: (String text) {
-                      certificate.teamID = text;
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Key ID',
-                      hintText: '请输入 Key ID',
-                      contentPadding: EdgeInsets.only(bottom: 2.0)
-                    ),
-                    onChanged: (String text) {
-                      certificate.keyID = text;
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Bundle ID',
-                      hintText: '请输入 Bundle ID',
-                      contentPadding: EdgeInsets.only(bottom: 2.0)
-                    ),
-                    onChanged: (String text) {
-                      certificate.bundleID = text;
-                    },
-                  ),
-                )
-              ],
-            )
-          ],
-        )
+        body: Container(),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () async {
+            final result = await _inputController.presentInputSheet('请输入 Team ID', '');
+            print(result);
+          },
+        ),
     );
+  }
+}
+
+class InputController {
+
+  MethodChannel _channel;
+
+  InputController() {
+    _channel = MethodChannel('com.Arror.APNs.Input');
+  }
+
+  Future<String> presentInputSheet(String title, String initialText) async {
+    try {
+      final parameters = {
+        'title': title,
+        'initialText': initialText
+      };
+      String _value;
+      final List<dynamic> result = await _channel.invokeMethod('showInputSheet', [parameters]);
+      _value = result.first;
+      return Future.value(_value);
+    } on PlatformException catch (e) {
+      return Future.error(e);
+    } 
   }
 }
