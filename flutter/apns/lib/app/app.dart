@@ -19,7 +19,6 @@ class App extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Scaffold(
-              
               ),
             )
           ],
@@ -34,17 +33,37 @@ class ProviderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Container(
         constraints: BoxConstraints.expand(),
         child: Padding(
           padding: EdgeInsets.all(12.0),
           child: Column(
             children: <Widget>[
+              TitleValueWidget(
+                title: 'Certifiate',
+                value: 'SSFSDFSDFS',
+              ),
+              TitleValueWidget(
+                title: 'Team ID',
+                value: 'SSFSDFSDFS',
+              ),
+              TitleValueWidget(
+                title: 'Key ID',
+                value: 'SSFSDFSDFS',
+              ),
+              TitleValueWidget(
+                title: 'Bundle ID',
+                value: 'SSFSDFSDFS',
+              )
             ],
           )
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
         child: Icon(Icons.edit),
         onPressed: () {
           showDialog(
@@ -82,12 +101,12 @@ class ProviderPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 24.0),
+                    padding: EdgeInsets.only(top: 24.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
+                          padding: EdgeInsets.only(right: 8.0),
                           child: RaisedButton(
                             color: Colors.grey,
                             child: Text('取消'),
@@ -97,7 +116,7 @@ class ProviderPage extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
+                          padding: EdgeInsets.only(left: 8.0),
                           child: RaisedButton(
                             child: Text('确定'),
                             onPressed: () {
@@ -113,6 +132,64 @@ class ProviderPage extends StatelessWidget {
             }
           );
         },
+      ),
+    );
+  }
+}
+
+class TitleValueWidget extends StatelessWidget {
+
+  TitleValueWidget({
+    Key key, 
+    this.title, 
+    this.value
+  }) : super(key: key);
+
+  final String title;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white10,
+        ),
+        constraints: BoxConstraints(
+          minWidth: double.infinity,
+          maxWidth: double.infinity
+        ),
+        color: null,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(4.0),
+              child: Text(
+                this.title,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.white70
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(4.0),
+              child: Text(
+                this.value,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.white
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
