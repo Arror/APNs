@@ -57,6 +57,7 @@ class ProviderPage extends StatelessWidget {
                   TextField(
                     decoration: InputDecoration(
                       labelText: 'Certificate',
+                      contentPadding: EdgeInsets.only(top: 15.0, bottom: 4.0)
                     ),
                     onTap: () {
                       print('Tapped.');
@@ -64,17 +65,20 @@ class ProviderPage extends StatelessWidget {
                   ),
                   TextField(
                     decoration: InputDecoration(
-                      labelText: 'Team ID'
+                      labelText: 'Team ID',
+                      contentPadding: EdgeInsets.only(top: 15.0, bottom: 4.0)
                     ),
                   ),
                   TextField(
                     decoration: InputDecoration(
-                      labelText: 'Key ID'
+                      labelText: 'Key ID',
+                      contentPadding: EdgeInsets.only(top: 15.0, bottom: 4.0)
                     ),
                   ),
                   TextField(
                     decoration: InputDecoration(
-                      labelText: 'Bundle ID'
+                      labelText: 'Bundle ID',
+                      contentPadding: EdgeInsets.only(top: 15.0, bottom: 4.0)
                     ),
                   ),
                   Padding(
@@ -88,6 +92,7 @@ class ProviderPage extends StatelessWidget {
                             color: Colors.grey,
                             child: Text('取消'),
                             onPressed: () {
+                              Navigator.of(context).pop();
                             },
                           ),
                         ),
@@ -96,6 +101,7 @@ class ProviderPage extends StatelessWidget {
                           child: RaisedButton(
                             child: Text('确定'),
                             onPressed: () {
+                              Navigator.of(context).pop();
                             },
                           ),
                         )
