@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -164,14 +164,14 @@
                                 </constraints>
                                 <font key="font" metaFont="system"/>
                                 <tabViewItems>
-                                    <tabViewItem label=".p8" identifier="" id="iLd-vT-xb4">
+                                    <tabViewItem label="P8" identifier="" id="iLd-vT-xb4">
                                         <view key="view" id="CUu-7H-I9W" customClass="P8TabItemView" customModule="APNs" customModuleProvider="target">
                                             <rect key="frame" x="10" y="33" width="234" height="450"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1Yy-4o-Wn2">
                                                     <rect key="frame" x="18" y="347" width="198" height="17"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Team ID" id="F2z-ve-dqy">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="组织 ID" id="F2z-ve-dqy">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -179,7 +179,7 @@
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="65Z-kI-tbV">
                                                     <rect key="frame" x="18" y="281" width="198" height="17"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Key ID" id="jWl-IL-mrj">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="钥匙 ID" id="jWl-IL-mrj">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -187,7 +187,7 @@
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eIP-xB-AnL">
                                                     <rect key="frame" x="18" y="215" width="198" height="17"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Bundle ID" id="91t-MB-fUa">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="套装 ID" id="91t-MB-fUa">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -195,7 +195,7 @@
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cLQ-c3-Xuf">
                                                     <rect key="frame" x="18" y="413" width="198" height="17"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Certificate" id="yqI-f9-zI9">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="证书" id="yqI-f9-zI9">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -270,14 +270,14 @@
                                             </connections>
                                         </view>
                                     </tabViewItem>
-                                    <tabViewItem label=".cer" identifier="" id="rH7-K4-KJq">
+                                    <tabViewItem label="Cer" identifier="" id="rH7-K4-KJq">
                                         <view key="view" id="mEA-QV-S7W" customClass="CerTabItemView" customModule="APNs" customModuleProvider="target">
                                             <rect key="frame" x="10" y="33" width="234" height="450"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FqJ-f0-u8G">
                                                     <rect key="frame" x="18" y="413" width="198" height="17"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Certificate" id="xIY-1b-pMo">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="证书" id="xIY-1b-pMo">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -305,14 +305,14 @@
                                             </connections>
                                         </view>
                                     </tabViewItem>
-                                    <tabViewItem label=".p12" identifier="" id="UeU-YS-RCl">
+                                    <tabViewItem label="P12" identifier="" id="UeU-YS-RCl">
                                         <view key="view" id="yhn-oC-wDd" customClass="P12TabItemView" customModule="APNs" customModuleProvider="target">
                                             <rect key="frame" x="10" y="33" width="234" height="450"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1ux-mD-fum">
                                                     <rect key="frame" x="18" y="413" width="198" height="17"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Certificate" id="Gsb-po-nHt">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="证书" id="Gsb-po-nHt">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -320,7 +320,7 @@
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OVZ-4b-QxW">
                                                     <rect key="frame" x="18" y="347" width="198" height="17"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Passphrase" id="k7F-Ss-GN5">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="密码" id="k7F-Ss-GN5">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -372,16 +372,16 @@
                                 </constraints>
                                 <font key="font" metaFont="system"/>
                                 <tabViewItems>
-                                    <tabViewItem label="Sandbox" identifier="" id="qJl-wY-S3D">
+                                    <tabViewItem label="测试环境" identifier="" id="qJl-wY-S3D">
                                         <view key="view" id="nPy-6P-WUh" customClass="SandboxTokenListView" customModule="APNs" customModuleProvider="target">
                                             <rect key="frame" x="10" y="33" width="234" height="310"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HdM-TP-HCm">
                                                     <rect key="frame" x="8" y="8" width="105" height="17"/>
-                                                    <buttonCell key="cell" type="bevel" title="Add" bezelStyle="rounded" alignment="center" inset="2" id="RHk-Gp-4gE">
+                                                    <buttonCell key="cell" type="bevel" title="添加Token" bezelStyle="rounded" alignment="center" inset="2" id="RHk-Gp-4gE">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
+                                                        <font key="font" usesAppearanceFont="YES"/>
                                                     </buttonCell>
                                                     <connections>
                                                         <action selector="addButtonTapped:" target="nPy-6P-WUh" id="8gx-iz-N71"/>
@@ -389,9 +389,9 @@
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yfv-1p-vQz">
                                                     <rect key="frame" x="121" y="8" width="105" height="17"/>
-                                                    <buttonCell key="cell" type="bevel" title="Delete" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="f2A-0Q-Q2I">
+                                                    <buttonCell key="cell" type="bevel" title="删除Token" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="f2A-0Q-Q2I">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
+                                                        <font key="font" usesAppearanceFont="YES"/>
                                                     </buttonCell>
                                                     <connections>
                                                         <action selector="deleteButtonTapped:" target="nPy-6P-WUh" id="yHa-hv-a5A"/>
@@ -411,7 +411,7 @@
                                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                 <tableColumns>
                                                                     <tableColumn identifier="token" width="500" minWidth="500" maxWidth="500" id="i2S-lw-48e">
-                                                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Token">
+                                                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Token列表">
                                                                             <font key="font" metaFont="smallSystem"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -479,7 +479,7 @@
                                             </connections>
                                         </view>
                                     </tabViewItem>
-                                    <tabViewItem label="Production" identifier="" id="07c-t9-7fH" userLabel="Production">
+                                    <tabViewItem label="生产环境" identifier="" id="07c-t9-7fH" userLabel="Production">
                                         <view key="view" id="cPU-iQ-CNK" customClass="ProductionTokenListView" customModule="APNs" customModuleProvider="target">
                                             <rect key="frame" x="10" y="33" width="234" height="310"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -488,7 +488,7 @@
                                                     <rect key="frame" x="0.0" y="33" width="234" height="277"/>
                                                     <clipView key="contentView" id="u1t-H9-sBR">
                                                         <rect key="frame" x="1" y="0.0" width="232" height="276"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="42" rowSizeStyle="automatic" headerView="t5d-Ty-xwb" viewBased="YES" id="hCN-0e-9xD">
                                                                 <rect key="frame" x="0.0" y="0.0" width="503" height="251"/>
@@ -498,7 +498,7 @@
                                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                 <tableColumns>
                                                                     <tableColumn identifier="token" width="500" minWidth="500" maxWidth="500" id="uKO-SO-ZGN">
-                                                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Token">
+                                                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Token列表">
                                                                             <font key="font" metaFont="smallSystem"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -549,9 +549,9 @@
                                                 </scrollView>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="v5c-vM-xlQ">
                                                     <rect key="frame" x="121" y="8" width="105" height="17"/>
-                                                    <buttonCell key="cell" type="bevel" title="Delete" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="iog-5N-XjZ">
+                                                    <buttonCell key="cell" type="bevel" title="删除Token" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="iog-5N-XjZ">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
+                                                        <font key="font" usesAppearanceFont="YES"/>
                                                     </buttonCell>
                                                     <connections>
                                                         <action selector="deleteButtonTapped:" target="cPU-iQ-CNK" id="vaR-s4-DBN"/>
@@ -559,9 +559,9 @@
                                                 </button>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qap-VF-v32">
                                                     <rect key="frame" x="8" y="8" width="105" height="17"/>
-                                                    <buttonCell key="cell" type="bevel" title="Add" bezelStyle="rounded" alignment="center" inset="2" id="dqd-WT-FNA">
+                                                    <buttonCell key="cell" type="bevel" title="添加Token" bezelStyle="rounded" alignment="center" inset="2" id="dqd-WT-FNA">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
+                                                        <font key="font" usesAppearanceFont="YES"/>
                                                     </buttonCell>
                                                     <connections>
                                                         <action selector="addButtonTapped:" target="cPU-iQ-CNK" id="AKs-Ur-P4U"/>
@@ -608,6 +608,10 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="7xc-6M-qsv"/>
                                 </constraints>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="7K8-Jt-eIe">
+                                    <rect key="frame" x="-100" y="-100" width="612" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
                                 <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="7pQ-cb-6nN">
                                     <rect key="frame" x="596" y="0.0" width="16" height="120"/>
                                     <autoresizingMask key="autoresizingMask"/>
@@ -617,7 +621,7 @@
                                 <rect key="frame" x="533" y="181" width="366" height="325"/>
                                 <font key="font" metaFont="system"/>
                                 <tabViewItems>
-                                    <tabViewItem label="JSON" identifier="" id="VQQ-9g-Z0U">
+                                    <tabViewItem label="JSON负载" identifier="" id="VQQ-9g-Z0U">
                                         <view key="view" id="ozm-AT-iCx">
                                             <rect key="frame" x="10" y="33" width="346" height="279"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -639,6 +643,10 @@
                                                             </textView>
                                                         </subviews>
                                                     </clipView>
+                                                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="PYR-ez-gZ0">
+                                                        <rect key="frame" x="-100" y="-100" width="330" height="16"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                    </scroller>
                                                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="0qu-vH-CFd">
                                                         <rect key="frame" x="314" y="0.0" width="16" height="263"/>
                                                         <autoresizingMask key="autoresizingMask"/>
@@ -657,9 +665,9 @@
                             </tabView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="B4z-Eq-7hM">
                                 <rect key="frame" x="534" y="153" width="364" height="32"/>
-                                <buttonCell key="cell" type="push" title="Send" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="U3r-hd-AhH">
+                                <buttonCell key="cell" type="push" title="发送通知" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="U3r-hd-AhH">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" usesAppearanceFont="YES"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="buttonTapped:" target="XfG-lQ-9wD" id="B3Q-KT-vIu"/>
@@ -707,6 +715,9 @@
                         <subviews>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EVE-gk-6lJ">
                                 <rect key="frame" x="20" y="60" width="382" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="382" id="c7y-f3-1SW"/>
+                                </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="border" drawsBackground="YES" id="bWp-MD-bck">
                                     <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -722,10 +733,10 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YcB-d2-cgX">
-                                <rect key="frame" x="16" y="13" width="192" height="32"/>
-                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WIC-OM-sGb">
+                                <rect key="frame" x="216" y="13" width="92" height="32"/>
+                                <buttonCell key="cell" type="push" title="取消" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WIC-OM-sGb">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" usesAppearanceFont="YES"/>
                                     <string key="keyEquivalent" base64-UTF8="YES">
 Gw
 </string>
@@ -735,10 +746,10 @@ Gw
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zP0-7U-IRp">
-                                <rect key="frame" x="216" y="13" width="192" height="32"/>
-                                <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PrG-IB-ayY">
+                                <rect key="frame" x="316" y="13" width="92" height="32"/>
+                                <buttonCell key="cell" type="push" title="确定" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PrG-IB-ayY">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" usesAppearanceFont="YES"/>
                                     <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
@@ -755,7 +766,7 @@ DQ
                             <constraint firstItem="EVE-gk-6lJ" firstAttribute="top" secondItem="b4d-9S-bdv" secondAttribute="bottom" constant="8" id="JgM-jL-lXK"/>
                             <constraint firstAttribute="bottom" secondItem="zP0-7U-IRp" secondAttribute="bottom" constant="20" id="Lk0-42-CTb"/>
                             <constraint firstAttribute="bottom" secondItem="YcB-d2-cgX" secondAttribute="bottom" constant="20" id="OMz-O7-5FA"/>
-                            <constraint firstItem="YcB-d2-cgX" firstAttribute="leading" secondItem="e1u-Oj-05X" secondAttribute="leading" constant="22" id="WLX-Pd-Qpv"/>
+                            <constraint firstItem="YcB-d2-cgX" firstAttribute="leading" secondItem="e1u-Oj-05X" secondAttribute="leading" constant="222" id="Tm9-EN-sMd"/>
                             <constraint firstAttribute="trailing" secondItem="zP0-7U-IRp" secondAttribute="trailing" constant="20" id="aER-8U-VeZ"/>
                             <constraint firstAttribute="bottom" secondItem="EVE-gk-6lJ" secondAttribute="bottom" constant="60" id="bjJ-La-7Fe"/>
                             <constraint firstItem="b4d-9S-bdv" firstAttribute="leading" secondItem="e1u-Oj-05X" secondAttribute="leading" constant="22" id="fdM-VZ-fRW"/>
