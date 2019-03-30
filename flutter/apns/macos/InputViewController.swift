@@ -45,3 +45,28 @@ class InputViewController: NSViewController {
         return vc
     }
 }
+
+//let channel = FlutterMethodChannel(name: "com.Arror.APNs.Input", binaryMessenger: self.flutter)
+//channel.setMethodCallHandler { call, result in
+//    if call.method == "showInputSheet" {
+//        guard
+//            let arguments = call.arguments as? [Any],
+//            let parameters = arguments.first as? [String: Any],
+//            let title = parameters["title"] as? String,
+//            let initialText = parameters["initialText"] as? String else {
+//                result(FlutterError(code: "arguments error", message: "参数错误", details: nil))
+//                return
+//        }
+//        let vc = InputViewController.makeViewController(title: title, initialText: initialText, compeltion: { r in
+//            switch r {
+//            case .value(let text):
+//                result([text])
+//            case .cancel:
+//                result(FlutterError(code: "cancel", message: "取消", details: nil))
+//            }
+//        })
+//        self.flutter.presentAsSheet(vc)
+//    } else {
+//        result(FlutterError(code: "unimplemented", message: "方法未实现", details: nil))
+//    }
+//}
