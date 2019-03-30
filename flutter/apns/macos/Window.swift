@@ -43,7 +43,7 @@ class Window: NSWindow {
                         result(FlutterError(code: "cancel", message: "取消", details: nil))
                     }
                 })
-                self.flutter.presentViewControllerAsSheet(vc)
+                self.flutter.presentAsSheet(vc)
             } else {
                 result(FlutterError(code: "unimplemented", message: "方法未实现", details: nil))
             }

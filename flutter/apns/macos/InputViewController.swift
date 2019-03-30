@@ -28,12 +28,12 @@ class InputViewController: NSViewController {
     }
     
     @IBAction func ensureButtonTapped(_ sender: NSButton) {
-        self.dismissViewController(self)
+        self.dismiss(self)
         self.ensureAction(InputResult.value(self.valueTextField.stringValue))
     }
     
     @IBAction func cancelButtonTapped(_ sender: NSButton) {
-        self.dismissViewController(self)
+        self.dismiss(self)
         self.ensureAction(InputResult.cancel)
     }
     
