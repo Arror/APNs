@@ -98,9 +98,9 @@ public final class ES256 {
         let hash: Data = {
             var reval = [UInt8](repeating: 0, count: Int(CC_LONG(CC_SHA256_DIGEST_LENGTH)))
             data.withUnsafeBytes {
-                _ = CC_SHA256($0, CC_LONG(data.count), &reval)
+                _ = CC_SHA256($0.baseAddress, CC_LONG(data.count), &reval)
             }
-            return Data(bytes: reval)
+            return Data(reval)
         }()
         
         var error: Unmanaged<CFError>? = nil

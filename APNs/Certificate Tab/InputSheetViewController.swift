@@ -18,7 +18,7 @@ public class InputSheetViewController: NSViewController {
         super.init(coder: coder)
     }
     
-    private var value: Optional<String>
+    private var value: Optional<String> = .none
     
     private var compeltion: (Optional<String>) -> Void = { _ in }
     
