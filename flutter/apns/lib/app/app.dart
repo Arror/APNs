@@ -4,7 +4,13 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark(),
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Colors.lightBlue,
+          foregroundColor: Colors.white,
+        ),
+      ),
       title: 'APNs Provider',
       home: Scaffold(
         appBar: AppBar(
@@ -64,7 +70,6 @@ class ProviderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: Container(
         constraints: BoxConstraints.expand(),
         child: Padding(
@@ -93,8 +98,6 @@ class ProviderPage extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.lightBlue,
-        foregroundColor: Colors.white,
         child: Icon(Icons.edit),
         onPressed: () {
           showDialog(
@@ -122,7 +125,7 @@ class ProviderPage extends StatelessWidget {
                   TextField(
                     decoration: InputDecoration(
                       labelText: 'Key ID',
-                      contentPadding: EdgeInsets.only(top: 15.0, bottom: 4.0)
+                      contentPadding: EdgeInsets.only(top: 15.0, bottom: 4.0),
                     ),
                   ),
                   TextField(
