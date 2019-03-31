@@ -196,7 +196,7 @@ class TitleValueWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(4.0),
+              padding: EdgeInsets.only(left: 12.0, top: 12.0, right: 12.0, bottom: 4.0),
               child: Text(
                 this.title,
                 overflow: TextOverflow.ellipsis,
@@ -208,7 +208,7 @@ class TitleValueWidget extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(4.0),
+              padding: EdgeInsets.only(left: 12.0, top: 4.0, right: 12.0, bottom: 12.0),
               child: Text(
                 this.value,
                 overflow: TextOverflow.ellipsis,
