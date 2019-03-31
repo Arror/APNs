@@ -9,6 +9,32 @@ class App extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: Text('APNs Provider'),
+          actions: <Widget>[
+            PopupMenuButton<Envirionment>(
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Environment'),
+                )
+              ),
+              initialValue: Envirionment.sandbox,
+              onSelected: (Envirionment env) {
+
+              },
+              itemBuilder: (BuildContext context) {
+                return <PopupMenuItem<Envirionment>> [
+                  PopupMenuItem(
+                    value: Envirionment.sandbox,
+                    child: Text('Sandbox'),
+                  ),
+                  PopupMenuItem(
+                    value: Envirionment.production,
+                    child: Text('Production'),
+                  )
+                ];
+              },
+            )
+          ],
         ),
         body: Row(
           children: <Widget>[
@@ -26,6 +52,11 @@ class App extends StatelessWidget {
       ),
     );
   }
+}
+
+enum Envirionment {
+  sandbox,
+  production 
 }
 
 class ProviderPage extends StatelessWidget {
@@ -62,7 +93,7 @@ class ProviderPage extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.lightBlue,
         foregroundColor: Colors.white,
         child: Icon(Icons.edit),
         onPressed: () {
@@ -154,7 +185,7 @@ class TitleValueWidget extends StatelessWidget {
       padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white10,
+          color: Colors.white30,
         ),
         constraints: BoxConstraints(
           minWidth: double.infinity,
