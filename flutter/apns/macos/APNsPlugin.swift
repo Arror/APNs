@@ -37,33 +37,41 @@ public final class APNsPlugin: NSObject, FLEPlugin {
                 result(FlutterError(code: "", message: nil, details: nil))
                 return
         }
-        let vc = ProviderInfoEditViewController.makeViewController(with: .none) { controller, result in
-            switch result {
-            case .success(let info):
-                print(info)
-            case .failure(let error):
-                print(error.localizedDescription)
+        let vc = ProviderInfoEditViewController.makeViewController(info: .none, infos: []) { controller, new in
+            switch new {
+            case .some(let i):
+                result(i.json)
+                controller.dismiss(nil)
+            case .none:
+                result(nil)
+                controller.dismiss(nil)
             }
-            controller.dismiss(nil)
         }
         flutter.presentAsSheet(vc)
     }
 }
 
-public struct ProviderInfo {
+public struct ProviderInfo: Equatable {
+    
     public let name: String
     public let certificateName: String
     public let teamID: String
     public let keyID: String
     public let certificate: String
-}
-
-public enum ProviderInfoError: Error {
-    case invalidProviderName
-    case invalidCertificate
-    case invalidTeamID
-    case invalidKeyID
-    case cancel
+    
+    public static func ==(lhs: ProviderInfo, rhs: ProviderInfo) -> Bool {
+        return (lhs.teamID == rhs.teamID) && (lhs.keyID == rhs.keyID) && (lhs.certificate == rhs.certificate)
+    }
+    
+    public var json: [String: Any] {
+        var dict: [String: Any] = [:]
+        dict["name"] = self.name
+        dict["certificate_name"] = self.certificateName
+        dict["certificate"] = self.certificate
+        dict["team _id"] = self.teamID
+        dict["key_id"] = self.keyID
+        return dict
+    }
 }
 
 public class ProviderInfoEditViewController: NSViewController {
@@ -75,8 +83,9 @@ public class ProviderInfoEditViewController: NSViewController {
 
     private var certificate: String = ""
     
-    private var completion: (ProviderInfoEditViewController, Swift.Result<ProviderInfo, ProviderInfoError>) -> Void = { _, _ in }
+    private var completion: (ProviderInfoEditViewController, Optional<ProviderInfo>) -> Void = { _, _ in }
     private var info: Optional<ProviderInfo> = .none
+    private var infos: [ProviderInfo] = []
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,41 +123,80 @@ public class ProviderInfoEditViewController: NSViewController {
     }
     
     @IBAction func confirmButtonTapped(_ sender: NSButton) {
-        do {
-            let name = self.nameTextField.stringValue
-            let certificateName = self.certificateTextField.stringValue
-            let teamID = self.teamTextField.stringValue
-            let keyID = self.keyTextField.stringValue
-            let certificate = self.certificate
+        guard
+            let window = self.view.window else {
+                return
+        }
+        let name = self.nameTextField.stringValue.trimmingCharacters(in: CharacterSet.whitespaces)
+        let certificateName = self.certificateTextField.stringValue.trimmingCharacters(in: CharacterSet.whitespaces)
+        let teamID = self.teamTextField.stringValue.trimmingCharacters(in: CharacterSet.whitespaces)
+        let keyID = self.keyTextField.stringValue.trimmingCharacters(in: CharacterSet.whitespaces)
+        let certificate = self.certificate.trimmingCharacters(in: CharacterSet.whitespaces)
+        
+        let informativeText: String
+        
+        repeat {
             if name.isEmpty {
-                throw ProviderInfoError.invalidProviderName
-            }
-            if teamID.isEmpty {
-                throw ProviderInfoError.invalidTeamID
-            }
-            if keyID.isEmpty {
-                throw ProviderInfoError.invalidKeyID
+                informativeText = "名称不能为空"
+                break
+            } else if name.count < 4 {
+                informativeText = "名称不得少于4个字符"
+                break
+            } else if name.count >= 20 {
+                informativeText = "名称不得多于20个字符"
+                break
             }
             if certificate.isEmpty {
-                throw ProviderInfoError.invalidCertificate
+                informativeText = "请选择证书"
+                break
             }
-            self.completion(self, .success(ProviderInfo(name: name, certificateName: certificateName, teamID: teamID, keyID: keyID, certificate: certificate)))
-        } catch {
-            self.completion(self, .failure(error as! ProviderInfoError))
-        }
+            if teamID.isEmpty {
+                informativeText = "请输入组织 ID"
+                break
+            } else if teamID.count != 10 {
+                informativeText = "请输入合法的组织 ID"
+                break
+            }
+            if keyID.isEmpty {
+                informativeText = "请输入钥匙 ID"
+                break
+            } else if keyID.count != 10 {
+                informativeText = "请输入合法的钥匙 ID"
+                break
+            }
+            let new = ProviderInfo(name: name, certificateName: certificateName, teamID: teamID, keyID: keyID, certificate: certificate)
+            if self.infos.contains(new) {
+                informativeText = "服务已存在"
+                break
+            }
+            self.completion(self, new)
+            return
+        } while true
+        
+        let alert = NSAlert()
+        alert.messageText = "错误"
+        alert.informativeText = informativeText
+        alert.addButton(withTitle: "确定")
+        alert.beginSheetModal(for: window, completionHandler: nil)
     }
     
     @IBAction func cancelButtonTapped(_ sender: NSButton) {
-        self.completion(self, .failure(.cancel))
+        self.completion(self, .none)
     }
 }
 
 extension ProviderInfoEditViewController {
     
-    static func makeViewController(with info: Optional<ProviderInfo>, completion: @escaping (ProviderInfoEditViewController, Swift.Result<ProviderInfo, ProviderInfoError>) -> Void) -> ProviderInfoEditViewController {
+    static func makeViewController(
+        info: Optional<ProviderInfo>,
+        infos: [ProviderInfo],
+        completion: @escaping (ProviderInfoEditViewController, Optional<ProviderInfo>) -> Void) -> ProviderInfoEditViewController {
+        
         let vc = NSStoryboard(name: "APNsPlugin", bundle: nil).instantiateInitialController() as! ProviderInfoEditViewController
         vc.info = info
+        vc.infos = infos
         vc.completion = completion
+        
         return vc
     }
 }
