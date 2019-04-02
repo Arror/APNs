@@ -10,6 +10,7 @@ class App extends StatelessWidget {
           backgroundColor: Colors.lightBlue,
           foregroundColor: Colors.white,
         ),
+        toggleableActiveColor: Colors.lightBlue
       ),
       title: 'APNs Provider',
       home: Scaffold(
@@ -52,37 +53,37 @@ class ProviderPage extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 15.0, right: 8.0),
                       child: Container(
                         constraints: BoxConstraints.expand(height: double.minPositive),
-                        color: Colors.green,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Radio(
+                              value: true,
+                              groupValue: true,
+                              onChanged: (bool isSelected) {
+
+                              },
+                            ),
+                            Expanded(
+                              child: Text(
+                                'P8 Server',
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: false
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     );
                   },
                   body: Padding(
-                    padding: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
+                    padding: const EdgeInsets.only(left: 64.0, right: 15.0, bottom: 15.0),
                     child: Container(
                       constraints: BoxConstraints.expand(height: 100.0),
                       color: Colors.red,
                     ),
                   ),
                   value: true
-                ),
-                ExpansionPanelRadio(
-                  headerBuilder: (BuildContext context, bool isExpand) {
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 15.0, right: 8.0),
-                      child: Container(
-                        constraints: BoxConstraints.expand(height: double.minPositive),
-                        color: Colors.green,
-                      ),
-                    );
-                  },
-                  body: Padding(
-                    padding: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
-                    child: Container(
-                      constraints: BoxConstraints.expand(height: 100.0),
-                      color: Colors.red,
-                    ),
-                  ),
-                  value: false
                 )
               ],
               expansionCallback: (int idx, bool isExpand) {
@@ -94,7 +95,7 @@ class ProviderPage extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.edit),
+        child: Icon(Icons.add),
         onPressed: () {
         },
       ),
