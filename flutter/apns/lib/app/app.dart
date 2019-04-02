@@ -14,42 +14,16 @@ class App extends StatelessWidget {
       title: 'APNs Provider',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('APNs Provider'),
-          actions: <Widget>[
-            PopupMenuButton<Envirionment>(
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('Environment'),
-                )
-              ),
-              initialValue: Envirionment.sandbox,
-              onSelected: (Envirionment env) {
-
-              },
-              itemBuilder: (BuildContext context) {
-                return <PopupMenuItem<Envirionment>> [
-                  PopupMenuItem(
-                    value: Envirionment.sandbox,
-                    child: Text('Sandbox'),
-                  ),
-                  PopupMenuItem(
-                    value: Envirionment.production,
-                    child: Text('Production'),
-                  )
-                ];
-              },
-            )
-          ],
+          title: Text('APNs Provider')
         ),
         body: Row(
           children: <Widget>[
             Expanded(
-              flex: 1,
+              flex: 2,
               child: ProviderPage(),
             ),
             Expanded(
-              flex: 2,
+              flex: 3,
               child: Scaffold(
               ),
             )
@@ -60,11 +34,6 @@ class App extends StatelessWidget {
   }
 }
 
-enum Envirionment {
-  sandbox,
-  production 
-}
-
 class ProviderPage extends StatelessWidget {
 
   @override
@@ -73,157 +42,61 @@ class ProviderPage extends StatelessWidget {
       body: Container(
         constraints: BoxConstraints.expand(),
         child: Padding(
-          padding: EdgeInsets.all(12.0),
-          child: Column(
-            children: <Widget>[
-              TitleValueWidget(
-                title: 'Certifiate',
-                value: 'SSFSDFSDFS',
-              ),
-              TitleValueWidget(
-                title: 'Team ID',
-                value: 'SSFSDFSDFS',
-              ),
-              TitleValueWidget(
-                title: 'Key ID',
-                value: 'SSFSDFSDFS',
-              ),
-              TitleValueWidget(
-                title: 'Bundle ID',
-                value: 'SSFSDFSDFS',
-              )
-            ],
-          )
+          padding: const EdgeInsets.all(12.0),
+          child: SingleChildScrollView(
+            child: ExpansionPanelList.radio(
+              children: <ExpansionPanelRadio>[
+                ExpansionPanelRadio(
+                  headerBuilder: (BuildContext context, bool isExpand) {
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 15.0, right: 8.0),
+                      child: Container(
+                        constraints: BoxConstraints.expand(height: double.minPositive),
+                        color: Colors.green,
+                      ),
+                    );
+                  },
+                  body: Padding(
+                    padding: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
+                    child: Container(
+                      constraints: BoxConstraints.expand(height: 100.0),
+                      color: Colors.red,
+                    ),
+                  ),
+                  value: true
+                ),
+                ExpansionPanelRadio(
+                  headerBuilder: (BuildContext context, bool isExpand) {
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 15.0, right: 8.0),
+                      child: Container(
+                        constraints: BoxConstraints.expand(height: double.minPositive),
+                        color: Colors.green,
+                      ),
+                    );
+                  },
+                  body: Padding(
+                    padding: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
+                    child: Container(
+                      constraints: BoxConstraints.expand(height: 100.0),
+                      color: Colors.red,
+                    ),
+                  ),
+                  value: false
+                )
+              ],
+              expansionCallback: (int idx, bool isExpand) {
+                
+              },
+            ),
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.edit),
         onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return SimpleDialog(
-                contentPadding: EdgeInsets.only(top: 8.0, left: 24.0, right: 24.0, bottom: 12.0),
-                title: Text('编辑 Provider'),
-                children: <Widget>[
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Certificate',
-                      contentPadding: EdgeInsets.only(top: 15.0, bottom: 4.0)
-                    ),
-                    onTap: () {
-                      print('Tapped.');
-                    },
-                  ),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Team ID',
-                      contentPadding: EdgeInsets.only(top: 15.0, bottom: 4.0)
-                    ),
-                  ),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Key ID',
-                      contentPadding: EdgeInsets.only(top: 15.0, bottom: 4.0),
-                    ),
-                  ),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Bundle ID',
-                      contentPadding: EdgeInsets.only(top: 15.0, bottom: 4.0)
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 24.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.only(right: 8.0),
-                          child: RaisedButton(
-                            color: Colors.grey,
-                            child: Text('取消'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 8.0),
-                          child: RaisedButton(
-                            child: Text('确定'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              );
-            }
-          );
         },
-      ),
-    );
-  }
-}
-
-class TitleValueWidget extends StatelessWidget {
-
-  TitleValueWidget({
-    Key key, 
-    this.title, 
-    this.value
-  }) : super(key: key);
-
-  final String title;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white30,
-        ),
-        constraints: BoxConstraints(
-          minWidth: double.infinity,
-          maxWidth: double.infinity
-        ),
-        color: null,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(left: 12.0, top: 12.0, right: 12.0, bottom: 4.0),
-              child: Text(
-                this.title,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.white70
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 12.0, top: 4.0, right: 12.0, bottom: 12.0),
-              child: Text(
-                this.value,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.white
-                ),
-              ),
-            )
-          ],
-        ),
       ),
     );
   }
