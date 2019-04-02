@@ -37,7 +37,7 @@ public final class APNsPlugin: NSObject, FLEPlugin {
                 result(FlutterError(code: "", message: nil, details: nil))
                 return
         }
-        let vc = ProviderInfoEditViewController.makeViewController(info: .none, infos: []) { controller, new in
+        let vc = ProviderInfoEditViewController.makeViewController(info: .none) { controller, new in
             switch new {
             case .some(let i):
                 result(i.json)
@@ -165,10 +165,6 @@ public class ProviderInfoEditViewController: NSViewController {
                 break
             }
             let new = ProviderInfo(name: name, certificateName: certificateName, teamID: teamID, keyID: keyID, certificate: certificate)
-            if self.infos.contains(new) {
-                informativeText = "服务已存在"
-                break
-            }
             self.completion(self, new)
             return
         } while true
@@ -187,14 +183,10 @@ public class ProviderInfoEditViewController: NSViewController {
 
 extension ProviderInfoEditViewController {
     
-    static func makeViewController(
-        info: Optional<ProviderInfo>,
-        infos: [ProviderInfo],
-        completion: @escaping (ProviderInfoEditViewController, Optional<ProviderInfo>) -> Void) -> ProviderInfoEditViewController {
+    static func makeViewController(info: Optional<ProviderInfo>, completion: @escaping (ProviderInfoEditViewController, Optional<ProviderInfo>) -> Void) -> ProviderInfoEditViewController {
         
         let vc = NSStoryboard(name: "APNsPlugin", bundle: nil).instantiateInitialController() as! ProviderInfoEditViewController
         vc.info = info
-        vc.infos = infos
         vc.completion = completion
         
         return vc
