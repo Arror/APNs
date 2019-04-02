@@ -14,6 +14,9 @@ class Window: NSWindow {
     @IBOutlet weak var flutter: FLEViewController!
     
     override func awakeFromNib() {
+        
+        APNsPlugin.register(with: self.flutter.registrar(forPlugin: "APNsPlugin"))
+        
         let assets = URL(fileURLWithPath: "flutter_assets", relativeTo: Bundle.main.resourceURL)
         let arguments: [String] = {
             #if DEBUG
