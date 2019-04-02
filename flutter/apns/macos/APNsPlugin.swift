@@ -23,8 +23,33 @@ public final class APNsPlugin: NSObject, FLEPlugin {
         super.init()
     }
     
+    private func loadFlutter() -> Optional<FLEViewController> {
+        guard
+            let window = NSApplication.shared.keyWindow as? Window else {
+                return nil
+        }
+        return window.flutter
+    }
+    
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        print(call)
-        result([])
+        guard
+            let flutter = self.loadFlutter() else {
+                result(FlutterError(code: "", message: nil, details: nil))
+                return
+        }
+        let vc = ProviderInfoEditViewController.makeViewController()
+        flutter.presentAsSheet(vc)
+    }
+}
+
+public class ProviderInfoEditViewController: NSViewController {
+    
+    
+}
+
+extension ProviderInfoEditViewController {
+    
+    static func makeViewController() -> ProviderInfoEditViewController {
+        return NSStoryboard(name: "APNsPlugin", bundle: nil).instantiateInitialController() as! ProviderInfoEditViewController
     }
 }
