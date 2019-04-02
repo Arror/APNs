@@ -44,7 +44,42 @@ public final class APNsPlugin: NSObject, FLEPlugin {
 
 public class ProviderInfoEditViewController: NSViewController {
     
+    @IBOutlet weak var nameTextField: NSTextField!
+    @IBOutlet weak var certificateTextField: NSTextField!
+    @IBOutlet weak var teamTextField: NSTextField!
+    @IBOutlet weak var keyTextField: NSTextField!
     
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        self.certificateTextField.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(chooseCertificate(_:))))
+    }
+    
+    @objc private func chooseCertificate(_ sender: NSClickGestureRecognizer) {
+        guard
+            let window = NSApplication.shared.keyWindow else {
+                return
+        }
+        let panel = NSOpenPanel()
+        panel.canChooseFiles = true
+        panel.canChooseDirectories = false
+        panel.allowsMultipleSelection = false
+        panel.allowedFileTypes = ["p8"]
+        panel.beginSheetModal(for: window) { resp in
+            guard
+                let url = panel.urls.first else {
+                    return
+            }
+            print(url)
+        }
+    }
+    
+    @IBAction func confirmButtonTapped(_ sender: NSButton) {
+        self.dismiss(nil)
+    }
+    
+    @IBAction func cancelButtonTapped(_ sender: NSButton) {
+        self.dismiss(nil)
+    }
 }
 
 extension ProviderInfoEditViewController {
