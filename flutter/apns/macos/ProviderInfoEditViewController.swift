@@ -12,12 +12,28 @@ public struct ProviderInfo: Equatable {
     
     public let name: String
     public let certificateName: String
+    public let certificate: String
     public let teamID: String
     public let keyID: String
-    public let certificate: String
     
     public static func ==(lhs: ProviderInfo, rhs: ProviderInfo) -> Bool {
         return (lhs.teamID == rhs.teamID) && (lhs.keyID == rhs.keyID) && (lhs.certificate == rhs.certificate)
+    }
+    
+    public init(name: String, certificateName: String, certificate: String, teamID: String, keyID: String) {
+        self.name = name
+        self.certificateName = certificateName
+        self.certificate = certificate
+        self.teamID = teamID
+        self.keyID = keyID
+    }
+    
+    public init(json: [String: Any]) {
+        self.name = json["name"] as? String ?? ""
+        self.certificateName = json["certificate_name"] as? String ?? ""
+        self.certificate = json["certificate"] as? String ?? ""
+        self.teamID = json["team_id"] as? String ?? ""
+        self.keyID = json["key_id"] as? String ?? ""
     }
     
     public var json: [String: Any] {
@@ -25,7 +41,7 @@ public struct ProviderInfo: Equatable {
         dict["name"] = self.name
         dict["certificate_name"] = self.certificateName
         dict["certificate"] = self.certificate
-        dict["team _id"] = self.teamID
+        dict["team_id"] = self.teamID
         dict["key_id"] = self.keyID
         return dict
     }
@@ -121,7 +137,7 @@ public class ProviderInfoEditViewController: NSViewController {
                 informativeText = "请输入合法的钥匙 ID"
                 break
             }
-            let new = ProviderInfo(name: name, certificateName: certificateName, teamID: teamID, keyID: keyID, certificate: certificate)
+            let new = ProviderInfo(name: name, certificateName: certificateName, certificate: certificate, teamID: teamID, keyID: keyID)
             self.completion(self, new)
             return
         } while true
