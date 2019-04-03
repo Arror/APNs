@@ -119,7 +119,32 @@ class ProviderPage extends StatelessWidget {
                                     ),
                                   ),
                                   onPressed: () {
-                                    
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text('删除'),
+                                          content: Text('确定删除?'),
+                                          actions: <Widget>[
+                                            FlatButton(
+                                              child: Text('取消'),
+                                              textColor: Colors.blue,
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                            FlatButton(
+                                              child: Text('确定'),
+                                              textColor: Colors.red,
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            )
+                                          ],
+                                        );
+                                      }
+                                    );
                                   },
                                 )
                               ],
