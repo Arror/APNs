@@ -37,185 +37,140 @@ class ProviderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        constraints: BoxConstraints.expand(),
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: SingleChildScrollView(
-            child: ExpansionPanelList.radio(
-              children: <ExpansionPanelRadio>[
-                ExpansionPanelRadio(
-                    headerBuilder: (BuildContext context, bool isExpand) {
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: Container(
-                          constraints:
-                              BoxConstraints.expand(height: double.minPositive),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Radio(
-                                value: true,
-                                groupValue: true,
-                                onChanged: (bool isSelected) {},
-                              ),
-                              Expanded(
-                                child: Text('P8 Server',
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.bold),
-                                    overflow: TextOverflow.ellipsis,
-                                    softWrap: false),
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                    body: Container(
-                      constraints: BoxConstraints(
-                          minWidth: double.infinity,
-                          maxWidth: double.infinity,
-                          minHeight: 0.0,
-                          maxHeight: double.infinity),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 4.0),
-                        child: Column(
-                          children: <Widget>[
-                            Column(
-                              children: <Widget>[
-                                TitleValueWidget(
-                                    title: '证书', value: 'ADFDSSDFSDAAD'),
-                                TitleValueWidget(
-                                    title: '组织 ID', value: 'ADFDSSDFSDAAD'),
-                                TitleValueWidget(
-                                    title: '钥匙 ID', value: 'ADFDSSDFSDAAD')
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                FlatButton(
-                                  textColor: Colors.blue,
-                                  child: Text(
-                                    '编辑',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  onPressed: () {
-
-                                  },
-                                ),
-                                FlatButton(
-                                  textColor: Colors.red,
-                                  child: Text(
-                                    '删除',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: Text('删除'),
-                                          content: Text('确定删除?'),
-                                          actions: <Widget>[
-                                            FlatButton(
-                                              child: Text('取消'),
-                                              textColor: Colors.blue,
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                            ),
-                                            FlatButton(
-                                              child: Text('确定'),
-                                              textColor: Colors.red,
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                            )
-                                          ],
-                                        );
-                                      }
-                                    );
-                                  },
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    value: true)
-              ],
-              expansionCallback: (int idx, bool isExpand) {},
-            ),
+        body: Container(
+      constraints: BoxConstraints.expand(),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: SingleChildScrollView(
+          child: ExpansionPanelList.radio(
+            children: <ExpansionPanelRadio>[
+              ExpansionPanelRadio(
+                  headerBuilder: (BuildContext context, bool isExpand) {
+                    return ProviderNameWidget();
+                  },
+                  body: ProviderDetailWidget(),
+                  value: true)
+            ],
+            expansionCallback: (int idx, bool isExpand) {},
           ),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          channle
-              .invokeMethod('showProviderEditViewController')
-              .then((dynamic value) {
-            print(value);
-          }).catchError((dynamic error) {
-            print(error);
-          });
-        },
+    ));
+  }
+}
+
+class ProviderDetailWidget extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: BoxConstraints(
+          minWidth: double.infinity,
+          maxWidth: double.infinity,
+          minHeight: 0.0,
+          maxHeight: double.infinity),
+      child: Padding(
+          padding: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 12.0),
+          child: Column(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  TitleValueWidget(
+                    title: '证书',
+                    value: 'ADFDSSDFSDAAD',
+                    onTap: () {},
+                  ),
+                  TitleValueWidget(
+                    title: '组织 ID',
+                    value: 'ADFDSSDFSDAAD',
+                    onTap: () {},
+                  ),
+                  TitleValueWidget(
+                    title: '钥匙 ID',
+                    value: 'ADFDSSDFSDAAD',
+                    onTap: () {},
+                  )
+                ],
+              )
+            ],
+          )),
+    );
+  }
+}
+
+class ProviderNameWidget extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 15.0, right: 8.0),
+      child: Container(
+        constraints: BoxConstraints.expand(height: double.minPositive),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              child: Text('P8 Server',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: false),
+            )
+          ],
+        ),
       ),
     );
   }
 }
 
 class TitleValueWidget extends StatelessWidget {
-  TitleValueWidget({Key key, @required this.title, @required this.value})
+  TitleValueWidget(
+      {Key key,
+      @required this.title,
+      @required this.value,
+      @required this.onTap})
       : super(key: key);
 
   final String title;
   final String value;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
-      child: Container(
-        color: null,
-        decoration: BoxDecoration(
-            color: Colors.black26,
-            borderRadius: BorderRadius.all(Radius.circular(2.0))),
-        constraints: BoxConstraints(
-            minWidth: double.infinity,
-            maxWidth: double.infinity,
-            minHeight: 0.0,
-            maxHeight: double.infinity),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(this.title,
-                  style:
-                      TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)),
-              Padding(
-                padding: const EdgeInsets.only(top: 4.0),
-                child: Text(this.value,
-                    style: TextStyle(
-                        fontSize: 12.0, fontWeight: FontWeight.normal)),
-              )
-            ],
+      child: InkWell(
+        child: Container(
+          color: null,
+          decoration: BoxDecoration(
+              color: Colors.black26,
+              borderRadius: BorderRadius.all(Radius.circular(2.0))),
+          constraints: BoxConstraints(
+              minWidth: double.infinity,
+              maxWidth: double.infinity,
+              minHeight: 0.0,
+              maxHeight: double.infinity),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(this.title,
+                    style:
+                        TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0),
+                  child: Text(this.value,
+                      style: TextStyle(
+                          fontSize: 12.0, fontWeight: FontWeight.normal)),
+                )
+              ],
+            ),
           ),
         ),
+        onTap: this.onTap,
       ),
     );
   }
