@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class App extends StatelessWidget {
   @override
@@ -37,6 +38,8 @@ class App extends StatelessWidget {
 
 class ProviderPage extends StatelessWidget {
 
+  final channle = MethodChannel('com.Arror.APNsFlutter.APNsPlugin');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +53,7 @@ class ProviderPage extends StatelessWidget {
                 ExpansionPanelRadio(
                   headerBuilder: (BuildContext context, bool isExpand) {
                     return Padding(
-                      padding: const EdgeInsets.only(left: 15.0, right: 8.0),
+                      padding: const EdgeInsets.only(right: 8.0),
                       child: Container(
                         constraints: BoxConstraints.expand(height: double.minPositive),
                         child: Row(
@@ -77,10 +80,23 @@ class ProviderPage extends StatelessWidget {
                     );
                   },
                   body: Padding(
-                    padding: const EdgeInsets.only(left: 64.0, right: 15.0, bottom: 15.0),
-                    child: Container(
-                      constraints: BoxConstraints.expand(height: 100.0),
-                      color: Colors.red,
+                    padding: const EdgeInsets.only(left: 48.0, right: 15.0, bottom: 15.0),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              TitleValueWidget(title: 'Team ID', value: 'ADFDSSDFSD'),
+                              TitleValueWidget(title: 'Key ID', value: 'ADFDSSDFSD'),
+                              TitleValueWidget(title: 'Team ID', value: 'ADFDSSDFSD'),
+                              TitleValueWidget(title: 'Team ID', value: 'ADFDSSDFSD')
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   value: true
@@ -97,7 +113,39 @@ class ProviderPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
+          channle.invokeMethod('showProviderEditViewController')
+          .then((dynamic value) {
+            print(value);
+          }).catchError((dynamic error) {
+            print(error);
+          });
         },
+      ),
+    );
+  }
+}
+
+class TitleValueWidget extends StatelessWidget {
+
+  TitleValueWidget({Key key, @required this.title, @required this.value}) : super(key: key);
+
+  final String title;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(this.title),
+          Padding(
+            padding: const EdgeInsets.only(top: 4.0),
+            child: Text(this.value),
+          )
+        ],
       ),
     );
   }
