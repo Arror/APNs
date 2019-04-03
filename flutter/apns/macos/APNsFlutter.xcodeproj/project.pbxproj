@@ -40,6 +40,9 @@
 		33CC112F204626C80003C045 /* flutter_assets in Resources */ = {isa = PBXBuildFile; fileRef = 33CC112C20461AD40003C045 /* flutter_assets */; };
 		33D1A10422148B71006C7A3E /* FlutterMacOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33D1A10322148B71006C7A3E /* FlutterMacOS.framework */; };
 		33D1A10522148B93006C7A3E /* FlutterMacOS.framework in Bundle Framework */ = {isa = PBXBuildFile; fileRef = 33D1A10322148B71006C7A3E /* FlutterMacOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		70AB8C1F22542DA1000B1D73 /* Bar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70AB8C1E22542DA1000B1D73 /* Bar.storyboard */; };
+		70AB8C2122542DE0000B1D73 /* APNsFakeTitleBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70AB8C2022542DE0000B1D73 /* APNsFakeTitleBar.swift */; };
+		70AB8C292254334F000B1D73 /* ProviderInfoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70AB8C282254334F000B1D73 /* ProviderInfoEditViewController.swift */; };
 		CAA182A1225316FC00A7F6B2 /* APNsPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA182A0225316FC00A7F6B2 /* APNsPlugin.swift */; };
 		CAA182A3225317E200A7F6B2 /* APNsPlugin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAA182A2225317E200A7F6B2 /* APNsPlugin.storyboard */; };
 /* End PBXBuildFile section */
@@ -91,6 +94,9 @@
 		33CC11122044BFA00003C045 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		33CC112C20461AD40003C045 /* flutter_assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = flutter_assets; path = ../build/flutter_assets; sourceTree = "<group>"; };
 		33D1A10322148B71006C7A3E /* FlutterMacOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FlutterMacOS.framework; path = ../flutter_framework/FlutterMacOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		70AB8C1E22542DA1000B1D73 /* Bar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Bar.storyboard; sourceTree = "<group>"; };
+		70AB8C2022542DE0000B1D73 /* APNsFakeTitleBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsFakeTitleBar.swift; sourceTree = "<group>"; };
+		70AB8C282254334F000B1D73 /* ProviderInfoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderInfoEditViewController.swift; sourceTree = "<group>"; };
 		CAA182A0225316FC00A7F6B2 /* APNsPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsPlugin.swift; sourceTree = "<group>"; };
 		CAA182A2225317E200A7F6B2 /* APNsPlugin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = APNsPlugin.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,6 +118,7 @@
 			children = (
 				33CC10F02044A3C60003C045 /* AppDelegate.swift */,
 				33CC11122044BFA00003C045 /* Window.swift */,
+				70AB8C1C22542D78000B1D73 /* Title Bar */,
 				CAA1829F225316EF00A7F6B2 /* APNsPlugin */,
 				33CC11242044D66E0003C045 /* Resources */,
 				33D1A10222148A83006C7A3E /* Frameworks */,
@@ -146,10 +153,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		70AB8C1C22542D78000B1D73 /* Title Bar */ = {
+			isa = PBXGroup;
+			children = (
+				70AB8C1E22542DA1000B1D73 /* Bar.storyboard */,
+				70AB8C2022542DE0000B1D73 /* APNsFakeTitleBar.swift */,
+			);
+			name = "Title Bar";
+			sourceTree = "<group>";
+		};
 		CAA1829F225316EF00A7F6B2 /* APNsPlugin */ = {
 			isa = PBXGroup;
 			children = (
 				CAA182A0225316FC00A7F6B2 /* APNsPlugin.swift */,
+				70AB8C282254334F000B1D73 /* ProviderInfoEditViewController.swift */,
 				CAA182A2225317E200A7F6B2 /* APNsPlugin.storyboard */,
 			);
 			name = APNsPlugin;
@@ -230,6 +247,7 @@
 			files = (
 				33CC10F32044A3C60003C045 /* Assets.xcassets in Resources */,
 				CAA182A3225317E200A7F6B2 /* APNsPlugin.storyboard in Resources */,
+				70AB8C1F22542DA1000B1D73 /* Bar.storyboard in Resources */,
 				33CC10F62044A3C60003C045 /* Main.xib in Resources */,
 				33CC112F204626C80003C045 /* flutter_assets in Resources */,
 			);
@@ -276,6 +294,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				33CC11132044BFA00003C045 /* Window.swift in Sources */,
+				70AB8C292254334F000B1D73 /* ProviderInfoEditViewController.swift in Sources */,
+				70AB8C2122542DE0000B1D73 /* APNsFakeTitleBar.swift in Sources */,
 				33CC10F12044A3C60003C045 /* AppDelegate.swift in Sources */,
 				CAA182A1225316FC00A7F6B2 /* APNsPlugin.swift in Sources */,
 			);

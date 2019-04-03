@@ -15,6 +15,8 @@ class Window: NSWindow {
     
     override func awakeFromNib() {
         
+        self.addTitlebarAccessoryViewController(APNsFakeTitleBar.make())
+        
         APNsPlugin.register(with: self.flutter.registrar(forPlugin: "APNsPlugin"))
         
         let assets = URL(fileURLWithPath: "flutter_assets", relativeTo: Bundle.main.resourceURL)
