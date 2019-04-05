@@ -46,7 +46,7 @@ class ProviderPage extends StatelessWidget {
             children: <ExpansionPanelRadio>[
               ExpansionPanelRadio(
                   headerBuilder: (BuildContext context, bool isExpand) {
-                    return ProviderNameWidget();
+                    return ProviderNameWidget(name: 'P8 Provider');
                   },
                   body: ProviderDetailWidget(),
                   value: true)
@@ -60,6 +60,8 @@ class ProviderPage extends StatelessWidget {
 }
 
 class ProviderDetailWidget extends StatelessWidget {
+
+  final _plugin = APNsPlugin();
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +85,11 @@ class ProviderDetailWidget extends StatelessWidget {
                   TitleValueWidget(
                     title: '组织 ID',
                     value: 'ADFDSSDFSDAAD',
-                    onTap: () {},
+                    onTap: () {
+                      _plugin.showInputDialog('输入组织 ID', '').then((value) {
+                        print(value);
+                      }).catchError((_) {});
+                    },
                   ),
                   TitleValueWidget(
                     title: '钥匙 ID',
@@ -99,6 +105,9 @@ class ProviderDetailWidget extends StatelessWidget {
 }
 
 class ProviderNameWidget extends StatelessWidget {
+  ProviderNameWidget({Key key, @required this.name}) : super(key: key);
+
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +120,8 @@ class ProviderNameWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Expanded(
-              child: Text('P8 Server',
+              child: Text(
+                  this.name,
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                   overflow: TextOverflow.ellipsis,
@@ -173,5 +183,20 @@ class TitleValueWidget extends StatelessWidget {
         onTap: this.onTap,
       ),
     );
+  }
+}
+
+class APNsPlugin {
+
+  final _channel = MethodChannel('com.Arror.APNsFlutter.APNsPlugin');
+
+  Future<String> showInputDialog<T>(String title, String value) async {
+    var dict = {
+      'title': title,
+      'value': value
+    };
+    return _channel.invokeMethod('showInputDialog', [dict]).then((value) {
+      return Future.value(value as String);
+    });
   }
 }

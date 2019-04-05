@@ -23,22 +23,19 @@ public final class APNsPlugin: NSObject, FLEPlugin {
         super.init()
     }
     
-    private func loadFlutter() -> Optional<FLEViewController> {
+    private func loadFlutter() -> FLEViewController {
         guard
-            let window = NSApplication.shared.keyWindow as? Window else {
-                return nil
+            let window = NSApplication.shared.keyWindow as? Window,
+            let flutter = window.flutter else {
+                fatalError("Invalid Flutter.")
         }
-        return window.flutter
+        return flutter
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case "showProviderEditViewController":
-            guard
-                let flutter = self.loadFlutter() else {
-                    result(FlutterError(code: "Bad Engine", message: "创建 Flutter view controller 失败", details: nil))
-                    return
-            }
+            let flutter = self.loadFlutter()
             let vc = ProviderInfoEditViewController.makeViewController(info: .none) { controller, new in
                 switch new {
                 case .some(let i):
@@ -47,6 +44,28 @@ public final class APNsPlugin: NSObject, FLEPlugin {
                 case .none:
                     result(nil)
                     controller.dismiss(nil)
+                }
+            }
+            flutter.presentAsSheet(vc)
+        case "showInputDialog":
+            let flutter = self.loadFlutter()
+            let title: String
+            let value: String
+            if let args = call.arguments as? [Any], let arg = args.first as? [String: Any] {
+                title = arg["title"] as? String ?? ""
+                value = arg["value"] as? String ?? ""
+            } else {
+                title = ""
+                value = ""
+            }
+            let vc = InputViewController.makeViewController(title: title, value: value) { viewController, r in
+                switch r {
+                case .some(let value):
+                    result(value)
+                    viewController.dismiss(nil)
+                case .none:
+                    result(FlutterError(code: "Cancel", message: "Operation cancelled.", details: nil))
+                    viewController.dismiss(nil)
                 }
             }
             flutter.presentAsSheet(vc)
