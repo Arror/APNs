@@ -128,45 +128,78 @@ class ApplicationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(4.0),
-      child: Container(
-        color: null,
-        constraints: BoxConstraints(
-            minWidth: double.infinity,
-            maxWidth: double.infinity,
-            minHeight: 0.0,
-            maxHeight: double.infinity),
-        decoration: BoxDecoration(
-            color: Colors.black26,
-            borderRadius: BorderRadius.all(Radius.circular(2.0))),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 8.0, top: 8.0, right: 8.0, bottom: 4.0),
-                    child: _buildTitleValueColumn('Evnironment', 'Sandox'),
-                  ),
-                  Padding(
+      child: InkWell(
+        borderRadius: BorderRadius.all(Radius.circular(2.0)),
+        child: Container(
+          color: null,
+          constraints: BoxConstraints(
+              minWidth: double.infinity,
+              maxWidth: double.infinity,
+              minHeight: 0.0,
+              maxHeight: double.infinity),
+          decoration: BoxDecoration(
+              color: Colors.black26),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
                       padding: EdgeInsets.only(
-                          left: 8.0, top: 4.0, right: 8.0, bottom: 8.0),
-                      child: _buildTitleValueColumn(
-                          'Bundle ID', 'com.Arror.APNsFluttercom.Arror.APNsFlutter')),
-                ],
+                          left: 8.0, top: 8.0, right: 8.0, bottom: 4.0),
+                      child: _buildTitleValueColumn('Evnironment', 'Sandox'),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            left: 8.0, top: 4.0, right: 8.0, bottom: 8.0),
+                        child: _buildTitleValueColumn(
+                            'Bundle ID', 'com.Arror.APNsFluttercom.Arror.APNsFlutter')),
+                  ],
+                ),
               ),
-            ),
-            Radio(
-              groupValue: true,
-              value: true,
-              onChanged: (_) {},
-            )
-          ],
+              Radio(
+                groupValue: true,
+                value: true,
+                onChanged: (_) {},
+              )
+            ],
+          ),
         ),
+        onTap: () {
+
+        },
+        onLongPress: () {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Delete'),
+                content: Text('Delete Application?'),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text('Cancel'),
+                    textColor: Colors.white,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  FlatButton(
+                    child: Text('Confirm'),
+                    textColor: Colors.red,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
+              );
+            }
+          );
+        },
       ),
     );
   }
