@@ -1,5 +1,7 @@
+import 'package:apns/model/server.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provide/provide.dart';
 
 class App extends StatelessWidget {
   @override
@@ -60,11 +62,12 @@ class ProviderPage extends StatelessWidget {
 }
 
 class ProviderDetailWidget extends StatelessWidget {
-
   final _plugin = APNsPlugin();
 
   @override
   Widget build(BuildContext context) {
+    final currentServer = Provide.value<Server>(context);
+
     return Container(
       constraints: BoxConstraints(
           minWidth: double.infinity,
@@ -72,42 +75,53 @@ class ProviderDetailWidget extends StatelessWidget {
           minHeight: 0.0,
           maxHeight: double.infinity),
       child: Padding(
-          padding: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 12.0),
-          child: Column(
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  TitleValueWidget(
-                    title: '证书',
-                    value: 'ADFDSSDFSDAAD',
-                    onTap: () {
-                      _plugin.showLoadCertificateDialog().then((value) {
-                        print(value);
-                      }).catchError((_) {});
-                    },
-                  ),
-                  TitleValueWidget(
-                    title: '组织 ID',
-                    value: 'ADFDSSDFSDAAD',
-                    onTap: () {
-                      _plugin.showInputDialog('输入组织 ID', '').then((value) {
-                        print(value);
-                      }).catchError((_) {});
-                    },
-                  ),
-                  TitleValueWidget(
-                    title: '钥匙 ID',
-                    value: 'ADFDSSDFSDAAD',
-                    onTap: () {
-                      _plugin.showInputDialog('输入钥匙 ID', '').then((value) {
-                        print(value);
-                      }).catchError((_) {});
-                    },
-                  )
-                ],
-              )
-            ],
-          )),
+        padding: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 12.0),
+        child: Provide<Server>(
+          builder: (BuildContext context, Widget child, Server server) {
+            return Column(
+              children: <Widget>[
+                TitleValueWidget(
+                  title: 'Certificate',
+                  value: currentServer.certificate.isEmpty
+                      ? 'Load Certificate'
+                      : currentServer.certificate,
+                  onTap: () {
+                    _plugin.showLoadCertificateDialog().then((value) {
+                      currentServer.updateCertificate(value);
+                    }).catchError((_) {});
+                  },
+                ),
+                TitleValueWidget(
+                  title: 'Team ID',
+                  value: currentServer.temID.isEmpty
+                      ? 'Input Team ID'
+                      : currentServer.temID,
+                  onTap: () {
+                    _plugin
+                        .showInputDialog('Input Team ID', currentServer.temID)
+                        .then((value) {
+                      currentServer.updateTemID(value);
+                    }).catchError((_) {});
+                  },
+                ),
+                TitleValueWidget(
+                  title: 'Key ID',
+                  value: currentServer.keyID.isEmpty
+                      ? 'Input Key ID'
+                      : currentServer.keyID,
+                  onTap: () {
+                    _plugin
+                        .showInputDialog('Input Key ID', currentServer.keyID)
+                        .then((value) {
+                      currentServer.updateKeyID(value);
+                    }).catchError((_) {});
+                  },
+                )
+              ],
+            );
+          },
+        ),
+      ),
     );
   }
 }
@@ -128,8 +142,7 @@ class ProviderNameWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Expanded(
-              child: Text(
-                  this.name,
+              child: Text(this.name,
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                   overflow: TextOverflow.ellipsis,
@@ -195,14 +208,10 @@ class TitleValueWidget extends StatelessWidget {
 }
 
 class APNsPlugin {
-
   final _channel = MethodChannel('com.Arror.APNsFlutter.APNsPlugin');
 
   Future<String> showInputDialog<T>(String title, String value) async {
-    var dict = {
-      'title': title,
-      'value': value
-    };
+    var dict = {'title': title, 'value': value};
     return _channel.invokeMethod('showInputDialog', [dict]).then((value) {
       return Future.value(value as String);
     });
