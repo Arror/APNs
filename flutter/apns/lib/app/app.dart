@@ -44,20 +44,160 @@ class ProviderPage extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: SingleChildScrollView(
-          child: ExpansionPanelList.radio(
-            children: <ExpansionPanelRadio>[
-              ExpansionPanelRadio(
-                  headerBuilder: (BuildContext context, bool isExpand) {
-                    return ProviderNameWidget(name: 'P8 Provider');
-                  },
-                  body: ProviderDetailWidget(),
-                  value: true)
+          child: Column(
+            children: <Widget>[
+              ExpansionPanelList.radio(
+                children: <ExpansionPanelRadio>[
+                  ExpansionPanelRadio(
+                      headerBuilder: (BuildContext context, bool isExpand) {
+                        return ProviderNameWidget(name: 'P8 Provider');
+                      },
+                      body: ProviderDetailWidget(),
+                      value: true)
+                ],
+                expansionCallback: (int idx, bool isExpand) {},
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 12.0),
+                child: AppsListWidget(),
+              )
             ],
-            expansionCallback: (int idx, bool isExpand) {},
           ),
         ),
       ),
     ));
+  }
+}
+
+class AppsListWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: BoxConstraints(
+          minWidth: double.infinity,
+          maxWidth: double.infinity,
+          minHeight: 0.0,
+          maxHeight: double.infinity),
+      decoration: BoxDecoration(
+          color: Colors.white10,
+          borderRadius: BorderRadius.all(Radius.circular(2.0))),
+      color: null,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0, top: 10.0, right: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'Applications',
+                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                ),
+                InkWell(
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: Container(
+                    constraints:
+                        BoxConstraints.expand(width: 40.0, height: 40.0),
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white70,
+                    ),
+                  ),
+                  onTap: () {},
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+                top: 12.0, left: 12.0, right: 12.0, bottom: 8.0),
+            child: Column(
+              children: <Widget>[ApplicationWidget(), ApplicationWidget()],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class ApplicationWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: Container(
+        color: null,
+        constraints: BoxConstraints(
+            minWidth: double.infinity,
+            maxWidth: double.infinity,
+            minHeight: 0.0,
+            maxHeight: double.infinity),
+        decoration: BoxDecoration(
+            color: Colors.black26,
+            borderRadius: BorderRadius.all(Radius.circular(2.0))),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: 8.0, top: 8.0, right: 8.0, bottom: 4.0),
+                    child: _buildTitleValueColumn('Evnironment', 'Sandox'),
+                  ),
+                  Padding(
+                      padding: EdgeInsets.only(
+                          left: 8.0, top: 4.0, right: 8.0, bottom: 8.0),
+                      child: _buildTitleValueColumn(
+                          'Bundle ID', 'com.Arror.APNsFluttercom.Arror.APNsFlutter')),
+                ],
+              ),
+            ),
+            Radio(
+              groupValue: true,
+              value: true,
+              onChanged: (_) {},
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTitleValueColumn(String title, String value) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(bottom: 2.0),
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+            ),
+            softWrap: false,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 12.0,
+          ),
+          softWrap: false,
+          overflow: TextOverflow.ellipsis,
+        )
+      ],
+    );
   }
 }
 
@@ -144,7 +284,9 @@ class ProviderNameWidget extends StatelessWidget {
             Expanded(
               child: Text(this.name,
                   style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                      fontSize: 18.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
                   overflow: TextOverflow.ellipsis,
                   softWrap: false),
             )
@@ -195,11 +337,7 @@ class TitleValueWidget extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Text(this.value,
                       style: TextStyle(
-                          fontSize: 12.0, 
-                          fontWeight: FontWeight.normal, 
-                          color: Colors.lightBlueAccent
-                        )
-                      ),
+                          fontSize: 12.0, fontWeight: FontWeight.normal)),
                 )
               ],
             ),
