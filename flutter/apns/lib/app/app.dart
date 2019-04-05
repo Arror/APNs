@@ -1,4 +1,5 @@
 import 'package:apns/model/server.dart';
+import 'package:apns/model/application.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provide/provide.dart';
@@ -70,6 +71,8 @@ class ProviderPage extends StatelessWidget {
 }
 
 class AppsListWidget extends StatelessWidget {
+  final _plugin = APNsPlugin();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -88,33 +91,36 @@ class AppsListWidget extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(left: 16.0, top: 10.0, right: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  'Applications',
-                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-                ),
-                InkWell(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: Container(
-                    constraints:
-                        BoxConstraints.expand(width: 40.0, height: 40.0),
-                    child: Icon(
-                      Icons.add,
-                      color: Colors.white70,
-                    ),
-                  ),
-                  onTap: () {},
-                )
-              ],
+            child: Text(
+              'Applications',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(
                 top: 12.0, left: 12.0, right: 12.0, bottom: 8.0),
-            child: Column(
-              children: <Widget>[ApplicationWidget(), ApplicationWidget()],
+            child: Provide<ApplicationController>(
+              builder: (BuildContext contxt, Widget child,
+                  ApplicationController controller) {
+                return Column(
+                  children: controller.apps.map((app) {
+                    return ApplicationWidget(
+                        app: app,
+                        current: controller.current,
+                        onEdit: () {
+                          _plugin
+                              .showInputDialog('Bundle ID', app.bundleID)
+                              .then((value) {
+                            controller.updateAppBundleID(
+                                app.evnironment, value);
+                          }).catchError((_) {});
+                        },
+                        onSelected: () {
+                          controller.updateCurrentApp(app);
+                        });
+                  }).toList(),
+                );
+              },
             ),
           )
         ],
@@ -124,6 +130,16 @@ class AppsListWidget extends StatelessWidget {
 }
 
 class ApplicationWidget extends StatelessWidget {
+  ApplicationWidget(
+      {Key key, this.app, this.current, this.onEdit, this.onSelected})
+      : super(key: key);
+
+  final Application app;
+  final Application current;
+
+  final VoidCallback onEdit;
+  final VoidCallback onSelected;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -137,8 +153,7 @@ class ApplicationWidget extends StatelessWidget {
               maxWidth: double.infinity,
               minHeight: 0.0,
               maxHeight: double.infinity),
-          decoration: BoxDecoration(
-              color: Colors.black26),
+          decoration: BoxDecoration(color: Colors.black26),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -151,55 +166,35 @@ class ApplicationWidget extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(
                           left: 8.0, top: 8.0, right: 8.0, bottom: 4.0),
-                      child: _buildTitleValueColumn('Evnironment', 'Sandox'),
+                      child: Text(
+                        app.evnironment == Environment.sandox
+                            ? 'Sandbox'
+                            : 'Production',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.0,
+                            color: Colors.white),
+                      ),
                     ),
                     Padding(
                         padding: EdgeInsets.only(
                             left: 8.0, top: 4.0, right: 8.0, bottom: 8.0),
-                        child: _buildTitleValueColumn(
-                            'Bundle ID', 'com.Arror.APNsFluttercom.Arror.APNsFlutter')),
+                        child: _buildTitleValueColumn('Bundle ID',
+                            app.bundleID.isEmpty ? '*' : app.bundleID)),
                   ],
                 ),
               ),
               Radio(
-                groupValue: true,
-                value: true,
-                onChanged: (_) {},
+                groupValue: current,
+                value: app,
+                onChanged: (_) {
+                  this.onSelected();
+                },
               )
             ],
           ),
         ),
-        onTap: () {
-
-        },
-        onLongPress: () {
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text('Delete'),
-                content: Text('Delete Application?'),
-                actions: <Widget>[
-                  FlatButton(
-                    child: Text('Cancel'),
-                    textColor: Colors.white,
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  FlatButton(
-                    child: Text('Confirm'),
-                    textColor: Colors.red,
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  )
-                ],
-              );
-            }
-          );
-        },
+        onTap: this.onEdit,
       ),
     );
   }
@@ -239,8 +234,6 @@ class ProviderDetailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentServer = Provide.value<Server>(context);
-
     return Container(
       constraints: BoxConstraints(
           minWidth: double.infinity,
@@ -255,38 +248,32 @@ class ProviderDetailWidget extends StatelessWidget {
               children: <Widget>[
                 TitleValueWidget(
                   title: 'Certificate',
-                  value: currentServer.certificate.isEmpty
-                      ? 'Load Certificate'
-                      : currentServer.certificate,
+                  value: server.certificate.isEmpty ? '*' : server.certificate,
                   onTap: () {
                     _plugin.showLoadCertificateDialog().then((value) {
-                      currentServer.updateCertificate(value);
+                      server.updateCertificate(value);
                     }).catchError((_) {});
                   },
                 ),
                 TitleValueWidget(
                   title: 'Team ID',
-                  value: currentServer.temID.isEmpty
-                      ? 'Input Team ID'
-                      : currentServer.temID,
+                  value: server.temID.isEmpty ? '*' : server.temID,
                   onTap: () {
                     _plugin
-                        .showInputDialog('Input Team ID', currentServer.temID)
+                        .showInputDialog('Input Team ID', server.temID)
                         .then((value) {
-                      currentServer.updateTemID(value);
+                      server.updateTemID(value);
                     }).catchError((_) {});
                   },
                 ),
                 TitleValueWidget(
                   title: 'Key ID',
-                  value: currentServer.keyID.isEmpty
-                      ? 'Input Key ID'
-                      : currentServer.keyID,
+                  value: server.keyID.isEmpty ? '*' : server.keyID,
                   onTap: () {
                     _plugin
-                        .showInputDialog('Input Key ID', currentServer.keyID)
+                        .showInputDialog('Input Key ID', server.keyID)
                         .then((value) {
-                      currentServer.updateKeyID(value);
+                      server.updateKeyID(value);
                     }).catchError((_) {});
                   },
                 )
