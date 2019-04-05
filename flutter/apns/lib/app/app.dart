@@ -80,7 +80,11 @@ class ProviderDetailWidget extends StatelessWidget {
                   TitleValueWidget(
                     title: '证书',
                     value: 'ADFDSSDFSDAAD',
-                    onTap: () {},
+                    onTap: () {
+                      _plugin.showLoadCertificateDialog().then((value) {
+                        print(value);
+                      }).catchError((_) {});
+                    },
                   ),
                   TitleValueWidget(
                     title: '组织 ID',
@@ -94,7 +98,11 @@ class ProviderDetailWidget extends StatelessWidget {
                   TitleValueWidget(
                     title: '钥匙 ID',
                     value: 'ADFDSSDFSDAAD',
-                    onTap: () {},
+                    onTap: () {
+                      _plugin.showInputDialog('输入钥匙 ID', '').then((value) {
+                        print(value);
+                      }).catchError((_) {});
+                    },
                   )
                 ],
               )
@@ -196,6 +204,12 @@ class APNsPlugin {
       'value': value
     };
     return _channel.invokeMethod('showInputDialog', [dict]).then((value) {
+      return Future.value(value as String);
+    });
+  }
+
+  Future<String> showLoadCertificateDialog() {
+    return _channel.invokeMethod('showLoadCertificateDialog').then((value) {
       return Future.value(value as String);
     });
   }

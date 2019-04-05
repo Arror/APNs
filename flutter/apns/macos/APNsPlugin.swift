@@ -23,10 +23,17 @@ public final class APNsPlugin: NSObject, FLEPlugin {
         super.init()
     }
     
+    private func loadMainWindow() -> Window {
+        guard
+            let window = NSApplication.shared.keyWindow as? Window else {
+                fatalError("Invalid Flutter.")
+        }
+        return window
+    }
+    
     private func loadFlutter() -> FLEViewController {
         guard
-            let window = NSApplication.shared.keyWindow as? Window,
-            let flutter = window.flutter else {
+            let flutter = self.loadMainWindow().flutter else {
                 fatalError("Invalid Flutter.")
         }
         return flutter
@@ -34,19 +41,6 @@ public final class APNsPlugin: NSObject, FLEPlugin {
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
-        case "showProviderEditViewController":
-            let flutter = self.loadFlutter()
-            let vc = ProviderInfoEditViewController.makeViewController(info: .none) { controller, new in
-                switch new {
-                case .some(let i):
-                    result(i.json)
-                    controller.dismiss(nil)
-                case .none:
-                    result(nil)
-                    controller.dismiss(nil)
-                }
-            }
-            flutter.presentAsSheet(vc)
         case "showInputDialog":
             let flutter = self.loadFlutter()
             let title: String
@@ -69,6 +63,21 @@ public final class APNsPlugin: NSObject, FLEPlugin {
                 }
             }
             flutter.presentAsSheet(vc)
+        case "showLoadCertificateDialog":
+            let window = self.loadMainWindow()
+            let panel = NSOpenPanel()
+            panel.canChooseFiles = true
+            panel.canChooseDirectories = false
+            panel.allowsMultipleSelection = false
+            panel.allowedFileTypes = ["p8"]
+            panel.beginSheetModal(for: window) { resp in
+                do {
+                    let value = try panel.urls.first.map { try String(contentsOf: $0, encoding: .utf8) }
+                    result(value ?? "")
+                } catch {
+                    result(FlutterError(code: "Error", message: error.localizedDescription, details: nil))
+                }
+            }
         default:
             result(FlutterMethodNotImplemented)
         }
