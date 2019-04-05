@@ -192,10 +192,14 @@ class TitleValueWidget extends StatelessWidget {
                     style:
                         TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)),
                 Padding(
-                  padding: const EdgeInsets.only(top: 4.0),
+                  padding: const EdgeInsets.only(top: 8.0),
                   child: Text(this.value,
                       style: TextStyle(
-                          fontSize: 12.0, fontWeight: FontWeight.normal)),
+                          fontSize: 12.0, 
+                          fontWeight: FontWeight.normal, 
+                          color: Colors.lightBlueAccent
+                        )
+                      ),
                 )
               ],
             ),

@@ -55,7 +55,7 @@ public final class APNsPlugin: NSObject, FLEPlugin {
             let vc = InputViewController.makeViewController(title: title, value: value) { viewController, r in
                 switch r {
                 case .some(let value):
-                    result(value)
+                    result(value.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))
                     viewController.dismiss(nil)
                 case .none:
                     result(FlutterError(code: "Cancel", message: "Operation cancelled.", details: nil))
