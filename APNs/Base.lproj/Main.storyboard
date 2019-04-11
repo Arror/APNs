@@ -202,7 +202,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dVf-nq-DcZ" customClass="TappedLabel" customModule="APNs" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="384" width="194" height="21"/>
+                                                    <rect key="frame" x="20" y="384" width="175" height="21"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" borderStyle="border" drawsBackground="YES" id="iwS-np-JkM">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -210,7 +210,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Xnh-H9-1oe" customClass="TappedLabel" customModule="APNs" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="318" width="194" height="21"/>
+                                                    <rect key="frame" x="20" y="318" width="171" height="21"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" borderStyle="border" drawsBackground="YES" id="Ziq-bD-1R7">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -218,7 +218,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="77l-DP-elf" customClass="TappedLabel" customModule="APNs" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="252" width="194" height="21"/>
+                                                    <rect key="frame" x="20" y="252" width="171" height="21"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" borderStyle="border" drawsBackground="YES" id="ceo-BL-yjC">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -226,22 +226,67 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zMV-E6-fkv" customClass="TappedLabel" customModule="APNs" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="186" width="194" height="21"/>
+                                                    <rect key="frame" x="20" y="186" width="171" height="21"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" borderStyle="border" drawsBackground="YES" id="PBk-bK-D7I">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
+                                                <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="enO-Yk-wiZ">
+                                                    <rect key="frame" x="199" y="387" width="15" height="16"/>
+                                                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="Clear" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="fBb-Co-wlh">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="clearCertificateButtonTapped:" target="CUu-7H-I9W" id="4cV-Mi-j9e"/>
+                                                    </connections>
+                                                </button>
+                                                <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="puZ-3o-iKV">
+                                                    <rect key="frame" x="199" y="255" width="15" height="16"/>
+                                                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="Clear" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="U4o-Yz-Kac">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="clearKeyIDButtonTapped:" target="CUu-7H-I9W" id="btP-ds-5OK"/>
+                                                    </connections>
+                                                </button>
+                                                <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1GT-ox-Z8f">
+                                                    <rect key="frame" x="199" y="189" width="15" height="16"/>
+                                                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="Clear" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="gHa-qO-M9s">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="clearBundleIDButtonTapped:" target="CUu-7H-I9W" id="E4j-DS-uxw"/>
+                                                    </connections>
+                                                </button>
+                                                <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1tk-LC-mpf">
+                                                    <rect key="frame" x="199" y="321" width="15" height="16"/>
+                                                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="Clear" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="keM-fO-1E3">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="clearTeamIDButtonTapped:" target="CUu-7H-I9W" id="95k-i3-Qft"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="dVf-nq-DcZ" firstAttribute="top" secondItem="cLQ-c3-Xuf" secondAttribute="bottom" constant="8" id="0R0-OV-uxE"/>
+                                                <constraint firstAttribute="trailing" secondItem="enO-Yk-wiZ" secondAttribute="trailing" constant="20" id="1f0-et-FSk"/>
+                                                <constraint firstItem="puZ-3o-iKV" firstAttribute="centerY" secondItem="77l-DP-elf" secondAttribute="centerY" id="4DA-aN-Q9j"/>
                                                 <constraint firstItem="zMV-E6-fkv" firstAttribute="top" secondItem="eIP-xB-AnL" secondAttribute="bottom" constant="8" id="4mU-as-7ib"/>
+                                                <constraint firstItem="1tk-LC-mpf" firstAttribute="leading" secondItem="Xnh-H9-1oe" secondAttribute="trailing" constant="8" id="5bD-Mu-yEN"/>
                                                 <constraint firstItem="eIP-xB-AnL" firstAttribute="top" secondItem="77l-DP-elf" secondAttribute="bottom" constant="20" id="6Se-Po-2Dc"/>
-                                                <constraint firstAttribute="trailing" secondItem="dVf-nq-DcZ" secondAttribute="trailing" constant="20" id="8f1-ed-61o"/>
                                                 <constraint firstItem="Xnh-H9-1oe" firstAttribute="top" secondItem="1Yy-4o-Wn2" secondAttribute="bottom" constant="8" id="9Gc-O1-9sE"/>
+                                                <constraint firstItem="enO-Yk-wiZ" firstAttribute="centerY" secondItem="dVf-nq-DcZ" secondAttribute="centerY" id="9Le-Nk-EkL"/>
                                                 <constraint firstItem="zMV-E6-fkv" firstAttribute="leading" secondItem="CUu-7H-I9W" secondAttribute="leading" constant="20" id="CmX-Fi-MVP"/>
+                                                <constraint firstItem="puZ-3o-iKV" firstAttribute="leading" secondItem="77l-DP-elf" secondAttribute="trailing" constant="8" id="DKB-3d-no7"/>
                                                 <constraint firstAttribute="trailing" secondItem="1Yy-4o-Wn2" secondAttribute="trailing" constant="20" id="FbG-4o-6YS"/>
+                                                <constraint firstItem="1GT-ox-Z8f" firstAttribute="centerY" secondItem="zMV-E6-fkv" secondAttribute="centerY" id="GiV-X4-WA0"/>
                                                 <constraint firstItem="65Z-kI-tbV" firstAttribute="leading" secondItem="CUu-7H-I9W" secondAttribute="leading" constant="20" id="Mah-Rh-uIz"/>
                                                 <constraint firstItem="cLQ-c3-Xuf" firstAttribute="top" secondItem="CUu-7H-I9W" secondAttribute="top" constant="20" id="Ml0-j5-yFc"/>
                                                 <constraint firstItem="1Yy-4o-Wn2" firstAttribute="leading" secondItem="CUu-7H-I9W" secondAttribute="leading" constant="20" id="N23-09-Nsx"/>
@@ -250,12 +295,15 @@
                                                 <constraint firstItem="77l-DP-elf" firstAttribute="top" secondItem="65Z-kI-tbV" secondAttribute="bottom" constant="8" id="OWw-e7-www"/>
                                                 <constraint firstAttribute="trailing" secondItem="cLQ-c3-Xuf" secondAttribute="trailing" constant="20" id="OhQ-hE-typ"/>
                                                 <constraint firstItem="cLQ-c3-Xuf" firstAttribute="leading" secondItem="CUu-7H-I9W" secondAttribute="leading" constant="20" id="Sd1-3M-dHM"/>
-                                                <constraint firstAttribute="trailing" secondItem="Xnh-H9-1oe" secondAttribute="trailing" constant="20" id="avk-Te-8ko"/>
+                                                <constraint firstItem="1tk-LC-mpf" firstAttribute="centerY" secondItem="Xnh-H9-1oe" secondAttribute="centerY" id="WBS-1l-QtC"/>
+                                                <constraint firstItem="enO-Yk-wiZ" firstAttribute="leading" secondItem="dVf-nq-DcZ" secondAttribute="trailing" constant="4" id="bNx-gj-HJR"/>
+                                                <constraint firstAttribute="trailing" secondItem="1tk-LC-mpf" secondAttribute="trailing" constant="20" id="bpH-7o-FmL"/>
+                                                <constraint firstItem="1GT-ox-Z8f" firstAttribute="leading" secondItem="zMV-E6-fkv" secondAttribute="trailing" constant="8" id="c5h-ST-vA5"/>
+                                                <constraint firstAttribute="trailing" secondItem="1GT-ox-Z8f" secondAttribute="trailing" constant="20" id="dSf-jU-4PD"/>
                                                 <constraint firstAttribute="trailing" secondItem="65Z-kI-tbV" secondAttribute="trailing" constant="20" id="eUy-MF-CXV"/>
-                                                <constraint firstAttribute="trailing" secondItem="77l-DP-elf" secondAttribute="trailing" constant="20" id="gqD-dL-G4H"/>
                                                 <constraint firstItem="77l-DP-elf" firstAttribute="leading" secondItem="CUu-7H-I9W" secondAttribute="leading" constant="20" id="idH-Vz-iG8"/>
+                                                <constraint firstAttribute="trailing" secondItem="puZ-3o-iKV" secondAttribute="trailing" constant="20" id="ivd-QF-dkR"/>
                                                 <constraint firstAttribute="trailing" secondItem="eIP-xB-AnL" secondAttribute="trailing" constant="20" id="jrl-H5-ViW"/>
-                                                <constraint firstAttribute="trailing" secondItem="zMV-E6-fkv" secondAttribute="trailing" constant="20" id="m0F-3m-WOi"/>
                                                 <constraint firstItem="eIP-xB-AnL" firstAttribute="leading" secondItem="CUu-7H-I9W" secondAttribute="leading" constant="20" id="nGU-ny-1pH"/>
                                                 <constraint firstItem="65Z-kI-tbV" firstAttribute="top" secondItem="Xnh-H9-1oe" secondAttribute="bottom" constant="20" id="sBy-xT-sSn"/>
                                                 <constraint firstItem="Xnh-H9-1oe" firstAttribute="leading" secondItem="CUu-7H-I9W" secondAttribute="leading" constant="20" id="tBP-Pz-7vd"/>
@@ -284,20 +332,32 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5y4-AL-RZA" customClass="TappedLabel" customModule="APNs" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="384" width="194" height="21"/>
+                                                    <rect key="frame" x="20" y="384" width="175" height="21"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" borderStyle="border" drawsBackground="YES" id="pLp-7Y-UKI">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
+                                                <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5By-8H-2Lc">
+                                                    <rect key="frame" x="199" y="387" width="15" height="16"/>
+                                                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="Clear" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="a8m-59-fqy">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="clearCertificateButtonTapped:" target="mEA-QV-S7W" id="Qlx-yV-4S8"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="5By-8H-2Lc" firstAttribute="centerY" secondItem="5y4-AL-RZA" secondAttribute="centerY" id="351-eK-ivC"/>
                                                 <constraint firstItem="5y4-AL-RZA" firstAttribute="leading" secondItem="mEA-QV-S7W" secondAttribute="leading" constant="20" id="6Dd-oz-Kv6"/>
+                                                <constraint firstItem="5By-8H-2Lc" firstAttribute="leading" secondItem="5y4-AL-RZA" secondAttribute="trailing" constant="4" id="8ys-My-RQR"/>
                                                 <constraint firstItem="FqJ-f0-u8G" firstAttribute="top" secondItem="mEA-QV-S7W" secondAttribute="top" constant="20" id="KaW-d1-qgZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="5By-8H-2Lc" secondAttribute="trailing" constant="20" id="PaB-40-dye"/>
                                                 <constraint firstAttribute="trailing" secondItem="FqJ-f0-u8G" secondAttribute="trailing" constant="20" id="Tc6-BQ-k3J"/>
                                                 <constraint firstItem="5y4-AL-RZA" firstAttribute="top" secondItem="FqJ-f0-u8G" secondAttribute="bottom" constant="8" id="UET-RW-42n"/>
-                                                <constraint firstAttribute="trailing" secondItem="5y4-AL-RZA" secondAttribute="trailing" constant="20" id="nNX-1j-5dK"/>
                                                 <constraint firstItem="FqJ-f0-u8G" firstAttribute="leading" secondItem="mEA-QV-S7W" secondAttribute="leading" constant="20" id="x1B-3a-0hE"/>
                                             </constraints>
                                             <connections>
@@ -327,34 +387,58 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Rgo-Fa-iZY" customClass="TappedLabel" customModule="APNs" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="384" width="194" height="21"/>
+                                                    <rect key="frame" x="20" y="384" width="175" height="21"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" borderStyle="border" drawsBackground="YES" id="1tF-gF-wFJ">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
+                                                <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hcq-1D-LPH">
+                                                    <rect key="frame" x="199" y="387" width="15" height="16"/>
+                                                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="Clear" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="nMc-JI-1M3">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="clearCertificateButtonTapped:" target="yhn-oC-wDd" id="Zj5-t6-7n3"/>
+                                                    </connections>
+                                                </button>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UIU-aG-NoY" customClass="TappedLabel" customModule="APNs" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="318" width="194" height="21"/>
+                                                    <rect key="frame" x="20" y="318" width="175" height="21"/>
                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" borderStyle="border" drawsBackground="YES" id="DvS-8J-Dm9">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
+                                                <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QaN-lF-F9C">
+                                                    <rect key="frame" x="199" y="321" width="15" height="16"/>
+                                                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="Clear" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="pcO-CQ-OFy">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="clearPassphraseButtonTapped:" target="yhn-oC-wDd" id="WyO-OS-lX6"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="OVZ-4b-QxW" firstAttribute="top" secondItem="Rgo-Fa-iZY" secondAttribute="bottom" constant="20" id="0aZ-OX-ufh"/>
+                                                <constraint firstAttribute="trailing" secondItem="QaN-lF-F9C" secondAttribute="trailing" constant="20" id="3Da-S8-DHQ"/>
                                                 <constraint firstItem="UIU-aG-NoY" firstAttribute="leading" secondItem="yhn-oC-wDd" secondAttribute="leading" constant="20" id="8jD-f5-OAq"/>
+                                                <constraint firstItem="Hcq-1D-LPH" firstAttribute="leading" secondItem="Rgo-Fa-iZY" secondAttribute="trailing" constant="4" id="9Nk-Jd-ama"/>
                                                 <constraint firstItem="1ux-mD-fum" firstAttribute="top" secondItem="yhn-oC-wDd" secondAttribute="top" constant="20" id="9xu-5e-leJ"/>
                                                 <constraint firstAttribute="trailing" secondItem="1ux-mD-fum" secondAttribute="trailing" constant="20" id="MGa-oj-Dsy"/>
+                                                <constraint firstItem="QaN-lF-F9C" firstAttribute="centerY" secondItem="UIU-aG-NoY" secondAttribute="centerY" id="PCt-MN-UGn"/>
                                                 <constraint firstItem="Rgo-Fa-iZY" firstAttribute="leading" secondItem="yhn-oC-wDd" secondAttribute="leading" constant="20" id="Uq0-kW-tdT"/>
+                                                <constraint firstItem="QaN-lF-F9C" firstAttribute="leading" secondItem="UIU-aG-NoY" secondAttribute="trailing" constant="4" id="Y7L-LK-fd5"/>
                                                 <constraint firstItem="Rgo-Fa-iZY" firstAttribute="top" secondItem="1ux-mD-fum" secondAttribute="bottom" constant="8" id="amm-4O-H1H"/>
                                                 <constraint firstItem="UIU-aG-NoY" firstAttribute="top" secondItem="OVZ-4b-QxW" secondAttribute="bottom" constant="8" id="biT-a7-7Pz"/>
-                                                <constraint firstAttribute="trailing" secondItem="UIU-aG-NoY" secondAttribute="trailing" constant="20" id="q5k-IW-7Qh"/>
+                                                <constraint firstAttribute="trailing" secondItem="Hcq-1D-LPH" secondAttribute="trailing" constant="20" id="ofE-Kh-Ynk"/>
                                                 <constraint firstAttribute="trailing" secondItem="OVZ-4b-QxW" secondAttribute="trailing" constant="20" id="qxv-IZ-Cos"/>
+                                                <constraint firstItem="Hcq-1D-LPH" firstAttribute="centerY" secondItem="Rgo-Fa-iZY" secondAttribute="centerY" id="tMA-3S-BYe"/>
                                                 <constraint firstItem="OVZ-4b-QxW" firstAttribute="leading" secondItem="yhn-oC-wDd" secondAttribute="leading" constant="20" id="u9m-gM-bDz"/>
-                                                <constraint firstAttribute="trailing" secondItem="Rgo-Fa-iZY" secondAttribute="trailing" constant="20" id="uyT-ud-SHP"/>
                                                 <constraint firstItem="1ux-mD-fum" firstAttribute="leading" secondItem="yhn-oC-wDd" secondAttribute="leading" constant="20" id="yBT-9U-NVE"/>
                                             </constraints>
                                             <connections>
@@ -488,7 +572,7 @@
                                                     <rect key="frame" x="0.0" y="33" width="234" height="277"/>
                                                     <clipView key="contentView" id="u1t-H9-sBR">
                                                         <rect key="frame" x="1" y="0.0" width="232" height="276"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="42" rowSizeStyle="automatic" headerView="t5d-Ty-xwb" viewBased="YES" id="hCN-0e-9xD">
                                                                 <rect key="frame" x="0.0" y="0.0" width="503" height="251"/>
@@ -785,4 +869,7 @@ DQ
             <point key="canvasLocation" x="792" y="585"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Clear" width="15" height="15"/>
+    </resources>
 </document>

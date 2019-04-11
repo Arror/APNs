@@ -51,6 +51,13 @@ public class CerTabItemView: CertificateTabItemView {
         }
     }
     
+    @IBAction func clearCertificateButtonTapped(_ sender: NSButton) {
+        self.info.cerData = .none
+        self.info.cerName = ""
+        self.updateViews()
+        self.updateStorage()
+    }
+    
     private func updateViews() {
         self.certLabel.stringValue = self.info.cerName
     }
