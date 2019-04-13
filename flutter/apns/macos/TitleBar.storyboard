@@ -6,10 +6,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Ns Fake Title Bar-->
+        <!--Title Bar-->
         <scene sceneID="dmU-uR-K6s">
             <objects>
-                <viewController identifier="APNsFakeTitleBar" storyboardIdentifier="APNsFakeTitleBar" id="gsK-Oj-4VC" customClass="APNsFakeTitleBar" customModule="APNsFlutter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController identifier="APNsFakeTitleBar" storyboardIdentifier="APNsFakeTitleBar" id="gsK-Oj-4VC" customClass="TitleBar" customModule="APNsFlutter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="zGx-uA-4nQ">
                         <rect key="frame" x="0.0" y="0.0" width="100" height="34"/>
                         <autoresizingMask key="autoresizingMask"/>

@@ -13,7 +13,7 @@ public final class APNsPlugin: NSObject, FLEPlugin {
     
     public static func register(with registrar: FLEPluginRegistrar) {
         let channel = FlutterMethodChannel(
-            name: "com.Arror.APNsFlutter.APNsPlugin",
+            name: "com.Arror.APNs.Input",
             binaryMessenger: registrar.messenger
         )
         registrar.addMethodCallDelegate(APNsPlugin(), channel: channel)

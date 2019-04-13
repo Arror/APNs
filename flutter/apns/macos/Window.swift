@@ -15,9 +15,13 @@ class Window: NSWindow {
     
     override func awakeFromNib() {
         
-        self.addTitlebarAccessoryViewController(APNsFakeTitleBar.make())
+        self.addTitlebarAccessoryViewController(TitleBar.make())
         
-        APNsPlugin.register(with: self.flutter.registrar(forPlugin: "APNsPlugin"))
+        self.standardWindowButton(.closeButton)?.isHidden = true
+        self.standardWindowButton(.miniaturizeButton)?.isHidden = true
+        self.standardWindowButton(.zoomButton)?.isHidden = true
+        
+        APNsSystemPlugin.register(with: self.flutter.registrar(forPlugin: "SystemAction"))
         
         let assets = URL(fileURLWithPath: "flutter_assets", relativeTo: Bundle.main.resourceURL)
         let arguments: [String] = {
@@ -31,4 +35,3 @@ class Window: NSWindow {
         super.awakeFromNib()
     }
 }
-
