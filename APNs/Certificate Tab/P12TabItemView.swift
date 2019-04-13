@@ -66,6 +66,19 @@ public class P12TabItemView: CertificateTabItemView {
         }
     }
     
+    @IBAction func clearCertificateButtonTapped(_ sender: NSButton) {
+        self.info.cerData = .none
+        self.info.cerName = ""
+        self.updateViews()
+        self.updateStorage()
+    }
+    
+    @IBAction func clearPassphraseButtonTapped(_ sender: NSButton) {
+        self.info.passphrase = ""
+        self.updateViews()
+        self.updateStorage()
+    }
+    
     private func updateViews() {
         self.certLabel.stringValue = self.info.cerName
         self.passphraseLabel.stringValue = self.info.passphrase

@@ -96,6 +96,31 @@ public class P8TabItemView: CertificateTabItemView {
         }
     }
     
+    @IBAction func clearCertificateButtonTapped(_ sender: NSButton) {
+        self.info.cerData = .none
+        self.info.cerName = ""
+        self.updateViews()
+        self.updateStorage()
+    }
+    
+    @IBAction func clearTeamIDButtonTapped(_ sender: NSButton) {
+        self.info.teamID = ""
+        self.updateViews()
+        self.updateStorage()
+    }
+    
+    @IBAction func clearKeyIDButtonTapped(_ sender: NSButton) {
+        self.info.keyID = ""
+        self.updateViews()
+        self.updateStorage()
+    }
+    
+    @IBAction func clearBundleIDButtonTapped(_ sender: NSButton) {
+        self.info.topic = ""
+        self.updateViews()
+        self.updateStorage()
+    }
+    
     private func updateViews() {
         self.certLabel.stringValue = self.info.cerName
         self.teamLabel.stringValue = self.info.teamID
