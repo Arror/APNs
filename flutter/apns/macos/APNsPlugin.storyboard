@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="S6c-tv-qYs">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!-- -->
+        <scene sceneID="MDy-tk-s6p">
+            <objects>
+                <viewController title=" " identifier="InputViewController" storyboardIdentifier="InputViewController" id="S6c-tv-qYs" customClass="InputViewController" customModule="APNsFlutter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="adW-Ku-Ed2">
+                        <rect key="frame" x="0.0" y="0.0" width="420" height="123"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qwL-B5-aaX">
+                                <rect key="frame" x="22" y="84" width="376" height="21"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="编辑 Provider" id="QFf-tt-rzP">
+                                    <font key="font" size="12" name="PingFangSC-Medium"/>
+                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WFC-wa-hrj">
+                                <rect key="frame" x="342" y="7" width="60" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="tp3-lY-FaN"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="确定" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="tla-Og-8Qv">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                    <font key="font" size="10" name="PingFangSC-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="confirmButtonTapped:" target="S6c-tv-qYs" id="vNY-NX-FEa"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hWo-8p-vX7">
+                                <rect key="frame" x="282" y="7" width="60" height="31"/>
+                                <buttonCell key="cell" type="push" title="取消" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9Qn-u2-wfo">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="10" name="PingFangSC-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="cancelButtonTapped:" target="S6c-tv-qYs" id="ltS-cf-WtZ"/>
+                                </connections>
+                            </button>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w7V-z8-AXn">
+                                <rect key="frame" x="24" y="58" width="372" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="372" id="5kn-7U-0LN"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" drawsBackground="YES" id="DiX-Yb-q0s">
+                                    <font key="font" size="10" name="PingFangSC-Regular"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="WFC-wa-hrj" secondAttribute="bottom" constant="14" id="DhG-p8-sAn"/>
+                            <constraint firstAttribute="bottom" secondItem="hWo-8p-vX7" secondAttribute="bottom" constant="14" id="HDU-Y8-tl2"/>
+                            <constraint firstItem="w7V-z8-AXn" firstAttribute="leading" secondItem="adW-Ku-Ed2" secondAttribute="leading" constant="24" id="KmJ-nH-LD9"/>
+                            <constraint firstAttribute="trailing" secondItem="WFC-wa-hrj" secondAttribute="trailing" constant="24" id="Od5-6I-2P7"/>
+                            <constraint firstItem="WFC-wa-hrj" firstAttribute="top" secondItem="w7V-z8-AXn" secondAttribute="bottom" constant="24" id="SiE-y9-8L7"/>
+                            <constraint firstItem="qwL-B5-aaX" firstAttribute="leading" secondItem="adW-Ku-Ed2" secondAttribute="leading" constant="24" id="Wr3-1a-w2d"/>
+                            <constraint firstAttribute="trailing" secondItem="w7V-z8-AXn" secondAttribute="trailing" constant="24" id="Wuu-bZ-Iju"/>
+                            <constraint firstItem="WFC-wa-hrj" firstAttribute="leading" secondItem="hWo-8p-vX7" secondAttribute="trailing" constant="12" id="aJM-0D-xgZ"/>
+                            <constraint firstItem="qwL-B5-aaX" firstAttribute="top" secondItem="adW-Ku-Ed2" secondAttribute="top" constant="18" id="hhG-Af-jgn"/>
+                            <constraint firstItem="w7V-z8-AXn" firstAttribute="top" secondItem="qwL-B5-aaX" secondAttribute="bottom" constant="8" id="iZF-n9-kbZ"/>
+                            <constraint firstItem="hWo-8p-vX7" firstAttribute="top" secondItem="w7V-z8-AXn" secondAttribute="bottom" constant="24" id="rzR-2a-irN"/>
+                            <constraint firstAttribute="trailing" secondItem="qwL-B5-aaX" secondAttribute="trailing" constant="24" id="tZh-Fl-uPs"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="titleLabel" destination="qwL-B5-aaX" id="oBd-NW-uVH"/>
+                        <outlet property="valueTextField" destination="w7V-z8-AXn" id="mDz-AT-9WP"/>
+                    </connections>
+                </viewController>
+                <customObject id="0iK-HE-hE2" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="72" y="619"/>
+        </scene>
+    </scenes>
+</document>
