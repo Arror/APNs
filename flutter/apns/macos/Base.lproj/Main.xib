@@ -116,14 +116,14 @@
         <window title="APNs" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" appearanceType="darkAqua" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="QvC-M9-y7g" customClass="Window" customModule="APNsFlutter" customModuleProvider="target">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="796" height="596"/>
+            <rect key="contentRect" x="335" y="390" width="569" height="769"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="796" height="596"/>
+                <rect key="frame" x="0.0" y="0.0" width="569" height="769"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <openGLView wantsLayer="YES" colorSize="5bit_RGB_8bit_Alpha" useAuxiliaryDepthBufferStencil="NO" useDoubleBufferingEnabled="YES" allowOffline="YES" wantsBestResolutionOpenGLSurface="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gEc-a8-YO4" userLabel="Flutter View" customClass="FLEView">
-                        <rect key="frame" x="0.0" y="0.0" width="796" height="596"/>
+                        <rect key="frame" x="0.0" y="0.0" width="569" height="769"/>
                         <connections>
                             <outlet property="reshapeListener" destination="G1H-AI-kys" id="1cc-4d-RFE"/>
                         </connections>
