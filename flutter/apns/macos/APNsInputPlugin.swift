@@ -1,5 +1,5 @@
 //
-//  APNsPlugin.swift
+//  APNsInputPlugin.swift
 //  APNsFlutter
 //
 //  Created by Qiang Ma 马强 on 2019/4/2.
@@ -9,14 +9,14 @@
 import Cocoa
 import FlutterMacOS
 
-public final class APNsPlugin: NSObject, FLEPlugin {
+public final class APNsInputPlugin: NSObject, FLEPlugin {
     
     public static func register(with registrar: FLEPluginRegistrar) {
         let channel = FlutterMethodChannel(
             name: "com.Arror.APNs.Input",
             binaryMessenger: registrar.messenger
         )
-        registrar.addMethodCallDelegate(APNsPlugin(), channel: channel)
+        registrar.addMethodCallDelegate(APNsInputPlugin(), channel: channel)
     }
     
     private override init() {
@@ -52,7 +52,7 @@ public final class APNsPlugin: NSObject, FLEPlugin {
                 title = ""
                 value = ""
             }
-            let vc = InputViewController.makeViewController(title: title, value: value) { viewController, r in
+            let vc = APNsInputViewController.makeViewController(title: title, value: value) { viewController, r in
                 switch r {
                 case .some(let value):
                     result(value.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))

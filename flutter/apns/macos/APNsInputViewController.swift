@@ -1,5 +1,5 @@
 //
-//  InputViewController.swift
+//  APNsInputViewController.swift
 //  APNsFlutter
 //
 //  Created by Arror on 2019/4/5.
@@ -8,13 +8,13 @@
 
 import Cocoa
 
-class InputViewController: NSViewController {
+class APNsInputViewController: NSViewController {
 
     @IBOutlet weak var titleLabel: NSTextField!
     @IBOutlet weak var valueTextField: NSTextField!
     
     private var value: String = ""
-    private var completion: (InputViewController, Optional<String>) -> Void = { _, _ in }
+    private var completion: (APNsInputViewController, Optional<String>) -> Void = { _, _ in }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +30,8 @@ class InputViewController: NSViewController {
         self.completion(self, .none)
     }
     
-    static func makeViewController(title: String, value: String, completion: @escaping (InputViewController, Optional<String>) -> Void) -> InputViewController {
-        let vc = NSStoryboard(name: "APNsPlugin", bundle: nil).instantiateInitialController() as! InputViewController
+    static func makeViewController(title: String, value: String, completion: @escaping (APNsInputViewController, Optional<String>) -> Void) -> APNsInputViewController {
+        let vc = NSStoryboard(name: "APNsInputPlugin", bundle: nil).instantiateInitialController() as! APNsInputViewController
         vc.title = title
         vc.value = value
         vc.completion = completion

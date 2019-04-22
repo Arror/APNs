@@ -21,7 +21,7 @@ class Window: NSWindow {
         self.standardWindowButton(.miniaturizeButton)?.isHidden = true
         self.standardWindowButton(.zoomButton)?.isHidden = true
         
-        APNsSystemPlugin.register(with: self.flutter.registrar(forPlugin: "SystemAction"))
+        APNsPluginRegistrant.register(withRegistry: self.flutter)
         
         let assets = URL(fileURLWithPath: "flutter_assets", relativeTo: Bundle.main.resourceURL)
         let arguments: [String] = {
