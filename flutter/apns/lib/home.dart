@@ -10,7 +10,6 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('APNs Provider'),
-        centerTitle: true,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.minimize),
@@ -26,7 +25,9 @@ class Home extends StatelessWidget {
           )
         ],
       ),
-      body: Container()
+      body: Container(),
+      drawer: Drawer(
+      ),
     );
   }
 }
