@@ -23,9 +23,9 @@ public final class APNsInputPlugin: NSObject, FLEPlugin {
         super.init()
     }
     
-    private func loadMainWindow() -> Window {
+    private func loadMainWindow() -> APNsWindow {
         guard
-            let window = NSApplication.shared.keyWindow as? Window else {
+            let window = NSApplication.shared.keyWindow as? APNsWindow else {
                 fatalError("Invalid Flutter.")
         }
         return window

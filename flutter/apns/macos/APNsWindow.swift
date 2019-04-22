@@ -1,5 +1,5 @@
 //
-//  Window.swift
+//  APNsWindow.swift
 //  APNsFlutter
 //
 //  Created by Arror on 2019/3/14.
@@ -9,13 +9,13 @@
 import Cocoa
 import FlutterMacOS
 
-class Window: NSWindow {
+class APNsWindow: NSWindow {
     
     @IBOutlet weak var flutter: FLEViewController!
     
     override func awakeFromNib() {
         
-        self.addTitlebarAccessoryViewController(TitleBar.make())
+        self.addTitlebarAccessoryViewController(APNsTitleBar.make())
         
         self.standardWindowButton(.closeButton)?.isHidden = true
         self.standardWindowButton(.miniaturizeButton)?.isHidden = true
