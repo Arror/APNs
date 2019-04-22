@@ -9,7 +9,7 @@
         <!-- -->
         <scene sceneID="MDy-tk-s6p">
             <objects>
-                <viewController title=" " identifier="InputViewController" storyboardIdentifier="InputViewController" id="S6c-tv-qYs" customClass="APNsInputViewController" customModule="APNsFlutter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title=" " identifier="APNsInputViewController" storyboardIdentifier="APNsInputViewController" id="S6c-tv-qYs" customClass="APNsInputViewController" customModule="APNsFlutter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="adW-Ku-Ed2">
                         <rect key="frame" x="0.0" y="0.0" width="420" height="123"/>
                         <autoresizingMask key="autoresizingMask"/>

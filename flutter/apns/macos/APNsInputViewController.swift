@@ -31,7 +31,7 @@ class APNsInputViewController: NSViewController {
     }
     
     static func makeViewController(title: String, value: String, completion: @escaping (APNsInputViewController, Optional<String>) -> Void) -> APNsInputViewController {
-        let vc = NSStoryboard(name: "APNsInputPlugin", bundle: nil).instantiateInitialController() as! APNsInputViewController
+        let vc = NSStoryboard(name: "APNsInputViewController", bundle: nil).instantiateInitialController() as! APNsInputViewController
         vc.title = title
         vc.value = value
         vc.completion = completion
