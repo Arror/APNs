@@ -49,6 +49,7 @@
 		7085FF5F2235DBA300191B58 /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
 		7087B94A2231F34E00347F20 /* APNs+Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APNs+Options.swift"; sourceTree = "<group>"; };
 		7087B94C2231F37100347F20 /* APNs+Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APNs+Payload.swift"; sourceTree = "<group>"; };
+		70DC5BC422EC56E700183BCB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		70F399D02230046B00D54A14 /* SafeCompatible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCompatible.swift; sourceTree = "<group>"; };
 		70F399D22230048800D54A14 /* DispatchQueue+Safe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Safe.swift"; sourceTree = "<group>"; };
 		70F399D42230107A00D54A14 /* APNs+Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APNs+Response.swift"; sourceTree = "<group>"; };
@@ -261,6 +262,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 70FBE772222B7DFC00B88357;
 			productRefGroup = 70FBE77C222B7DFC00B88357 /* Products */;
@@ -330,6 +332,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				70FBE785222B7DFD00B88357 /* Base */,
+				70DC5BC422EC56E700183BCB /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -402,6 +406,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
