@@ -88,14 +88,14 @@ public enum APNs {
                     return req
                 }()
                 let task = self.session.dataTask(with: request) { data, response, error in
-                    DispatchQueue.main.safe.sync {
+                    DispatchQueue.main.async {
                         let response = APNs.Response(response: response, data: data, error: error)
                         completion(response)
                     }
                 }
                 task.resume()
             } catch {
-                DispatchQueue.main.safe.sync {
+                DispatchQueue.main.async {
                     completion(.failure(error))
                 }
             }

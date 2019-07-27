@@ -13,8 +13,6 @@
 		7085FF602235DBA300191B58 /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7085FF5F2235DBA300191B58 /* AppUser.swift */; };
 		7087B94B2231F34E00347F20 /* APNs+Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7087B94A2231F34E00347F20 /* APNs+Options.swift */; };
 		7087B94D2231F37100347F20 /* APNs+Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7087B94C2231F37100347F20 /* APNs+Payload.swift */; };
-		70F399D12230046B00D54A14 /* SafeCompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F399D02230046B00D54A14 /* SafeCompatible.swift */; };
-		70F399D32230048800D54A14 /* DispatchQueue+Safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F399D22230048800D54A14 /* DispatchQueue+Safe.swift */; };
 		70F399D52230107A00D54A14 /* APNs+Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F399D42230107A00D54A14 /* APNs+Response.swift */; };
 		70FBE77F222B7DFC00B88357 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE77E222B7DFC00B88357 /* AppDelegate.swift */; };
 		70FBE781222B7DFC00B88357 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FBE780222B7DFC00B88357 /* ViewController.swift */; };
@@ -50,8 +48,6 @@
 		7087B94A2231F34E00347F20 /* APNs+Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APNs+Options.swift"; sourceTree = "<group>"; };
 		7087B94C2231F37100347F20 /* APNs+Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APNs+Payload.swift"; sourceTree = "<group>"; };
 		70DC5BC422EC56E700183BCB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
-		70F399D02230046B00D54A14 /* SafeCompatible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCompatible.swift; sourceTree = "<group>"; };
-		70F399D22230048800D54A14 /* DispatchQueue+Safe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Safe.swift"; sourceTree = "<group>"; };
 		70F399D42230107A00D54A14 /* APNs+Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APNs+Response.swift"; sourceTree = "<group>"; };
 		70FBE77B222B7DFC00B88357 /* APNs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APNs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70FBE77E222B7DFC00B88357 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -103,15 +99,6 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
-		70F399CF2230044A00D54A14 /* Safe */ = {
-			isa = PBXGroup;
-			children = (
-				70F399D02230046B00D54A14 /* SafeCompatible.swift */,
-				70F399D22230048800D54A14 /* DispatchQueue+Safe.swift */,
-			);
-			path = Safe;
-			sourceTree = "<group>";
-		};
 		70FBE772222B7DFC00B88357 = {
 			isa = PBXGroup;
 			children = (
@@ -151,7 +138,6 @@
 				70FBE7B0222BF0E800B88357 /* AppEnvironment.swift */,
 				7085FF5F2235DBA300191B58 /* AppUser.swift */,
 				CA80D64A2233EC8500376814 /* Log */,
-				70F399CF2230044A00D54A14 /* Safe */,
 				CA351B3A222E2241005D34E6 /* JSONWebToken */,
 				70802A75222D76AF0054C45E /* Storage */,
 				70FBE7B2222BF1D700B88357 /* APNs */,
@@ -297,9 +283,7 @@
 				CA80D62E2233737100376814 /* CertificateTabItemView.swift in Sources */,
 				CA351B55222E7994005D34E6 /* JSONWebToken.swift in Sources */,
 				7085FF602235DBA300191B58 /* AppUser.swift in Sources */,
-				70F399D12230046B00D54A14 /* SafeCompatible.swift in Sources */,
 				7087B94D2231F37100347F20 /* APNs+Payload.swift in Sources */,
-				70F399D32230048800D54A14 /* DispatchQueue+Safe.swift in Sources */,
 				CA80D63A2233745A00376814 /* NSOpenPanel+Ext.swift in Sources */,
 				70FBE7B1222BF0E800B88357 /* AppEnvironment.swift in Sources */,
 				CA80D636223373F900376814 /* TappedLabel.swift in Sources */,

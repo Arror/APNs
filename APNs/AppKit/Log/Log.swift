@@ -68,7 +68,7 @@ public final class StringDestination: LogDestination {
     public override func write(level: Level, format: String, args: [CVarArg]) {
         let date = self.format.string(from: Date(timeIntervalSinceNow: 0))
         self.log.append("[\(date)] [\(level.rawValue)]: \(String(format: format, args))\n")
-        DispatchQueue.main.safe.sync {
+        DispatchQueue.main.async {
             self.logUpdate(self)
         }
     }
@@ -85,13 +85,13 @@ public class Logger {
     }
     
     public func add(destination: LogDestination) {
-        self.queue.safe.sync {
+        self.queue.async {
             self.destinations.insert(destination)
         }
     }
     
     public func remove(destination: LogDestination) {
-        self.queue.safe.sync {
+        self.queue.async {
             self.destinations.remove(destination)
         }
     }
