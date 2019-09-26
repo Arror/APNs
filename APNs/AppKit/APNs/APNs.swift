@@ -26,16 +26,16 @@ public enum APNs {
     
     public enum Certificate: Equatable {
         
-        case cer(data: Data)
-        case p12(data: Data, passphrase: String)
+        case cer(data: Data, topic: String)
+        case p12(data: Data, passphrase: String, topic: String)
         case p8(data: Data, teamID: String, keyID: String, topic: String)
         
         public static func ==(lhs: Certificate, rhs: Certificate) -> Bool {
             switch (lhs, rhs) {
             case let (.cer(l), .cer(r)):
-                return l == r
+                return (l.data == r.data) && (l.topic == r.topic)
             case let (.p12(l), .p12(r)):
-                return (l.data == r.data) && (l.passphrase == r.passphrase)
+                return (l.data == r.data) && (l.passphrase == r.passphrase) && (l.topic == r.topic)
             case let (.p8(l), .p8(r)):
                 return (l.data == r.data) && (l.teamID == r.teamID) && (l.keyID == r.keyID)
             default:
@@ -46,10 +46,10 @@ public enum APNs {
     
     public static func makeProvider(certificate: Certificate) throws -> Provider {
         switch certificate {
-        case .cer(let data):
-            return try CertificateBasedProvider(cerData: data)
-        case .p12(let data, let passphrase):
-            return try CertificateBasedProvider(P12Data: data, passphrase: passphrase)
+        case .cer(let data, let topic):
+            return try CertificateBasedProvider(cerData: data, topic: topic)
+        case .p12(let data, let passphrase, let topic):
+            return try CertificateBasedProvider(P12Data: data, passphrase: passphrase, topic: topic)
         case .p8(let data, let teamID, let keyID, let topic):
             return try TokenBasedProvider(P8Data: data, teamID: teamID, keyID: keyID, topic: topic)
         }
@@ -65,8 +65,8 @@ public enum APNs {
             return nil
         }
         
-        open var topic: String? {
-            return nil
+        open var topic: String {
+            fatalError()
         }
         
         public final func send(server: APNs.Server, options: Options, token: String, payload: PayloadConvertable, completion: @escaping (APNs.Response) -> Void) {
@@ -169,7 +169,7 @@ private class TokenBasedProvider: APNs.Provider {
         return self._tokenController.token
     }
     
-    override var topic: String? {
+    override var topic: String {
         return self._topic
     }
     
@@ -212,12 +212,17 @@ private class CertificateBasedProvider: APNs.Provider {
     private let _sessionDelegate: _URLSessionDelegate
     private let _session: URLSession
     private let _queue: OperationQueue
+    private let _topic: String
+    
+    override var topic: String {
+        return self._topic
+    }
     
     override var session: URLSession {
         return self._session
     }
     
-    convenience init(cerData: Data) throws {
+    convenience init(cerData: Data, topic: String) throws {
         guard
             let certificate = SecCertificateCreateWithData(kCFAllocatorDefault, cerData as CFData) else {
                 throw NSError.makeMessageError(message: "Certificate create failed.")
@@ -229,10 +234,10 @@ private class CertificateBasedProvider: APNs.Provider {
             let identify = reval else {
                 throw NSError.makeMessageError(message: "Identity create failed.")
         }
-        self.init(identity: identify, certificate: certificate)
+        self.init(identity: identify, certificate: certificate, topic: topic)
     }
     
-    convenience init(P12Data: Data, passphrase: String) throws {
+    convenience init(P12Data: Data, passphrase: String, topic: String) throws {
         let options = [kSecImportExportPassphrase as String: passphrase] as CFDictionary
         var reval: CFArray?
         guard
@@ -246,16 +251,17 @@ private class CertificateBasedProvider: APNs.Provider {
             SecIdentityCopyCertificate(identity, &reval)
             return reval!
         }()
-        self.init(identity: identity, certificate: certificate)
+        self.init(identity: identity, certificate: certificate, topic: topic)
     }
     
-    private init(identity: SecIdentity, certificate: SecCertificate) {
+    private init(identity: SecIdentity, certificate: SecCertificate, topic: String) {
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 10
         let delegate = _URLSessionDelegate(identity: identity, certificate: certificate)
         self._sessionDelegate = delegate
         self._session = URLSession(configuration: .default, delegate: delegate, delegateQueue: queue)
         self._queue = queue
+        self._topic = topic
     }
 }
 
