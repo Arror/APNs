@@ -15,6 +15,7 @@ public class P12TabItemView: CertificateTabItemView {
         var cerData: Optional<Data> = .none
         var cerName: String = ""
         var passphrase: String = ""
+        var topic: String = ""
         
         init() {}
     }
@@ -25,6 +26,7 @@ public class P12TabItemView: CertificateTabItemView {
     
     @IBOutlet weak var certLabel: TappedLabel!
     @IBOutlet weak var passphraseLabel: TappedLabel!
+    @IBOutlet weak var topicLabel: TappedLabel!
     
     public override func awakeFromNib() {
         super.awakeFromNib()
@@ -64,6 +66,19 @@ public class P12TabItemView: CertificateTabItemView {
             }
             self.window?.windowController?.contentViewController?.presentAsSheet(vc)
         }
+        self.topicLabel.tapped = { _ in
+            let vc = InputSheetViewController.makeViewController(title: "Bundle ID", initialValue: self.topicLabel.stringValue) { result in
+                switch result {
+                case .some(let value):
+                    self.info.topic = value
+                    self.updateViews()
+                    self.updateStorage()
+                case .none:
+                    break
+                }
+            }
+            self.window?.windowController?.contentViewController?.presentAsSheet(vc)
+        }
     }
     
     @IBAction func clearCertificateButtonTapped(_ sender: NSButton) {
@@ -79,9 +94,16 @@ public class P12TabItemView: CertificateTabItemView {
         self.updateStorage()
     }
     
+    @IBAction func clearTopicButtonTapped(_ sender: NSButton) {
+        self.info.topic = ""
+        self.updateViews()
+        self.updateStorage()
+    }
+    
     private func updateViews() {
         self.certLabel.stringValue = self.info.cerName
         self.passphraseLabel.stringValue = self.info.passphrase
+        self.topicLabel.stringValue = self.info.topic
     }
     
     private func updateStorage() {
@@ -93,6 +115,10 @@ public class P12TabItemView: CertificateTabItemView {
     }
     
     public override var certificate: Optional<APNs.Certificate> {
-        return self.info.cerData.flatMap { .p12(data: $0, passphrase: self.info.passphrase) }
+        guard
+            let data = self.info.cerData, !self.info.topic.isEmpty else {
+                return .none
+        }
+        return .p12(data: data, passphrase: self.info.passphrase, topic: self.info.topic)
     }
 }

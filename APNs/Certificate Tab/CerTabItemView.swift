@@ -14,6 +14,7 @@ public class CerTabItemView: CertificateTabItemView {
         
         var cerData: Optional<Data> = .none
         var cerName: String = ""
+        var topic: String = ""
         
         init() {}
     }
@@ -23,6 +24,7 @@ public class CerTabItemView: CertificateTabItemView {
     private let storageKey = "cer.info"
     
     @IBOutlet weak var certLabel: TappedLabel!
+    @IBOutlet weak var topicLabel: TappedLabel!
     
     public override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,6 +51,20 @@ public class CerTabItemView: CertificateTabItemView {
                 }
             }
         }
+        
+        self.topicLabel.tapped = { _ in
+            let vc = InputSheetViewController.makeViewController(title: "Bundle ID", initialValue: self.topicLabel.stringValue) { result in
+                switch result {
+                case .some(let value):
+                    self.info.topic = value
+                    self.updateViews()
+                    self.updateStorage()
+                case .none:
+                    break
+                }
+            }
+            self.window?.windowController?.contentViewController?.presentAsSheet(vc)
+        }
     }
     
     @IBAction func clearCertificateButtonTapped(_ sender: NSButton) {
@@ -58,8 +74,15 @@ public class CerTabItemView: CertificateTabItemView {
         self.updateStorage()
     }
     
+    @IBAction func clearTopicButtonTapped(_ sender: NSButton) {
+        self.info.topic = ""
+        self.updateViews()
+        self.updateStorage()
+    }
+    
     private func updateViews() {
         self.certLabel.stringValue = self.info.cerName
+        self.topicLabel.stringValue = self.info.topic
     }
     
     private func updateStorage() {
@@ -71,6 +94,10 @@ public class CerTabItemView: CertificateTabItemView {
     }
     
     public override var certificate: Optional<APNs.Certificate> {
-        return self.info.cerData.flatMap { .cer(data: $0) }
+        if let data = self.info.cerData, self.info.topic.isEmpty {
+            return .cer(data: data, topic: self.info.topic)
+        } else {
+            return .none
+        }
     }
 }
