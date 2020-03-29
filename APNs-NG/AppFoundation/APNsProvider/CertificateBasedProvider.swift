@@ -41,18 +41,18 @@ public final class CertificateBasedProvider: APNsProviderBase {
     convenience init(cerData: Data, topic: String) throws {
         guard
             !topic.isEmpty else {
-                throw NSError.makeMessageError(message: "套装为空，请填写套装")
+                throw APNsError.bundleIDEmpty
         }
         guard
             let certificate = SecCertificateCreateWithData(kCFAllocatorDefault, cerData as CFData) else {
-                throw NSError.makeMessageError(message: "加载CER证书失败")
+                throw APNsError.loadCERFailed
         }
         var reval: SecIdentity? = nil
         
         guard
             SecIdentityCreateWithCertificate(nil, certificate, &reval) == errSecSuccess,
             let identify = reval else {
-                throw NSError.makeMessageError(message: "CER证书创建失败")
+                throw APNsError.createCERFailed
         }
         self.init(identity: identify, certificate: certificate, topic: topic)
     }
@@ -60,14 +60,14 @@ public final class CertificateBasedProvider: APNsProviderBase {
     convenience init(P12Data: Data, passphrase: String, topic: String) throws {
         guard
             !topic.isEmpty else {
-                throw NSError.makeMessageError(message: "套装为空，请填写套装")
+                throw APNsError.bundleIDEmpty
         }
         let options = [kSecImportExportPassphrase as String: passphrase] as CFDictionary
         var reval: CFArray?
         guard
             SecPKCS12Import(P12Data as CFData, options, &reval) == errSecSuccess,
             let items = reval, CFArrayGetCount(items) > 0 else {
-                throw NSError.makeMessageError(message: "加载P12证书失败")
+                throw APNsError.createP12Failed
         }
         let identity = (items as [AnyObject])[0][kSecImportItemIdentity as String] as! SecIdentity
         let certificate: SecCertificate = {

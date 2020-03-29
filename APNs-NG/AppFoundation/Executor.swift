@@ -39,8 +39,7 @@ public struct Executor {
         case 0:
             return outputData
         default:
-            let message = String(data: errorData, encoding: .utf8) ?? "Unknown error."
-            throw NSError(domain: "Executor", code: -1, userInfo: [NSLocalizedDescriptionKey: message])
+            throw APNsError.scriptExeFailed(String(data: errorData, encoding: .utf8) ?? "Unknown error.")
         }
     }
 }

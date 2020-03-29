@@ -14,7 +14,7 @@ public final class APNsProviderFactory {
         switch service.destinationObject.value {
         case .device:
             guard let certificate = AppService.current.certificateObject.value else {
-                throw NSError.makeMessageError(message: "证书不存在")
+                throw APNsError.certificateNotExist
             }
             switch certificate.certificateType {
             case .cer:

@@ -92,8 +92,9 @@ class CertificateView: NSView {
         let passphrase: String
         if certificateType == .p12 {
             let alert = NSAlert()
-            alert.messageText = "Input passphrase"
-            alert.addButton(withTitle: "OK")
+            alert.messageText = "输入密码"
+            alert.informativeText = "如果未设置密码，请直接点击确定按钮"
+            alert.addButton(withTitle: "确定")
             alert.accessoryView = self.passphraseTextField
             alert.runModal()
             passphrase = self.passphraseTextField.stringValue

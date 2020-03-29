@@ -26,15 +26,15 @@ public final class TokenBasedProvider: APNsProviderBase {
     public init(P8Data: Data, teamID: String, keyID: String, topic: String) throws {
         guard
             !teamID.isEmpty else {
-                throw NSError.makeMessageError(message: "组织为空，请填写组织")
+                throw APNsError.teamIDEmpty
         }
         guard
             !keyID.isEmpty else {
-                throw NSError.makeMessageError(message: "钥匙为空，请填写钥匙")
+                throw APNsError.keyIDEmpty
         }
         guard
             !topic.isEmpty else {
-                throw NSError.makeMessageError(message: "套装为空，请填写套装")
+                throw APNsError.bundleIDEmpty
         }
         self._topic = topic
         let queue = OperationQueue()

@@ -21,19 +21,16 @@ open class APNsProviderBase: APNsProvider {
     public final func send(payload: String, token: String, priorty: Int, completion: @escaping (Result<Void, Error>) -> Void) {
         do {
             guard !AppService.current.bundleIDObject.value.isEmpty else {
-                throw NSError.makeMessageError(message: "套装为空，请填写套装")
+                throw APNsError.bundleIDEmpty
             }
             guard !token.isEmpty else {
-                throw NSError.makeMessageError(message: "令牌为空，请填写套装")
+                throw APNsError.tokenEmpty
             }
-            guard let payloadData = payload.data(using: .utf8) else {
-                throw NSError.makeMessageError(message: "负载存在问题，请检查负载格式")
-            }
-            guard let object = try? JSONSerialization.jsonObject(with: payloadData, options: []), JSONSerialization.isValidJSONObject(object) else {
-                throw NSError.makeMessageError(message: "负载存在问题，请检查负载格式")
-            }
-            guard let data = try? JSONSerialization.data(withJSONObject: object, options: []) else {
-                throw NSError.makeMessageError(message: "负载存在问题，请检查负载格式")
+            guard
+                let payloadData = payload.data(using: .utf8),
+                let object = try? JSONSerialization.jsonObject(with: payloadData, options: []), JSONSerialization.isValidJSONObject(object),
+                let data = try? JSONSerialization.data(withJSONObject: object, options: []) else {
+                    throw APNsError.invalidatePayload
             }
             let request: URLRequest = {
                 let url: URL = {

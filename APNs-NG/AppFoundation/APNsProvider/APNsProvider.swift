@@ -11,10 +11,3 @@ import Foundation
 public protocol APNsProvider: class {
     func send(payload: String, token: String, priorty: Int, completion: @escaping (Result<Void, Error>) -> Void)
 }
-
-extension NSError {
-    
-    static func makeMessageError(message: String) -> NSError {
-        return NSError(domain: "APNs-NG", code: -1, userInfo: [NSLocalizedDescriptionKey: message])
-    }
-}

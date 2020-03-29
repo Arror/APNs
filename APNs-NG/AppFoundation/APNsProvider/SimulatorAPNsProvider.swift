@@ -21,16 +21,13 @@ public final class SimulatorAPNsProvider: APNsProvider {
     public func send(payload: String, token: String, priorty: Int, completion: @escaping (Result<Void, Error>) -> Void) {
         do {
             guard !self.bundleID.isEmpty else {
-                throw NSError.makeMessageError(message: "套装为空，请填写套装")
+                throw APNsError.bundleIDEmpty
             }
-            guard let payloadData = payload.data(using: .utf8) else {
-                throw NSError.makeMessageError(message: "负载存在问题，请检查负载格式")
-            }
-            guard let object = try? JSONSerialization.jsonObject(with: payloadData, options: []), JSONSerialization.isValidJSONObject(object) else {
-                throw NSError.makeMessageError(message: "负载存在问题，请检查负载格式")
-            }
-            guard let content = String(data: payloadData, encoding: .utf8) else {
-                throw NSError.makeMessageError(message: "负载存在问题，请检查负载格式")
+            guard
+                let payloadData = payload.data(using: .utf8),
+                let object = try? JSONSerialization.jsonObject(with: payloadData, options: []), JSONSerialization.isValidJSONObject(object),
+                let content = String(data: payloadData, encoding: .utf8) else {
+                    throw APNsError.invalidatePayload
             }
             let path = "\(NSTemporaryDirectory())\(UUID().uuidString).json"
             try content.write(toFile: path, atomically: true, encoding: .utf8)

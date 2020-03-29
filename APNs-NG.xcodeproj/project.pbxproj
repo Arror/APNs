@@ -37,6 +37,7 @@
 		D31590592430AF5500E048AE /* APNsJWTTokenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31590582430AF5500E048AE /* APNsJWTTokenController.swift */; };
 		D315905B2430AF7C00E048AE /* APNsClaims.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315905A2430AF7C00E048AE /* APNsClaims.swift */; };
 		D315905D2430AF9800E048AE /* SimulatorAPNsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315905C2430AF9800E048AE /* SimulatorAPNsProvider.swift */; };
+		D315905F2430F6C200E048AE /* APNsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315905E2430F6C200E048AE /* APNsError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -84,6 +85,7 @@
 		D31590582430AF5500E048AE /* APNsJWTTokenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsJWTTokenController.swift; sourceTree = "<group>"; };
 		D315905A2430AF7C00E048AE /* APNsClaims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsClaims.swift; sourceTree = "<group>"; };
 		D315905C2430AF9800E048AE /* SimulatorAPNsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorAPNsProvider.swift; sourceTree = "<group>"; };
+		D315905E2430F6C200E048AE /* APNsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 				D31590562430AF2F00E048AE /* TokenBasedProvider.swift */,
 				D31590582430AF5500E048AE /* APNsJWTTokenController.swift */,
 				D315905A2430AF7C00E048AE /* APNsClaims.swift */,
+				D315905E2430F6C200E048AE /* APNsError.swift */,
 			);
 			path = APNsProvider;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				D31590572430AF2F00E048AE /* TokenBasedProvider.swift in Sources */,
 				D3159036242F704000E048AE /* TokenView.swift in Sources */,
 				D3159032242F5C4000E048AE /* PriorityView.swift in Sources */,
+				D315905F2430F6C200E048AE /* APNsError.swift in Sources */,
 				D315905D2430AF9800E048AE /* SimulatorAPNsProvider.swift in Sources */,
 				D3159047243055B500E048AE /* LogView.swift in Sources */,
 				D31590532430AEED00E048AE /* APNsProviderBase.swift in Sources */,
