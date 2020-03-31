@@ -24,8 +24,10 @@ public struct Preference: Codable {
 
 public class AppService {
     
+    private static let preferenceStoreKey = "USER.PREFERENCE"
+    
     private static func loadPreference() -> Preference? {
-        guard let data = UserDefaults.standard.data(forKey: "User.Preference") else {
+        guard let data = UserDefaults.standard.data(forKey: AppService.preferenceStoreKey) else {
             return nil
         }
         do {
@@ -45,7 +47,7 @@ public class AppService {
             token: self.tokenObject.value,
             priority: self.priorityObject.value
         )
-        UserDefaults.standard.set(try JSONEncoder().encode(preference), forKey: "USER.PREFERENCE")
+        UserDefaults.standard.set(try JSONEncoder().encode(preference), forKey: AppService.preferenceStoreKey)
     }
     
     public static let current = AppService()
