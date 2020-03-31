@@ -10,7 +10,9 @@ import Cocoa
 
 public enum APNsDestination: String, Codable {
     case device
+    #if COMMUNITY
     case simulator
+    #endif
 }
 
 fileprivate extension APNsDestination {
@@ -19,8 +21,10 @@ fileprivate extension APNsDestination {
         switch self {
         case .device:
             return 0
+        #if COMMUNITY
         case .simulator:
             return 1
+        #endif
         }
     }
     
@@ -28,8 +32,10 @@ fileprivate extension APNsDestination {
         switch segmentIndex {
         case 0:
             self = .device
+        #if COMMUNITY
         case 1:
             self = .simulator
+        #endif
         default:
             return nil
         }

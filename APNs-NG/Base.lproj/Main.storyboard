@@ -124,7 +124,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="APNs_NG" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="APNs" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -133,7 +133,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" customClass="APNsWindowViewController" customModule="APNs_NG" customModuleProvider="target" sceneMemberID="viewController">
+                <windowController id="B8D-0N-5wS" customClass="APNsWindowViewController" customModule="APNs" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="APNs Provider" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -141,7 +141,7 @@
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <toolbar key="toolbar" implicitIdentifier="2C97038E-85BC-4834-8A3D-12540191E640" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="Wac-XP-2dO">
                             <allowedToolbarItems>
-                                <toolbarItem implicitItemIdentifier="C4EFB977-DCDC-4934-A55B-F99ECCD7FDE1" label="Custom View" paletteLabel="Custom View" sizingBehavior="auto" id="XJj-Yx-x6c">
+                                <toolbarItem implicitItemIdentifier="C4EFB977-DCDC-4934-A55B-F99ECCD7FDE1" explicitItemIdentifier="APNsSegment" label="Custom View" paletteLabel="Custom View" sizingBehavior="auto" id="XJj-Yx-x6c">
                                     <nil key="toolTip"/>
                                     <segmentedControl key="view" verticalHuggingPriority="750" id="0ju-uR-Iad">
                                         <rect key="frame" x="0.0" y="14" width="126" height="24"/>
@@ -158,11 +158,24 @@
                                         </connections>
                                     </segmentedControl>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="71FCDA17-4524-4A3A-A1F9-3D68F4067B10" explicitItemIdentifier="APNsTitle" label="Custom View" paletteLabel="Custom View" sizingBehavior="auto" id="1zv-Rq-70v">
+                                    <nil key="toolTip"/>
+                                    <textField key="view" horizontalHuggingPriority="251" verticalHuggingPriority="750" id="0wr-hF-Cc8">
+                                        <rect key="frame" x="0.0" y="14" width="104" height="16"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="APNs Provider" id="bku-Ya-Uqh">
+                                            <font key="font" metaFont="systemBold"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="D5r-rt-HZd"/>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="D5r-rt-HZd"/>
                                 <toolbarItem reference="XJj-Yx-x6c"/>
+                                <toolbarItem reference="1zv-Rq-70v"/>
                                 <toolbarItem reference="D5r-rt-HZd"/>
                             </defaultToolbarItems>
                         </toolbar>
@@ -182,7 +195,7 @@
         <!--Ns View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="APNsViewController" customModule="APNs_NG" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="APNsViewController" customModule="APNs" customModuleProvider="target" sceneMemberID="viewController">
                     <customView key="view" id="a2b-GF-kuN">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="718"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -198,7 +211,7 @@
                                                 <subviews>
                                                     <box boxType="custom" borderType="none" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Ir0-Gh-l5H">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
-                                                        <view key="contentView" id="P53-oS-Rao" customClass="CertificateView" customModule="APNs_NG" customModuleProvider="target">
+                                                        <view key="contentView" id="P53-oS-Rao" customClass="CertificateView" customModule="APNs" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -230,7 +243,7 @@
                                                     <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xMT-Hl-1hX">
                                                         <rect key="frame" x="118" y="21" width="300" height="75"/>
                                                         <subviews>
-                                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="7pD-0o-IkQ" customClass="TeamIDView" customModule="APNs_NG" customModuleProvider="target">
+                                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="7pD-0o-IkQ" customClass="TeamIDView" customModule="APNs" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="50" width="300" height="25"/>
                                                                 <subviews>
                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ApO-7v-zwg">
@@ -241,7 +254,7 @@
                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                     </textField>
-                                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="HrQ-cO-ubL" customClass="APNsTextField" customModule="APNs_NG" customModuleProvider="target">
+                                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="HrQ-cO-ubL" customClass="APNsTextField" customModule="APNs" customModuleProvider="target">
                                                                         <rect key="frame" x="45" y="3" width="255" height="20"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="255" id="uR2-mo-qdt"/>
@@ -266,7 +279,7 @@
                                                                     <outlet property="textField" destination="HrQ-cO-ubL" id="E4V-kr-Q3E"/>
                                                                 </connections>
                                                             </customView>
-                                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="75a-mA-OhD" customClass="KeyIDView" customModule="APNs_NG" customModuleProvider="target">
+                                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="75a-mA-OhD" customClass="KeyIDView" customModule="APNs" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="25" width="300" height="25"/>
                                                                 <subviews>
                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Q1W-xl-i7M">
@@ -277,7 +290,7 @@
                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                     </textField>
-                                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="YVe-sI-875" customClass="APNsTextField" customModule="APNs_NG" customModuleProvider="target">
+                                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="YVe-sI-875" customClass="APNsTextField" customModule="APNs" customModuleProvider="target">
                                                                         <rect key="frame" x="45" y="3" width="255" height="20"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="255" id="U5D-GU-iY6"/>
@@ -302,7 +315,7 @@
                                                                     <outlet property="textField" destination="YVe-sI-875" id="43w-xY-GCT"/>
                                                                 </connections>
                                                             </customView>
-                                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="VWi-1e-WKP" customClass="BundleIDView" customModule="APNs_NG" customModuleProvider="target">
+                                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="VWi-1e-WKP" customClass="BundleIDView" customModule="APNs" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="25"/>
                                                                 <subviews>
                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OQg-wB-rAr">
@@ -313,7 +326,7 @@
                                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                     </textField>
-                                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="AhA-ps-gaI" customClass="APNsTextField" customModule="APNs_NG" customModuleProvider="target">
+                                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="AhA-ps-gaI" customClass="APNsTextField" customModule="APNs" customModuleProvider="target">
                                                                         <rect key="frame" x="45" y="3" width="255" height="20"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="255" id="2wM-LD-dn0"/>
@@ -370,7 +383,7 @@
                                                     <constraint firstAttribute="width" constant="418" id="gbm-9j-ydB"/>
                                                 </constraints>
                                             </box>
-                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="tzx-zm-YjK" customClass="EnvironmentView" customModule="APNs_NG" customModuleProvider="target">
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="tzx-zm-YjK" customClass="EnvironmentView" customModule="APNs" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="36" width="418" height="16"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fiE-wx-QbL">
@@ -431,10 +444,10 @@
                                                     <outlet property="sandboxButton" destination="tGz-on-K6G" id="HTt-t6-LTm"/>
                                                 </connections>
                                             </customView>
-                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="sFd-JW-9VY" customClass="TokenView" customModule="APNs_NG" customModuleProvider="target">
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="sFd-JW-9VY" customClass="TokenView" customModule="APNs" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="418" height="20"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="8ue-OQ-uNO" customClass="APNsTextField" customModule="APNs_NG" customModuleProvider="target">
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="8ue-OQ-uNO" customClass="APNsTextField" customModule="APNs" customModuleProvider="target">
                                                         <rect key="frame" x="58" y="0.0" width="360" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="360" id="B6A-BE-h0c"/>
@@ -484,7 +497,7 @@
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8xV-OL-9JJ">
                                         <rect key="frame" x="0.0" y="423" width="418" height="62"/>
                                         <subviews>
-                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Fhd-5L-3RJ" customClass="SimulatorView" customModule="APNs_NG" customModuleProvider="target">
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Fhd-5L-3RJ" customClass="SimulatorView" customModule="APNs" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="41" width="418" height="21"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DvJ-bo-Vlb">
@@ -542,7 +555,7 @@
                                                     <outlet property="simulatorsPicker" destination="Slv-OI-Oxt" id="f45-le-YMl"/>
                                                 </connections>
                                             </customView>
-                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Drx-ae-Mj6" customClass="BundleIDView" customModule="APNs_NG" customModuleProvider="target">
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Drx-ae-Mj6" customClass="BundleIDView" customModule="APNs" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="418" height="25"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gLf-Yp-YT1">
@@ -553,7 +566,7 @@
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="6l1-Ti-GIb" customClass="APNsTextField" customModule="APNs_NG" customModuleProvider="target">
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="6l1-Ti-GIb" customClass="APNsTextField" customModule="APNs" customModuleProvider="target">
                                                         <rect key="frame" x="58" y="3" width="360" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="360" id="jJG-mD-8c4"/>
@@ -594,7 +607,7 @@
                                             <constraint firstAttribute="width" constant="418" id="KdR-2R-qmK"/>
                                         </constraints>
                                     </box>
-                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="y8Y-XX-Cdn" customClass="PriorityView" customModule="APNs_NG" customModuleProvider="target">
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="y8Y-XX-Cdn" customClass="PriorityView" customModule="APNs" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="369" width="418" height="21"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZWh-d6-qFi">
@@ -655,7 +668,7 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="8Jk-dy-2Ax">
                                         <rect key="frame" x="0.0" y="153" width="418" height="200"/>
                                         <subviews>
-                                            <box boxType="custom" borderType="none" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="ZiN-XP-yZ0" customClass="PayloadBox" customModule="APNs_NG" customModuleProvider="target">
+                                            <box boxType="custom" borderType="none" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="ZiN-XP-yZ0" customClass="PayloadBox" customModule="APNs" customModuleProvider="target">
                                                 <rect key="frame" x="58" y="0.0" width="360" height="200"/>
                                                 <view key="contentView" id="PnO-hd-ew7">
                                                     <rect key="frame" x="0.0" y="0.0" width="360" height="200"/>
@@ -749,7 +762,7 @@
                                             <constraint firstAttribute="width" constant="418" id="ZLM-UA-X0c"/>
                                         </constraints>
                                     </box>
-                                    <box boxType="custom" borderType="none" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="32n-lv-UeE" customClass="LogView" customModule="APNs_NG" customModuleProvider="target">
+                                    <box boxType="custom" borderType="none" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="32n-lv-UeE" customClass="LogView" customModule="APNs" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="418" height="120"/>
                                         <view key="contentView" id="wWb-ut-jMi">
                                             <rect key="frame" x="0.0" y="0.0" width="418" height="120"/>

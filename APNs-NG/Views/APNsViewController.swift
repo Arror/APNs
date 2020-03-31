@@ -41,6 +41,24 @@ class APNsViewController: NSViewController {
         )
     }
     
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        guard let toolbar = self.view.window?.toolbar else {
+            return
+        }
+        let removedIdentifier: NSToolbarItem.Identifier = {
+            #if COMMUNITY
+            return NSToolbarItem.Identifier("APNsTitle")
+            #else
+            return NSToolbarItem.Identifier("APNsSegment")
+            #endif
+        }()
+        guard let index = toolbar.items.firstIndex(where: { $0.itemIdentifier == removedIdentifier }) else {
+            return
+        }
+        toolbar.removeItem(at: index)
+    }
+    
     private func updateViews(using certificate: APNsCertificate?) {
         switch certificate {
         case .some(let certificate):

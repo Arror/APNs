@@ -36,8 +36,10 @@ public final class APNsProviderFactory {
                     topic: AppService.current.bundleIDObject.value
                 )
             }
+        #if COMMUNITY
         case .simulator:
             return SimulatorAPNsProvider(device: service.deviceObject.value, bundleID: service.bundleIDObject.value)
+        #endif
         }
     }
 }
