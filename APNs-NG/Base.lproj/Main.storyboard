@@ -730,7 +730,7 @@
                                                     <constraint firstAttribute="height" constant="200" id="UEc-w7-ch8"/>
                                                     <constraint firstAttribute="width" constant="360" id="VxM-qR-Koi"/>
                                                 </constraints>
-                                                <color key="fillColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="fillColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <connections>
                                                     <outlet property="indicator" destination="gNG-3L-DbF" id="jFP-J8-PL5"/>
                                                     <outlet property="sendButton" destination="HMf-Mh-ug8" id="NQQ-eB-7Ze"/>
@@ -806,7 +806,7 @@
                                             <constraint firstAttribute="width" constant="418" id="8EW-Il-nPV"/>
                                             <constraint firstAttribute="height" constant="120" id="h9v-hm-OCJ"/>
                                         </constraints>
-                                        <color key="fillColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="fillColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         <connections>
                                             <outlet property="textView" destination="pT7-UL-9qk" id="eNt-O8-iW0"/>
                                         </connections>
