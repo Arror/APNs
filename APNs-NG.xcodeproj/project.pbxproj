@@ -127,7 +127,7 @@
 		D315905A2430AF7C00E048AE /* APNsClaims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsClaims.swift; sourceTree = "<group>"; };
 		D315905C2430AF9800E048AE /* SimulatorAPNsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorAPNsProvider.swift; sourceTree = "<group>"; };
 		D315905E2430F6C200E048AE /* APNsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsError.swift; sourceTree = "<group>"; };
-		D31591362433819900E048AE /* APNs Pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "APNs Pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D31591362433819900E048AE /* APNs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APNs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D31591382433830300E048AE /* Info-Community.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Community.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,7 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				D3158FF9242E40D800E048AE /* APNs.app */,
-				D31591362433819900E048AE /* APNs Pro.app */,
+				D31591362433819900E048AE /* APNs.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -277,7 +277,7 @@
 				D315910E2433819900E048AE /* SwiftJWT */,
 			);
 			productName = "APNs-NG";
-			productReference = D31591362433819900E048AE /* APNs Pro.app */;
+			productReference = D31591362433819900E048AE /* APNs.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -603,7 +603,7 @@
 				MARKETING_VERSION = 2.1;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Arror.APNs.Community;
-				PRODUCT_NAME = "APNs Pro";
+				PRODUCT_NAME = APNs;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG COMMUNITY";
 				SWIFT_VERSION = 5.0;
 			};
@@ -629,7 +629,7 @@
 				MARKETING_VERSION = 2.1;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Arror.APNs.Community;
-				PRODUCT_NAME = "APNs Pro";
+				PRODUCT_NAME = APNs;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = COMMUNITY;
 				SWIFT_VERSION = 5.0;
 			};
