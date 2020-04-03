@@ -44,9 +44,7 @@ public struct APNsCertificate: Codable {
 }
 
 class CertificateView: NSView {
-    
-    var passphraseTextField: NSTextField!
-    
+        
     @IBOutlet private weak var label: NSTextField!
     
     private var isInDragDropProcess: Bool = false
@@ -108,10 +106,11 @@ class CertificateView: NSView {
             alert.messageText = "输入密码"
             alert.informativeText = "如果未设置密码，请直接点击确定按钮"
             alert.addButton(withTitle: "确定")
-            alert.accessoryView = self.passphraseTextField
+            let textField = NSSecureTextField(frame: NSRect(origin: .zero, size: CGSize(width: 300, height: 20)))
+            alert.accessoryView = textField
+            textField.becomeFirstResponder()
             alert.runModal()
-            passphrase = self.passphraseTextField.stringValue
-            self.passphraseTextField.stringValue = ""
+            passphrase = textField.stringValue
         } else {
             passphrase = ""
         }
