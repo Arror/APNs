@@ -7,20 +7,14 @@
 //
 
 import Cocoa
-import Combine
 
 class TokenView: NSView {
     
     @IBOutlet private weak var textField: APNsTextField!
     
-    private var cancellables: Set<AnyCancellable> = []
-        
     override func awakeFromNib() {
         super.awakeFromNib()
         self.textField.stringValue = AppService.current.tokenObject.value
         self.textField.onTextChanged = { AppService.current.tokenObject.value = $0 }
-        self.cancellables.insert(
-            AppService.current.tokenObject.$value.assign(to: \TokenView.textField.stringValue, on: self)
-        )
     }
 }
