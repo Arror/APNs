@@ -22,6 +22,11 @@ public final class APNsProviderFactory {
                     cerData: certificate.data,
                     topic: AppService.current.bundleIDObject.value
                 )
+            case .pem:
+                return try CertificateBasedProvider(
+                    pemData: certificate.data,
+                    topic: AppService.current.bundleIDObject.value
+                )
             case .p12:
                 return try CertificateBasedProvider(
                     P12Data: certificate.data,
