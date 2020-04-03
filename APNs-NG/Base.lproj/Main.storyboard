@@ -841,7 +841,6 @@
                     </customView>
                     <connections>
                         <outlet property="bundleIDView" destination="VWi-1e-WKP" id="CBQ-Kg-no9"/>
-                        <outlet property="certificateView" destination="P53-oS-Rao" id="Hl3-eA-sSV"/>
                         <outlet property="deviceOnlyView" destination="bvV-vF-lYI" id="71n-1X-Kjr"/>
                         <outlet property="keyIDView" destination="75a-mA-OhD" id="8wy-rQ-17n"/>
                         <outlet property="priorityView" destination="y8Y-XX-Cdn" id="3ej-hp-Yw9"/>

@@ -9,7 +9,7 @@
 import Cocoa
 import SwiftyJSON
 
-public enum CertificateType: String, Codable, CaseIterable {
+public enum CertificateType: String, Equatable, Codable, CaseIterable {
     
     case cer    = "cer"
     case pem    = "pem"
