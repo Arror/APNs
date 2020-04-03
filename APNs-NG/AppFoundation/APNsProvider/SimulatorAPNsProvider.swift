@@ -29,11 +29,21 @@ public final class SimulatorAPNsProvider: APNsProvider {
                 let content = String(data: payloadData, encoding: .utf8) else {
                     throw APNsError.invalidatePayload
             }
-            let path = "\(NSTemporaryDirectory())\(UUID().uuidString).json"
-            try content.write(toFile: path, atomically: true, encoding: .utf8)
-            let executor = Executor()
-            try executor.execute("xcrun", "simctl", "push", self.device.udid, self.bundleID, path)
-            completion(.success(()))
+            DispatchQueue.global().async {
+                do {
+                    let path = "\(NSTemporaryDirectory())\(UUID().uuidString).json"
+                    try content.write(toFile: path, atomically: true, encoding: .utf8)
+                    let executor = Executor()
+                    try executor.execute("xcrun", "simctl", "push", self.device.udid, self.bundleID, path)
+                    DispatchQueue.main.async {
+                        completion(.success(()))
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        completion(.failure(error))
+                    }
+                }
+            }
         } catch {
             completion(.failure(error))
         }
