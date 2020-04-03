@@ -15,6 +15,14 @@ public struct APNsClaims: Claims {
     public let issueDate: Date
     public let expireDate: Date
     
+    public var iat: Date? {
+        return self.issueDate
+    }
+    
+    public var exp: Date? {
+        return self.expireDate
+    }
+    
     public init(teamID: String, issueDate: Date) {
         self.teamID = teamID
         self.issueDate = issueDate
