@@ -11,7 +11,6 @@ import Combine
 
 class APNsViewController: NSViewController {
 
-    @IBOutlet private var passphraseTextField: NSTextField!
     @IBOutlet private weak var certificateView: CertificateView!
     @IBOutlet private weak var deviceOnlyView: NSStackView!
     @IBOutlet private weak var simulatorOnlyView: NSStackView!
@@ -25,7 +24,6 @@ class APNsViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.certificateView.passphraseTextField = self.passphraseTextField
         let destinationToDevice = AppService.current.destinationObject.$value.map({ $0 == .device })
         self.cancellables.insert(destinationToDevice.map({ !$0 }).assign(to: \APNsViewController.deviceOnlyView.isHidden, on: self))
         self.cancellables.insert(destinationToDevice.assign(to: \APNsViewController.simulatorOnlyView.isHidden, on: self))

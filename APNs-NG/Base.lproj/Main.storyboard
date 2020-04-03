@@ -730,7 +730,7 @@
                                                     <constraint firstAttribute="height" constant="200" id="UEc-w7-ch8"/>
                                                     <constraint firstAttribute="width" constant="360" id="VxM-qR-Koi"/>
                                                 </constraints>
-                                                <color key="fillColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="fillColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <connections>
                                                     <outlet property="indicator" destination="gNG-3L-DbF" id="jFP-J8-PL5"/>
                                                     <outlet property="sendButton" destination="HMf-Mh-ug8" id="NQQ-eB-7Ze"/>
@@ -806,7 +806,7 @@
                                             <constraint firstAttribute="width" constant="418" id="8EW-Il-nPV"/>
                                             <constraint firstAttribute="height" constant="120" id="h9v-hm-OCJ"/>
                                         </constraints>
-                                        <color key="fillColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="fillColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         <connections>
                                             <outlet property="textView" destination="pT7-UL-9qk" id="eNt-O8-iW0"/>
                                         </connections>
@@ -844,21 +844,12 @@
                         <outlet property="certificateView" destination="P53-oS-Rao" id="Hl3-eA-sSV"/>
                         <outlet property="deviceOnlyView" destination="bvV-vF-lYI" id="71n-1X-Kjr"/>
                         <outlet property="keyIDView" destination="75a-mA-OhD" id="8wy-rQ-17n"/>
-                        <outlet property="passphraseTextField" destination="jJL-Af-b1x" id="pj6-N5-rvq"/>
                         <outlet property="priorityView" destination="y8Y-XX-Cdn" id="3ej-hp-Yw9"/>
                         <outlet property="simulatorOnlyView" destination="8xV-OL-9JJ" id="7yc-2B-cX3"/>
                         <outlet property="teamIDView" destination="7pD-0o-IkQ" id="XKk-Gr-byF"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="jJL-Af-b1x">
-                    <rect key="frame" x="0.0" y="0.0" width="300" height="20"/>
-                    <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" drawsBackground="YES" usesSingleLineMode="YES" id="0X9-Hh-lzh">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
             </objects>
             <point key="canvasLocation" x="75" y="881"/>
         </scene>

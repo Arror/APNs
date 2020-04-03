@@ -51,7 +51,7 @@ public struct APNsLogHandler: Logging.LogHandler {
             : self.prettify(self.metadata.merging(metadata!, uniquingKeysWith: { _, new in new }))
 
         let current = AppService.current.logObject.value
-        AppService.current.logObject.value = "\(current)\(self.timestamp()) \(level):\(prettyMetadata.map { " \($0)" } ?? "") \(message)\n"
+        AppService.current.logObject.value = "\(current)\(self.timestamp()) [\(level.rawValue.uppercased())]:\(prettyMetadata.map { " \($0)" } ?? "") \(message)\n"
     }
 
     private func prettify(_ metadata: Logging.Logger.Metadata) -> String? {
