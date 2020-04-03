@@ -17,6 +17,7 @@ public enum APNsError: LocalizedError {
     case tokenEmpty
     case invalidatePayload
     case loadCERFailed
+    case loadPEMFailed
     case createCERFailed
     case createP12Failed
     case scriptExeFailed(String)
@@ -37,6 +38,8 @@ public enum APNsError: LocalizedError {
             return "请检查负载信息"
         case .loadCERFailed:
             return "获取CER证书失败"
+        case .loadPEMFailed:
+            return "获取PEM证书失败"
         case .createCERFailed:
             return "创建CER证书失败"
         case .createP12Failed:

@@ -63,7 +63,7 @@ class APNsViewController: NSViewController {
         switch certificate {
         case .some(let certificate):
             switch certificate.certificateType {
-            case .cer:
+            case .cer, .pem:
                 self.teamIDView.isHidden = true
                 self.keyIDView.isHidden = true
             case .p12:

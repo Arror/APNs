@@ -10,9 +10,22 @@ import Cocoa
 import SwiftyJSON
 
 public enum CertificateType: String, Codable, CaseIterable {
-    case cer
-    case p12
-    case p8
+    
+    case cer    = "cer"
+    case pem    = "pem"
+    case p12    = "p12"
+    case p8     = "p8"
+    
+    public static let availableFileExtensions: Set<String> = Set(CertificateType.allCases.map(\.rawValue))
+    
+    public func loadData(from fileURL: URL) -> Data? {
+        switch self {
+        case .cer, .p12, .p8:
+            return nil
+        case .pem:
+            return nil
+        }
+    }
 }
 
 public struct APNsCertificate: Codable {
@@ -115,6 +128,6 @@ class CertificateView: NSView {
 extension URL {
     
     var isCertificateFileURL: Bool {
-        return self.isFileURL && CertificateType.allCases.map({ $0.rawValue }).contains(self.pathExtension)
+        return self.isFileURL && CertificateType.availableFileExtensions.contains(self.pathExtension)
     }
 }
