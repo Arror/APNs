@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 public struct Executor {
     
@@ -31,6 +32,11 @@ public struct Executor {
     
     @discardableResult
     public func execute(_ arguments: String...) throws -> Data {
+        return try self.execute(arguments)
+    }
+    
+    @discardableResult
+    public func execute(_ arguments: [String]) throws -> Data {
         let process = Process()
         process.launchPath = "/usr/bin/env"
         process.currentDirectoryPath = self.directoryPath
@@ -54,5 +60,33 @@ public struct Executor {
         default:
             throw Executor.Error(errorCode: 0, errorMessage: String(data: errorData, encoding: .utf8) ?? "Uncaught signal")
         }
+    }
+}
+
+extension Executor {
+    
+    @discardableResult
+    public static func execute(_ arguments: [String]) throws -> Data {
+        return try Executor().execute(arguments)
+    }
+    
+    @discardableResult
+    public static func execute(_ arguments: String...) throws -> Data {
+        return try Executor.execute(arguments)
+    }
+    
+    public static func execute(_ arguments: [String], completion: @escaping (Result<Data, Swift.Error>) -> Void) {
+        DispatchQueue.global(qos: .userInteractive).async {
+            do {
+                let data = try Executor.execute(arguments)
+                DispatchQueue.main.async { completion(.success(data)) }
+            } catch {
+                DispatchQueue.main.async { completion(.failure(error)) }
+            }
+        }
+    }
+    
+    public static func execute(_ arguments: String...) -> Future<Data, Swift.Error> {
+        return Future { Executor.execute(arguments, completion: $0) }
     }
 }

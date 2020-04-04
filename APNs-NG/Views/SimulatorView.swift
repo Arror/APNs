@@ -62,8 +62,7 @@ class SimulatorController {
     
     static func fetchOS() -> [OS] {
         do {
-            let executor = Executor()
-            let json = try JSON(data: try executor.execute("xcrun", "simctl", "list", "--json"))
+            let json = try JSON(data: try Executor.execute("xcrun", "simctl", "list", "--json"))
             return json["runtimes"].arrayValue
                 .filter({ $0["name"].stringValue.hasPrefix("iOS") })
                 .map({ OS(json: $0, deviceMapping: json["devices"].dictionaryValue) })
