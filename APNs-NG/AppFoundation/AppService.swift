@@ -97,7 +97,7 @@ public class AppService {
     public let environmentObject:   ObservableWrapper<APNsEnvironment>
     
     public let destinationObject    = ObservableWrapper<APNsDestination>(.device)
-    public let deviceObject         = ObservableWrapper<APNsDevice>(APNsDevice.fake)
+    public let deviceObject         = ObservableWrapper<Optional<SimulatorController.Simulator>>(.none)
     public let payloadObject        = ObservableWrapper<String>(
         """
         {

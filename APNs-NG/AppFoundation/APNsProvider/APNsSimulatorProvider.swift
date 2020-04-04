@@ -11,11 +11,11 @@ import Foundation
 public final class APNsSimulatorProvider: APNsProvider {
     
     public let bundleID: String
-    public let device: APNsDevice
+    public let simulator: SimulatorController.Simulator
     
-    public init(device: APNsDevice, bundleID: String) {
+    public init(simulator: SimulatorController.Simulator, bundleID: String) {
         self.bundleID = bundleID
-        self.device = device
+        self.simulator = simulator
     }
     
     public func send(payload: String, token: String, priorty: Int, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -34,7 +34,7 @@ public final class APNsSimulatorProvider: APNsProvider {
                     let path = "\(NSTemporaryDirectory())\(UUID().uuidString).json"
                     try content.write(toFile: path, atomically: true, encoding: .utf8)
                     let executor = Executor()
-                    try executor.execute("xcrun", "simctl", "push", self.device.udid, self.bundleID, path)
+                    try executor.execute("xcrun", "simctl", "push", self.simulator.device.udid, self.bundleID, path)
                     DispatchQueue.main.async {
                         completion(.success(()))
                     }
