@@ -85,8 +85,4 @@ extension Executor {
             }
         }
     }
-    
-    public static func execute(_ arguments: String...) -> Future<Data, Swift.Error> {
-        return Future { Executor.execute(arguments, completion: $0) }
-    }
 }

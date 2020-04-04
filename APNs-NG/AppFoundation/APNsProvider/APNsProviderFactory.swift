@@ -43,11 +43,12 @@ public final class APNsProviderFactory {
             }
         #if COMMUNITY
         case .simulator:
-            if let simulator = service.deviceObject.value {
-                return APNsSimulatorProvider(simulator: simulator, bundleID: service.bundleIDObject.value.trimmed)
-            } else {
-                throw APNsError.noSimulator
+            guard
+                let simulator = service.simulatorObject.value,
+                let application = service.applicationObject.value else {
+                    throw APNsError.noSimulator
             }
+            return APNsSimulatorProvider(simulator: simulator, bundleID: application.bundleIdentifier.trimmed)
         #endif
         }
     }

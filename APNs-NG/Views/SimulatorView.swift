@@ -20,28 +20,53 @@ class SimulatorView: NSView {
         return iPhones + iPads
     }()
         
-    @IBOutlet private weak var simulatorsPicker: NSPopUpButton!
+    @IBOutlet private weak var simulatorPicker: NSPopUpButton!
+    @IBOutlet private weak var applicationPicker: NSPopUpButton!
     
-    @objc private func simulatorsPickerValueChanged(_ sender: NSPopUpButton) {
-        AppService.current.deviceObject.value = self.simulators[sender.indexOfSelectedItem]
+    @objc private func simulatorPickerValueChanged(_ sender: NSPopUpButton) {
+        AppService.current.simulatorObject.value = self.simulators[sender.indexOfSelectedItem]
+        self.updateApplicationPicker()
+    }
+    
+    @objc private func applicationPickerValueChanged(_ sender: NSPopUpButton) {
+        if let simulator = AppService.current.simulatorObject.value {
+            AppService.current.applicationObject.value = simulator.applications[sender.indexOfSelectedItem]
+        } else {
+            AppService.current.applicationObject.value = nil
+        }
     }
     
     private var cancellable: AnyCancellable?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.simulatorsPicker.target = self
-        self.simulatorsPicker.action = #selector(simulatorsPickerValueChanged)
-        self.simulatorsPicker.removeAllItems()
-        let titles = self.simulators.map { simulator in
-            return "\(simulator.device.name) (\(simulator.runtime.version))"
-        }
-        self.simulatorsPicker.addItems(withTitles: titles)
+        
+        self.simulatorPicker.target = self
+        self.simulatorPicker.action = #selector(simulatorPickerValueChanged)
+        self.simulatorPicker.removeAllItems()
+        self.simulatorPicker.addItems(withTitles: self.simulators.map { "\($0.device.name) (\($0.runtime.version))" })
         if self.simulators.isEmpty {
-            AppService.current.deviceObject.value = .none
+            AppService.current.simulatorObject.value = .none
         } else {
-            AppService.current.deviceObject.value = self.simulators[self.simulatorsPicker.indexOfSelectedItem]
+            AppService.current.simulatorObject.value = self.simulators[self.simulatorPicker.indexOfSelectedItem]
         }
+        self.updateApplicationPicker()
+    }
+    
+    private func updateApplicationPicker() {
+        self.applicationPicker.target = self
+        self.applicationPicker.action = #selector(applicationPickerValueChanged)
+        self.applicationPicker.removeAllItems()
+        let applications: [SimulatorController.Simulator.Application]
+        if let simulator = AppService.current.simulatorObject.value {
+            simulator.loadApplications()
+            applications = simulator.applications
+            AppService.current.applicationObject.value = simulator.applications.first
+        } else {
+            applications = []
+            AppService.current.applicationObject.value = nil
+        }
+        self.applicationPicker.addItems(withTitles: applications.map({ $0.bundleIdentifier }))
     }
 }
 
@@ -49,12 +74,40 @@ public class SimulatorController {
     
     public class Simulator {
         
+        public struct Application: Decodable, Equatable {
+            let applicationType: String
+            let displayName: String
+            let bundleIdentifier: String
+            private enum CodingKeys: String, CodingKey {
+                case applicationType = "ApplicationType"
+                case displayName = "CFBundleDisplayName"
+                case bundleIdentifier = "CFBundleIdentifier"
+            }
+        }
+        
         let runtime: SimulatorControl.Runtime
         let device: SimulatorControl.Device
+        
+        private(set) var applications: [Application] = []
         
         init(runtime: SimulatorControl.Runtime, device: SimulatorControl.Device) {
             self.runtime = runtime
             self.device = device
+        }
+        
+        func loadApplications() {
+            do {
+                let data = try Executor.execute("xcrun", "simctl", "listapps", self.device.udid, "-j")
+                let mapping = try PropertyListDecoder().decode([String: Application].self, from: data)
+                self.applications = mapping.compactMap { pair in
+                    guard pair.value.applicationType == "User" else {
+                        return nil
+                    }
+                    return pair.value
+                }
+            } catch {
+                self.applications = []
+            }
         }
     }
         
