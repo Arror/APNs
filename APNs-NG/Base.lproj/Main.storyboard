@@ -197,14 +197,14 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="APNsViewController" customModule="APNs" customModuleProvider="target" sceneMemberID="viewController">
                     <customView key="view" id="a2b-GF-kuN">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="718"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="714"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7eC-dD-0TY">
-                                <rect key="frame" x="16" y="16" width="418" height="686"/>
+                                <rect key="frame" x="16" y="16" width="418" height="682"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bvV-vF-lYI">
-                                        <rect key="frame" x="0.0" y="501" width="418" height="185"/>
+                                        <rect key="frame" x="0.0" y="497" width="418" height="185"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="y5t-S8-Kf6">
                                                 <rect key="frame" x="0.0" y="85" width="418" height="100"/>
@@ -348,7 +348,7 @@
                                                                     <constraint firstItem="AhA-ps-gaI" firstAttribute="leading" secondItem="OQg-wB-rAr" secondAttribute="trailing" constant="16" id="jhv-Fd-3xV"/>
                                                                 </constraints>
                                                                 <connections>
-                                                                    <outlet property="textField" destination="6l1-Ti-GIb" id="lpt-n7-g13"/>
+                                                                    <outlet property="textField" destination="AhA-ps-gaI" id="fif-Di-Nbw"/>
                                                                 </connections>
                                                             </customView>
                                                         </subviews>
@@ -495,10 +495,10 @@
                                         </customSpacing>
                                     </stackView>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8xV-OL-9JJ">
-                                        <rect key="frame" x="0.0" y="423" width="418" height="62"/>
+                                        <rect key="frame" x="0.0" y="423" width="418" height="58"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Fhd-5L-3RJ" customClass="SimulatorView" customModule="APNs" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="41" width="418" height="21"/>
+                                                <rect key="frame" x="0.0" y="37" width="418" height="21"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DvJ-bo-Vlb">
                                                         <rect key="frame" x="-2" y="3" width="46" height="16"/>
@@ -513,7 +513,7 @@
                                                         <subviews>
                                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Slv-OI-Oxt">
                                                                 <rect key="frame" x="-2" y="-3" width="365" height="25"/>
-                                                                <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxX" selectedItem="Zra-2h-GYl" id="w5q-jp-AAp">
+                                                                <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxX" selectedItem="Zra-2h-GYl" id="w5q-jp-AAp">
                                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                     <font key="font" metaFont="system"/>
                                                                     <menu key="menu" id="33M-jf-vA8">
@@ -552,44 +552,64 @@
                                                     <constraint firstAttribute="bottom" secondItem="ASy-pn-e1w" secondAttribute="bottom" id="kEB-Hg-TjM"/>
                                                 </constraints>
                                                 <connections>
-                                                    <outlet property="simulatorsPicker" destination="Slv-OI-Oxt" id="f45-le-YMl"/>
+                                                    <outlet property="applicationPicker" destination="CAE-8Q-6b9" id="QET-55-CRN"/>
+                                                    <outlet property="simulatorPicker" destination="Slv-OI-Oxt" id="f45-le-YMl"/>
                                                 </connections>
                                             </customView>
-                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Drx-ae-Mj6" customClass="BundleIDView" customModule="APNs" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="418" height="25"/>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="icC-lf-yxf">
+                                                <rect key="frame" x="0.0" y="0.0" width="418" height="21"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gLf-Yp-YT1">
-                                                        <rect key="frame" x="-2" y="5" width="46" height="16"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="套装：" id="3M2-BA-lsW">
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hxc-0O-7Od">
+                                                        <rect key="frame" x="-2" y="3" width="46" height="16"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="应用：" id="kwz-LJ-6jT">
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="6l1-Ti-GIb" customClass="APNsTextField" customModule="APNs" customModuleProvider="target">
-                                                        <rect key="frame" x="58" y="3" width="360" height="20"/>
+                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="fjK-JM-HtL">
+                                                        <rect key="frame" x="58" y="0.0" width="360" height="21"/>
+                                                        <subviews>
+                                                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CAE-8Q-6b9">
+                                                                <rect key="frame" x="-2" y="-3" width="365" height="25"/>
+                                                                <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxX" selectedItem="pkP-l2-1za" id="ow6-B6-hDh">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <menu key="menu" id="s60-gi-Aaf">
+                                                                        <items>
+                                                                            <menuItem title="1" state="on" id="pkP-l2-1za"/>
+                                                                            <menuItem title="2" id="FTT-fu-Clw"/>
+                                                                            <menuItem title="3" id="2gy-dD-h5i"/>
+                                                                            <menuItem title="4" id="pRL-Aq-4zf"/>
+                                                                            <menuItem title="5" id="pKq-1H-9w6"/>
+                                                                            <menuItem title="6" id="gWI-Jj-o3w"/>
+                                                                            <menuItem title="7" id="VOh-R0-ACK"/>
+                                                                            <menuItem title="8" id="oEd-WS-ovZ"/>
+                                                                            <menuItem title="9" id="KDI-QA-Lmx"/>
+                                                                            <menuItem title="10" id="gOg-ia-4Kx"/>
+                                                                        </items>
+                                                                    </menu>
+                                                                </popUpButtonCell>
+                                                            </popUpButton>
+                                                        </subviews>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="360" id="jJG-mD-8c4"/>
+                                                            <constraint firstItem="CAE-8Q-6b9" firstAttribute="leading" secondItem="fjK-JM-HtL" secondAttribute="leading" id="4xN-2R-nMZ"/>
+                                                            <constraint firstAttribute="width" constant="360" id="F2y-PX-Gyz"/>
+                                                            <constraint firstAttribute="bottom" secondItem="CAE-8Q-6b9" secondAttribute="bottom" id="FRt-Qx-QVW"/>
+                                                            <constraint firstItem="CAE-8Q-6b9" firstAttribute="top" secondItem="fjK-JM-HtL" secondAttribute="top" id="UfR-kZ-iqk"/>
+                                                            <constraint firstAttribute="trailing" secondItem="CAE-8Q-6b9" secondAttribute="trailing" id="mj1-sU-J3R"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" drawsBackground="YES" usesSingleLineMode="YES" id="Ivf-7Y-AE7">
-                                                            <font key="font" metaFont="system"/>
-                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
+                                                    </customView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="gLf-Yp-YT1" firstAttribute="centerY" secondItem="Drx-ae-Mj6" secondAttribute="centerY" id="AAb-u0-47m"/>
-                                                    <constraint firstItem="6l1-Ti-GIb" firstAttribute="centerY" secondItem="Drx-ae-Mj6" secondAttribute="centerY" id="OEj-rg-AwX"/>
-                                                    <constraint firstAttribute="height" constant="25" id="Rrf-1R-NOD"/>
-                                                    <constraint firstAttribute="width" constant="418" id="Rzd-a5-NhI"/>
-                                                    <constraint firstItem="gLf-Yp-YT1" firstAttribute="leading" secondItem="Drx-ae-Mj6" secondAttribute="leading" id="UNN-Wx-jNz"/>
-                                                    <constraint firstAttribute="trailing" secondItem="6l1-Ti-GIb" secondAttribute="trailing" id="f4U-5h-x18"/>
-                                                    <constraint firstItem="6l1-Ti-GIb" firstAttribute="leading" secondItem="gLf-Yp-YT1" secondAttribute="trailing" constant="16" id="fHL-fV-at3"/>
+                                                    <constraint firstAttribute="trailing" secondItem="fjK-JM-HtL" secondAttribute="trailing" id="AnX-rs-B0R"/>
+                                                    <constraint firstItem="fjK-JM-HtL" firstAttribute="leading" secondItem="Hxc-0O-7Od" secondAttribute="trailing" constant="16" id="DXb-fJ-sHp"/>
+                                                    <constraint firstItem="fjK-JM-HtL" firstAttribute="top" secondItem="icC-lf-yxf" secondAttribute="top" id="H8s-xL-Jj8"/>
+                                                    <constraint firstItem="Hxc-0O-7Od" firstAttribute="leading" secondItem="icC-lf-yxf" secondAttribute="leading" id="LHa-fK-aRo"/>
+                                                    <constraint firstItem="fjK-JM-HtL" firstAttribute="centerY" secondItem="Hxc-0O-7Od" secondAttribute="centerY" id="MdH-aH-zn7"/>
+                                                    <constraint firstAttribute="bottom" secondItem="fjK-JM-HtL" secondAttribute="bottom" id="e27-9T-Wp2"/>
+                                                    <constraint firstAttribute="width" constant="418" id="yRB-ty-BEz"/>
                                                 </constraints>
-                                                <connections>
-                                                    <outlet property="textField" destination="AhA-ps-gaI" id="xuj-S6-MWm"/>
-                                                </connections>
                                             </customView>
                                         </subviews>
                                         <visibilityPriorities>
@@ -623,7 +643,7 @@
                                                 <subviews>
                                                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yhP-hW-x3D">
                                                         <rect key="frame" x="-2" y="-3" width="53" height="25"/>
-                                                        <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxX" selectedItem="Bia-jf-tEv" id="tpM-dm-uAj">
+                                                        <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxX" selectedItem="Bia-jf-tEv" id="tpM-dm-uAj">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                             <menu key="menu" id="ihn-9Q-5GL">
@@ -841,7 +861,6 @@
                     </customView>
                     <connections>
                         <outlet property="bundleIDView" destination="VWi-1e-WKP" id="CBQ-Kg-no9"/>
-                        <outlet property="certificateView" destination="P53-oS-Rao" id="Hl3-eA-sSV"/>
                         <outlet property="deviceOnlyView" destination="bvV-vF-lYI" id="71n-1X-Kjr"/>
                         <outlet property="keyIDView" destination="75a-mA-OhD" id="8wy-rQ-17n"/>
                         <outlet property="priorityView" destination="y8Y-XX-Cdn" id="3ej-hp-Yw9"/>

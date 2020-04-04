@@ -15,6 +15,7 @@ public enum APNsError: LocalizedError {
     case keyIDEmpty
     case bundleIDEmpty
     case tokenEmpty
+    case noSimulator
     case invalidatePayload
     case loadCERFailed
     case loadPEMFailed
@@ -34,6 +35,8 @@ public enum APNsError: LocalizedError {
             return "请填写套装信息"
         case .tokenEmpty:
             return "请填写令牌"
+        case .noSimulator:
+            return "请选择模拟器"
         case .invalidatePayload:
             return "请检查负载信息"
         case .loadCERFailed:

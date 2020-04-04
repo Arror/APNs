@@ -10,98 +10,150 @@ import Cocoa
 import SwiftyJSON
 import Combine
 
-public struct APNsDevice {
-    
-    let name: String
-    let udid: String
-    let state: String
-    let osVersion: String
-    
-    init(os: OS, device: OS.Device) {
-        self.name = device.name
-        self.udid = device.udid
-        self.state = device.state
-        self.osVersion = os.version
-    }
-    
-    private init() {
-        self.name = "NONE"
-        self.udid = ""
-        self.state = ""
-        self.osVersion = ""
-    }
-    
-    static let fake = APNsDevice()
-}
-
 class SimulatorView: NSView {
     
-    private let device: [APNsDevice] = SimulatorController.allDevices()
+    private let simulators: [SimulatorController.Simulator] = {
+        let controller = SimulatorController()
+        let all = controller.loadSimulators()
+        let iPhones = all.filter({ $0.device.name.hasPrefix("iPhone") })
+        let iPads = all.filter({ $0.device.name.hasPrefix("iPad") })
+        return iPhones + iPads
+    }()
+        
+    @IBOutlet private weak var simulatorPicker: NSPopUpButton!
+    @IBOutlet private weak var applicationPicker: NSPopUpButton!
     
-    @IBOutlet private weak var simulatorsPicker: NSPopUpButton!
+    @objc private func simulatorPickerValueChanged(_ sender: NSPopUpButton) {
+        AppService.current.simulatorObject.value = self.simulators[sender.indexOfSelectedItem]
+        self.updateApplicationPicker()
+    }
     
-    @objc private func simulatorsPickerValueChanged(_ sender: NSPopUpButton) {
-        AppService.current.deviceObject.value = self.device[sender.indexOfSelectedItem]
+    @objc private func applicationPickerValueChanged(_ sender: NSPopUpButton) {
+        if let simulator = AppService.current.simulatorObject.value {
+            AppService.current.applicationObject.value = simulator.applications[sender.indexOfSelectedItem]
+        } else {
+            AppService.current.applicationObject.value = nil
+        }
     }
     
     private var cancellable: AnyCancellable?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.simulatorsPicker.target = self
-        self.simulatorsPicker.action = #selector(simulatorsPickerValueChanged)
-        self.simulatorsPicker.removeAllItems()
-        self.simulatorsPicker.addItems(withTitles: self.device.map({ "\($0.name) (\($0.osVersion))" }))
-        if !self.device.isEmpty {
-            AppService.current.deviceObject.value = self.device[self.simulatorsPicker.indexOfSelectedItem]
+        
+        self.simulatorPicker.target = self
+        self.simulatorPicker.action = #selector(simulatorPickerValueChanged)
+        self.simulatorPicker.removeAllItems()
+        self.simulatorPicker.addItems(withTitles: self.simulators.map { "\($0.device.name) (\($0.runtime.version))" })
+        if self.simulators.isEmpty {
+            AppService.current.simulatorObject.value = .none
+        } else {
+            AppService.current.simulatorObject.value = self.simulators[self.simulatorPicker.indexOfSelectedItem]
         }
+        self.updateApplicationPicker()
+    }
+    
+    private func updateApplicationPicker() {
+        self.applicationPicker.target = self
+        self.applicationPicker.action = #selector(applicationPickerValueChanged)
+        self.applicationPicker.removeAllItems()
+        let applications: [SimulatorController.Simulator.Application]
+        if let simulator = AppService.current.simulatorObject.value {
+            simulator.loadApplications()
+            applications = simulator.applications
+            AppService.current.applicationObject.value = simulator.applications.first
+        } else {
+            applications = []
+            AppService.current.applicationObject.value = nil
+        }
+        self.applicationPicker.addItems(withTitles: applications.map({ $0.bundleIdentifier }))
     }
 }
 
-class SimulatorController {
+public class SimulatorController {
     
-    static func fetchOS() -> [OS] {
+    public class Simulator {
+        
+        public struct Application: Decodable, Equatable {
+            let applicationType: String
+            let displayName: String
+            let bundleIdentifier: String
+            private enum CodingKeys: String, CodingKey {
+                case applicationType = "ApplicationType"
+                case displayName = "CFBundleDisplayName"
+                case bundleIdentifier = "CFBundleIdentifier"
+            }
+        }
+        
+        let runtime: SimulatorControl.Runtime
+        let device: SimulatorControl.Device
+        
+        private(set) var applications: [Application] = []
+        
+        init(runtime: SimulatorControl.Runtime, device: SimulatorControl.Device) {
+            self.runtime = runtime
+            self.device = device
+        }
+        
+        func loadApplications() {
+            do {
+                let data = try Executor.execute("xcrun", "simctl", "listapps", self.device.udid, "-j")
+                let mapping = try PropertyListDecoder().decode([String: Application].self, from: data)
+                self.applications = mapping.compactMap { pair in
+                    guard pair.value.applicationType == "User" else {
+                        return nil
+                    }
+                    return pair.value
+                }
+            } catch {
+                self.applications = []
+            }
+        }
+    }
+        
+    public init() {}
+    
+    public func loadSimulators() -> [Simulator] {
         do {
-            let executor = Executor()
-            let json = try JSON(data: try executor.execute("xcrun", "simctl", "list", "--json"))
-            return json["runtimes"].arrayValue
-                .filter({ $0["name"].stringValue.hasPrefix("iOS") })
-                .map({ OS(json: $0, deviceMapping: json["devices"].dictionaryValue) })
+            let control = SimulatorControl(json: try JSON(data: try Executor.execute("xcrun", "simctl", "list", "--json")))
+            return control.runtimes.flatMap { runtime in
+                return runtime.devices.map { device in
+                    return Simulator(runtime: runtime, device: device)
+                }
+            }
         } catch {
             return []
         }
     }
-    
-    static func allDevices() -> [APNsDevice] {
-        return self.fetchOS().reduce(into: []) { r, n in
-            n.devices.forEach { d in
-                r.append(APNsDevice(os: n, device: d))
-            }
-        }
-    }
 }
 
-struct OS {
+struct SimulatorControl {
+    
     struct Device {
         let name: String
         let udid: String
-        let state: String
-        init(json: JSON) {
-            self.name = json["name"].stringValue
-            self.udid = json["udid"].stringValue
-            self.state = json["state"].stringValue
-        }
     }
-    let name: String
-    let version: String
-    let devices: [Device]
-    init(json: JSON, deviceMapping: [String: JSON]) {
-        self.name = json["name"].stringValue
-        self.version = json["version"].stringValue
-        if let deviceJSONs = deviceMapping[json["identifier"].stringValue] {
-            self.devices = deviceJSONs.arrayValue.map(Device.init(json:))
-        } else {
-            self.devices = []
+    
+    struct Runtime {
+        let name: String
+        let version: String
+        let devices: [Device]
+    }
+    
+    let runtimes: [Runtime]
+    
+    init(json: JSON) {
+        self.runtimes = json["runtimes"].arrayValue.compactMap { runtime in
+            guard let devicesJSON = json["devices"].dictionaryValue[runtime["identifier"].stringValue] else {
+                return nil
+            }
+            return Runtime(
+                name: runtime["name"].stringValue,
+                version: runtime["version"].stringValue,
+                devices: devicesJSON.arrayValue.map({ device in
+                    return Device(name: device["name"].stringValue, udid: device["udid"].stringValue)
+                })
+            )
         }
     }
 }

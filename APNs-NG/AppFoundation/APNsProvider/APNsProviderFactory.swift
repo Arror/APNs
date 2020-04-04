@@ -20,30 +20,35 @@ public final class APNsProviderFactory {
             case .cer:
                 return try CertificateBasedProvider(
                     cerData: certificate.data,
-                    topic: AppService.current.bundleIDObject.value
+                    topic: AppService.current.bundleIDObject.value.trimmed
                 )
             case .pem:
                 return try CertificateBasedProvider(
                     pemData: certificate.data,
-                    topic: AppService.current.bundleIDObject.value
+                    topic: AppService.current.bundleIDObject.value.trimmed
                 )
             case .p12:
                 return try CertificateBasedProvider(
                     P12Data: certificate.data,
-                    passphrase: certificate.passphrase,
-                    topic: AppService.current.bundleIDObject.value
+                    passphrase: certificate.passphrase.trimmed,
+                    topic: AppService.current.bundleIDObject.value.trimmed
                 )
             case .p8:
                 return try TokenBasedProvider(
                     P8Data: certificate.data,
-                    teamID: AppService.current.teamIDObject.value,
-                    keyID: AppService.current.keyIDObject.value,
-                    topic: AppService.current.bundleIDObject.value
+                    teamID: AppService.current.teamIDObject.value.trimmed,
+                    keyID: AppService.current.keyIDObject.value.trimmed,
+                    topic: AppService.current.bundleIDObject.value.trimmed
                 )
             }
         #if COMMUNITY
         case .simulator:
-            return SimulatorAPNsProvider(device: service.deviceObject.value, bundleID: service.bundleIDObject.value)
+            guard
+                let simulator = service.simulatorObject.value,
+                let application = service.applicationObject.value else {
+                    throw APNsError.noSimulator
+            }
+            return APNsSimulatorProvider(simulator: simulator, bundleID: application.bundleIdentifier.trimmed)
         #endif
         }
     }

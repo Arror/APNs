@@ -72,7 +72,7 @@ public class AppService {
                 let provider = try APNsProviderFactory.provider(forCurrentService: self)
                 self.indicatorSubject.send(true)
                 APNsLog.info("正在发送。。。")
-                provider.send(payload: self.payloadObject.value, token: self.tokenObject.value, priorty: self.priorityObject.value) { result in
+                provider.send(payload: self.payloadObject.value.trimmed, token: self.tokenObject.value.trimmed, priorty: self.priorityObject.value) { result in
                     self.indicatorSubject.send(false)
                     switch result {
                     case .success:
@@ -97,7 +97,8 @@ public class AppService {
     public let environmentObject:   ObservableWrapper<APNsEnvironment>
     
     public let destinationObject    = ObservableWrapper<APNsDestination>(.device)
-    public let deviceObject         = ObservableWrapper<APNsDevice>(APNsDevice.fake)
+    public let simulatorObject      = ObservableWrapper<Optional<SimulatorController.Simulator>>(.none)
+    public let applicationObject    = ObservableWrapper<Optional<SimulatorController.Simulator.Application>>(.none)
     public let payloadObject        = ObservableWrapper<String>(
         """
         {
@@ -125,5 +126,12 @@ public final class ObservableWrapper<Value>: ObservableObject {
     
     public init(_ value: Value) {
         self.value = value
+    }
+}
+
+extension String {
+    
+    public var trimmed: String {
+        return self.trimmingCharacters(in: CharacterSet(charactersIn: "\n "))
     }
 }

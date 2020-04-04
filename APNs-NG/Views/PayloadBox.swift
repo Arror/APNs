@@ -35,20 +35,20 @@ class PayloadBox: NSBox, NSTextViewDelegate {
             self.sendButton.isHidden = false
             self.indicator.stopAnimation(nil)
         }
-        self.cancellables.insert(
-            AppService.current.indicatorSubject.sink(receiveValue: { [weak self] value in
+        let indicatorSubject = AppService.current.indicatorSubject
+        indicatorSubject
+            .assign(to: \PayloadBox.sendButton.isHidden, on: self)
+            .store(in: &self.cancellables)
+        indicatorSubject
+            .sink { [weak self] isAnimating in
                 guard let self = self else {
                     return
                 }
-                self.updateViews(value: value)
-            })
-        )
+                isAnimating ? self.indicator.startAnimation(nil) : self.indicator.stopAnimation(nil)
+            }
+            .store(in: &self.cancellables)
     }
     
-    private func updateViews(value: Bool) {
-        self.sendButton.isHidden = value
-        value ? self.indicator.startAnimation(nil) : self.indicator.stopAnimation(nil)
-    }
     @IBAction private func sendButtonTapped(_ sender: NSButton) {
         AppService.current.pushTrigger.send()
     }
