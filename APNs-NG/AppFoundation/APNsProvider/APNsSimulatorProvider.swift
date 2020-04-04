@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class SimulatorAPNsProvider: APNsProvider {
+public final class APNsSimulatorProvider: APNsProvider {
     
     public let bundleID: String
     public let device: APNsDevice
