@@ -10,6 +10,19 @@ import Foundation
 
 public struct Executor {
     
+    public struct Error: CustomNSError {
+        
+        public static let errorDomain: String = "com.Arror.APNs.Executor"
+        
+        public let errorCode: Int
+        public let errorUserInfo: [String : Any]
+        
+        public init(errorCode: Int, errorMessage: String) {
+            self.errorCode = errorCode
+            self.errorUserInfo = [NSLocalizedDescriptionKey: errorMessage]
+        }
+    }
+    
     public let directoryPath: String
     
     public init(directoryPath: String = FileManager.default.currentDirectoryPath) {
@@ -39,7 +52,7 @@ public struct Executor {
         case 0:
             return outputData
         default:
-            throw APNsError.scriptExeFailed(String(data: errorData, encoding: .utf8) ?? "Unknown error.")
+            throw Executor.Error(errorCode: 0, errorMessage: String(data: errorData, encoding: .utf8) ?? "Uncaught signal")
         }
     }
 }
