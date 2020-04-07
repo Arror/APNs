@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D315910B2433819900E048AE"
-               BuildableName = "APNs Pro.app"
+               BuildableName = "APNs.app"
                BlueprintName = "APNs-NG-Community"
                ReferencedContainer = "container:APNs-NG.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D315910B2433819900E048AE"
-            BuildableName = "APNs Pro.app"
+            BuildableName = "APNs.app"
             BlueprintName = "APNs-NG-Community"
             ReferencedContainer = "container:APNs-NG.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D315910B2433819900E048AE"
-            BuildableName = "APNs Pro.app"
+            BuildableName = "APNs.app"
             BlueprintName = "APNs-NG-Community"
             ReferencedContainer = "container:APNs-NG.xcodeproj">
          </BuildableReference>

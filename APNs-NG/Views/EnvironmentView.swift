@@ -9,7 +9,7 @@
 import Cocoa
 import Combine
 
-public enum APNsEnvironment: String, Codable {
+public enum APNsEnvironment: String, Equatable, Codable {
     case production
     case sandbox
 }
@@ -32,24 +32,16 @@ class EnvironmentView: NSView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.updateButtons(environment: AppService.current.environmentObject.value)
-        self.cancellables.insert(
-            AppService.current.environmentObject.$value.sink(receiveValue: { [weak self] environment in
-                guard let self = self else { return }
-                self.updateButtons(environment: environment)
-            })
-        )
-    }
-    
-    private func updateButtons(environment: APNsEnvironment) {
-        switch environment {
-        case .production:
-            self.productionButton.state = .on
-            self.sandboxButton.state = .off
-        case .sandbox:
-            self.productionButton.state = .off
-            self.sandboxButton.state = .on
-        }
+        self.productionButton.state = AppService.current.environmentObject.value == .production ? .on : .off
+        self.sandboxButton.state = AppService.current.environmentObject.value == .sandbox ? .on : .off
+        AppService.current.environmentObject.$value
+            .map { $0 == .production ? .on : .off }
+            .assign(to: \.productionButton.state, on: self)
+            .store(in: &self.cancellables)
+        AppService.current.environmentObject.$value
+            .map { $0 == .production ? .off : .on }
+            .assign(to: \.sandboxButton.state, on: self)
+            .store(in: &self.cancellables)
     }
     
     @IBAction func productionButtonTapped(_ sender: NSButton) {

@@ -38,6 +38,15 @@ public final class CertificateBasedProvider: APNsProviderBase {
         return self._session
     }
     
+    convenience init(pemData: Data, topic: String) throws {
+        guard
+            let pemString = String(data: pemData, encoding: .utf8),
+            let data = Data(base64Encoded: pemString.components(separatedBy: "\n").filter({ !$0.hasPrefix("-----") }).joined()) else {
+                throw APNsError.loadPEMFailed
+        }
+        try self.init(cerData: data, topic: topic)
+    }
+    
     convenience init(cerData: Data, topic: String) throws {
         guard
             !topic.isEmpty else {

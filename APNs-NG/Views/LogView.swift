@@ -18,14 +18,14 @@ class LogView: NSBox {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.textView.string = AppService.current.logObject.value
-        self.cancellables.insert(
-            AppService.current.logObject.$value.sink(receiveValue: { [weak self] log in
+        AppService.current.logObject.$value
+            .sink(receiveValue: { [weak self] log in
                 guard let self = self else {
                     return
                 }
                 self.textView.string = log
                 self.textView.scrollRangeToVisible(NSRange(location: log.utf16.count, length: 0))
             })
-        )
+            .store(in: &self.cancellables)
     }
 }

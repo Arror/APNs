@@ -7,20 +7,14 @@
 //
 
 import Cocoa
-import Combine
 
 class BundleIDView: NSView {
     
     @IBOutlet private weak var textField: APNsTextField!
-    
-    private var cancellables: Set<AnyCancellable> = []
-    
+        
     override func awakeFromNib() {
         super.awakeFromNib()
         self.textField.stringValue = AppService.current.bundleIDObject.value
         self.textField.onTextChanged = { AppService.current.bundleIDObject.value = $0 }
-        self.cancellables.insert(
-            AppService.current.bundleIDObject.$value.assign(to: \BundleIDView.textField.stringValue, on: self)
-        )
     }
 }
