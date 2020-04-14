@@ -139,7 +139,7 @@
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <toolbar key="toolbar" implicitIdentifier="2C97038E-85BC-4834-8A3D-12540191E640" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="Wac-XP-2dO">
+                        <toolbar key="toolbar" implicitIdentifier="2C97038E-85BC-4834-8A3D-12540191E640" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="Wac-XP-2dO">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="C4EFB977-DCDC-4934-A55B-F99ECCD7FDE1" explicitItemIdentifier="APNsSegment" label="Custom View" paletteLabel="Custom View" sizingBehavior="auto" id="XJj-Yx-x6c">
                                     <nil key="toolTip"/>
