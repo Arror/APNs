@@ -7,11 +7,28 @@
 //
 
 import Cocoa
+import SwiftUI
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    func applicationDidFinishLaunching(_ aNotification: Notification) {}
+    @IBOutlet private weak var tooBar: NSToolbar!
+    
+    private let window = NSWindow(
+        contentRect: .zero,
+        styleMask: [.titled, .closable, .miniaturizable, .fullSizeContentView],
+        backing: .buffered,
+        defer: false
+    )
+    
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        let contentView = ContentView()
+        self.window.center()
+        self.window.setFrameAutosaveName("Main Window")
+        self.window.contentView = NSHostingView(rootView: contentView)
+        self.window.makeKeyAndOrderFront(nil)
+        self.window.toolbar = self.tooBar
+    }
 
     func applicationWillTerminate(_ aNotification: Notification) {}
     
