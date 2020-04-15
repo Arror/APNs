@@ -23,6 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let contentView = ContentView()
+        self.window.titleVisibility = .hidden
         self.window.center()
         self.window.setFrameAutosaveName("Main Window")
         self.window.contentView = NSHostingView(rootView: contentView)

@@ -12,7 +12,7 @@ struct ContentView: View {
     
     @State var text: String = ""
     @State var environment: Environment = .sandbox
-    @State var priority: Int = 1
+    @State var priority: Int = 5
     
     var body: some View {
         VStack {

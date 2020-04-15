@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -133,8 +134,22 @@
                     <allowedToolbarItems>
                         <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="SEE-nV-hKw"/>
                         <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="fKA-XM-xKw"/>
+                        <toolbarItem implicitItemIdentifier="1396FE34-7036-4A54-AAA3-54C30D1D0BF3" label="Custom View" paletteLabel="Custom View" sizingBehavior="auto" id="wWg-rR-iXc">
+                            <nil key="toolTip"/>
+                            <textField key="view" horizontalHuggingPriority="251" verticalHuggingPriority="750" id="yHF-t5-q2H">
+                                <rect key="frame" x="0.0" y="14" width="106" height="15"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="APNs Provider" id="q2S-Zx-JKk">
+                                    <font key="font" size="16" name="Kefa-Regular"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </toolbarItem>
                     </allowedToolbarItems>
                     <defaultToolbarItems>
+                        <toolbarItem reference="fKA-XM-xKw"/>
+                        <toolbarItem reference="wWg-rR-iXc"/>
                         <toolbarItem reference="fKA-XM-xKw"/>
                     </defaultToolbarItems>
                 </toolbar>
