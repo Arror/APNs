@@ -19,8 +19,12 @@ struct TextInputGroup: View {
     }
     
     var body: some View {
-        GroupBox(label: Text(self.title)) {
+        VStack(alignment: .leading, spacing: 4.0) {
+            Text(self.title)
+                .font(.caption)
             TextField("", text: self.value)
+                .lineLimit(1)
+                .textFieldStyle(SquareBorderTextFieldStyle())
         }
     }
 }

@@ -19,7 +19,7 @@ struct ContentView: View {
             
             GroupBox {
                 Text("")
-                    .frame(maxWidth: .infinity, minHeight: 100.0, idealHeight: 100.0, maxHeight: 100.0)
+                    .frame(maxWidth: .infinity, minHeight: 60.0, idealHeight: 60.0, maxHeight: 60.0)
             }
             .padding(.bottom, 10.0)
             
@@ -32,16 +32,17 @@ struct ContentView: View {
                 Picker("Environment", selection: $environment) {
                     ForEach(Environment.allCases, id: \.self) { Text($0.rawValue) }
                 }
-                .pickerStyle(RadioGroupPickerStyle())
+                .pickerStyle(SegmentedPickerStyle())
                 Picker("Priority", selection: $priority) {
                     ForEach(1...10, id: \.self) { Text("\($0)") }
                 }
+                .pickerStyle(SegmentedPickerStyle())
             }
             .padding([.top, .bottom], 10.0)
             
             GroupBox {
                 Text("")
-                    .frame(maxWidth: .infinity, minHeight: 150.0, idealHeight: 150.0, maxHeight: 150.0)
+                    .frame(maxWidth: .infinity, minHeight: 200.0, idealHeight: 200.0, maxHeight: 200.0)
             }
             .padding([.top, .bottom], 10.0)
             
