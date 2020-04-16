@@ -23,6 +23,8 @@ struct TextInputGroup: View {
             Text(self.title)
                 .font(.caption)
             TextField("", text: self.value)
+                .foregroundColor(Color.textColor)
+                .background(Color.textBackgroundColor)
                 .lineLimit(1)
                 .textFieldStyle(SquareBorderTextFieldStyle())
         }

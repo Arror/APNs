@@ -20,6 +20,7 @@ struct ContentView: View {
             GroupBox {
                 Text("")
                     .frame(maxWidth: .infinity, minHeight: 60.0, idealHeight: 60.0, maxHeight: 60.0)
+                    .background(Color.textBackgroundColor)
             }
             .padding(.bottom, 10.0)
             
@@ -41,7 +42,8 @@ struct ContentView: View {
             .padding([.top, .bottom], 10.0)
             
             GroupBox {
-                Text("")
+                PayloadView()
+                    .background(Color.textBackgroundColor)
                     .frame(maxWidth: .infinity, minHeight: 200.0, idealHeight: 200.0, maxHeight: 200.0)
             }
             .padding([.top, .bottom], 10.0)
@@ -50,7 +52,9 @@ struct ContentView: View {
                 Spacer()
                 Button(action: {
                     
-                }, label: { Text("Send Push Notification") })
+                }, label: {
+                    Text("Send Push Notification")
+                })
             }
         }
         .padding()

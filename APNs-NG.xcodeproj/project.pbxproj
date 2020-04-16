@@ -73,6 +73,10 @@
 		D3E9432724476083002BB340 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9432524476083002BB340 /* ContentView.swift */; };
 		D3E9432924476736002BB340 /* TextInputGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9432824476736002BB340 /* TextInputGroup.swift */; };
 		D3E9432A24476736002BB340 /* TextInputGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9432824476736002BB340 /* TextInputGroup.swift */; };
+		D3E9432C244893C1002BB340 /* PayloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9432B244893C1002BB340 /* PayloadView.swift */; };
+		D3E9432D244893C1002BB340 /* PayloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9432B244893C1002BB340 /* PayloadView.swift */; };
+		D3E9434B24489B0D002BB340 /* PayloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9434A24489B0D002BB340 /* PayloadViewController.swift */; };
+		D3E9434C24489B0D002BB340 /* PayloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9434A24489B0D002BB340 /* PayloadViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -135,6 +139,8 @@
 		D31591382433830300E048AE /* Info-Community.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Community.plist"; sourceTree = "<group>"; };
 		D3E9432524476083002BB340 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D3E9432824476736002BB340 /* TextInputGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputGroup.swift; sourceTree = "<group>"; };
+		D3E9432B244893C1002BB340 /* PayloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadView.swift; sourceTree = "<group>"; };
+		D3E9434A24489B0D002BB340 /* PayloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +215,8 @@
 				D3159046243055B500E048AE /* LogView.swift */,
 				D3E9432524476083002BB340 /* ContentView.swift */,
 				D3E9432824476736002BB340 /* TextInputGroup.swift */,
+				D3E9432B244893C1002BB340 /* PayloadView.swift */,
+				D3E9434A24489B0D002BB340 /* PayloadViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -371,6 +379,7 @@
 				D3158FFD242E40D800E048AE /* AppDelegate.swift in Sources */,
 				D3159011242EE0CB00E048AE /* PayloadBox.swift in Sources */,
 				D3159013242EF5F200E048AE /* Executor.swift in Sources */,
+				D3E9432C244893C1002BB340 /* PayloadView.swift in Sources */,
 				D315904924305D9F00E048AE /* APNsLog.swift in Sources */,
 				D315904F2430ADEF00E048AE /* APNsProviderFactory.swift in Sources */,
 				D315900F242E7CA500E048AE /* AppService.swift in Sources */,
@@ -381,6 +390,7 @@
 				D315905B2430AF7C00E048AE /* APNsClaims.swift in Sources */,
 				D31590512430AE9400E048AE /* APNsResponse.swift in Sources */,
 				D3159040242F8CEF00E048AE /* CertificateView.swift in Sources */,
+				D3E9434B24489B0D002BB340 /* PayloadViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +417,7 @@
 				D315911F2433819900E048AE /* AppDelegate.swift in Sources */,
 				D31591202433819900E048AE /* PayloadBox.swift in Sources */,
 				D31591212433819900E048AE /* Executor.swift in Sources */,
+				D3E9432D244893C1002BB340 /* PayloadView.swift in Sources */,
 				D31591222433819900E048AE /* APNsLog.swift in Sources */,
 				D31591232433819900E048AE /* APNsProviderFactory.swift in Sources */,
 				D31591242433819900E048AE /* AppService.swift in Sources */,
@@ -417,6 +428,7 @@
 				D31591292433819900E048AE /* APNsClaims.swift in Sources */,
 				D315912A2433819900E048AE /* APNsResponse.swift in Sources */,
 				D315912B2433819900E048AE /* CertificateView.swift in Sources */,
+				D3E9434C24489B0D002BB340 /* PayloadViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
