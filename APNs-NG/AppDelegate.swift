@@ -18,7 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var cancellables: Set<AnyCancellable> = []
     private let service = AppService()
     
-    private let window = NSWindow(
+    let window = NSWindow(
         contentRect: .zero,
         styleMask: [.titled, .closable, .miniaturizable, .fullSizeContentView],
         backing: .buffered,
@@ -69,4 +69,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //        }
 //        return true
 //    }
+}
+
+extension AppDelegate {
+    
+    static var shared: AppDelegate {
+        return NSApplication.shared.delegate as! AppDelegate
+    }
 }
