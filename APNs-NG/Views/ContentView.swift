@@ -13,6 +13,8 @@ struct ContentView: View {
     
     @EnvironmentObject var appService: AppService
     
+    private var cancellable: AnyCancellable? = nil
+    
     var body: some View {
         VStack {
             
@@ -70,6 +72,8 @@ struct ContentView: View {
         .padding()
         .frame(width: 500.0)
     }
+    
+    @State var x: Bool = false
 }
 
 struct ContentView_Previews: PreviewProvider {
