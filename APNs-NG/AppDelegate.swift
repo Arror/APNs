@@ -61,14 +61,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {}
     
-//    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-//        do {
-//            try AppService.current.savePreference()
-//        } catch {
-//            APNsLog.error(error.localizedDescription)
-//        }
-//        return true
-//    }
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        self.service.savePreference()
+        return true
+    }
 }
 
 extension AppDelegate {
