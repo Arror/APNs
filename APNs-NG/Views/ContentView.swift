@@ -7,34 +7,44 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ContentView: View {
     
-    @State var text: String = ""
-    @State var environment: Environment = .sandbox
-    @State var priority: Int = 5
+    @EnvironmentObject var appService: AppService
     
     var body: some View {
         VStack {
             
-            GroupBox {
-                Text("")
-                    .frame(maxWidth: .infinity, minHeight: 60.0, idealHeight: 60.0, maxHeight: 60.0)
-                    .background(Color.textBackgroundColor)
-            }
-            .padding(.bottom, 10.0)
+            CertificateView()
+                .padding(.bottom, 10.0)
             
-            TextInputGroup(title: "Team ID", value: $text)
-            TextInputGroup(title: "Key ID", value: $text)
-            TextInputGroup(title: "Bundle ID", value: $text)
-            TextInputGroup(title: "Token", value: $text)
+            if self.appService.apnsCertificate?.certificateType == .p8 {
+                TitleValueView(
+                    title: "Team ID",
+                    value: self.$appService.teamID
+                )
+                TitleValueView(
+                    title: "Key ID",
+                    value: self.$appService.keyID
+                )
+            }
+            TitleValueView(
+                title: "Bundle ID",
+                value: self.$appService.bundleID
+            )
+            TitleValueView(
+                title: "Token",
+                value: self.$appService.token
+            )
             
             Form {
-                Picker("Environment", selection: $environment) {
-                    ForEach(Environment.allCases, id: \.self) { Text($0.rawValue) }
+                Picker("Service", selection: self.$appService.apnsService) {
+                    ForEach(APNsService.allCases, id: \.self) { Text($0.name) }
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                Picker("Priority", selection: $priority) {
+                
+                Picker("Priority", selection: self.$appService.priority) {
                     ForEach(1...10, id: \.self) { Text("\($0)") }
                 }
                 .pickerStyle(SegmentedPickerStyle())
@@ -42,7 +52,7 @@ struct ContentView: View {
             .padding([.top, .bottom], 10.0)
             
             GroupBox {
-                PayloadView()
+                PayloadView(text: self.$appService.payload)
                     .background(Color.textBackgroundColor)
                     .frame(maxWidth: .infinity, minHeight: 200.0, idealHeight: 200.0, maxHeight: 200.0)
             }
@@ -51,7 +61,7 @@ struct ContentView: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    
+                    self.appService.pushSubject.send(())
                 }, label: {
                     Text("Send Push Notification")
                 })
@@ -60,11 +70,6 @@ struct ContentView: View {
         .padding()
         .frame(width: 500.0)
     }
-}
-
-enum Environment: String, CaseIterable {
-    case sandbox = "Sandbox"
-    case product = "Product"
 }
 
 struct ContentView_Previews: PreviewProvider {

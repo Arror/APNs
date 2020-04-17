@@ -14,6 +14,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet private weak var tooBar: NSToolbar!
     
+    private let service = AppService()
+    
     private let window = NSWindow(
         contentRect: .zero,
         styleMask: [.titled, .closable, .miniaturizable, .fullSizeContentView],
@@ -22,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     )
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let contentView = ContentView()
+        let contentView = ContentView().environmentObject(self.service)
         self.window.titleVisibility = .hidden
         self.window.center()
         self.window.setFrameAutosaveName("Main Window")
@@ -33,12 +35,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {}
     
-    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        do {
-            try AppService.current.savePreference()
-        } catch {
-            APNsLog.error(error.localizedDescription)
-        }
-        return true
-    }
+//    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+//        do {
+//            try AppService.current.savePreference()
+//        } catch {
+//            APNsLog.error(error.localizedDescription)
+//        }
+//        return true
+//    }
 }

@@ -21,12 +21,13 @@ public enum APNsError: LocalizedError {
     case loadPEMFailed
     case createCERFailed
     case createP12Failed
-    case scriptExeFailed(String)
+    case invalidateRequest
+    case invalidateResponse
     
     public var errorDescription: String? {
         switch self {
         case .certificateNotExist:
-            return "请添加证书信息。"
+            return "请添加证书信息"
         case .teamIDEmpty:
             return "请添加组织信息"
         case .keyIDEmpty:
@@ -47,8 +48,10 @@ public enum APNsError: LocalizedError {
             return "创建CER证书失败"
         case .createP12Failed:
             return "创建P12证书失败"
-        case .scriptExeFailed(let message):
-            return message
+        case .invalidateRequest:
+            return "发送通知请求失败"
+        case .invalidateResponse:
+            return "发送通知相应失败"
         }
     }
 }

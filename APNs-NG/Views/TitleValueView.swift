@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct TextInputGroup: View {
+struct TitleValueView: View {
     
     let title: String
     let value: Binding<String>
@@ -31,11 +31,11 @@ struct TextInputGroup: View {
     }
 }
 
-struct TextInputGroup_Previews: PreviewProvider {
+struct TitleValueView_Previews: PreviewProvider {
     
     @State static var text: String = ""
     
     static var previews: some View {
-        TextInputGroup(title: "", value: $text)
+        TitleValueView(title: "", value: $text)
     }
 }
