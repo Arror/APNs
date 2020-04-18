@@ -7,126 +7,101 @@
 //
 
 import Cocoa
-import SwiftyJSON
+import SwiftUI
+import Combine
 
-public enum CertificateType: String, Equatable, Codable, CaseIterable {
-    
-    case cer    = "cer"
-    case pem    = "pem"
-    case p12    = "p12"
-    case p8     = "p8"
-    
-    public static let availableFileExtensions: Set<String> = Set(CertificateType.allCases.map(\.rawValue))
-    
-    public func loadData(from fileURL: URL) -> Data? {
-        switch self {
-        case .cer, .p12, .p8:
-            return nil
-        case .pem:
-            return nil
-        }
-    }
-}
-
-public struct APNsCertificate: Codable {
-    
-    public let certificateType: CertificateType
-    public let name: String
-    public let data: Data
-    public let passphrase: String
-    
-    public init(certificateType: CertificateType, passphrase: String, name: String, data: Data) {
-        self.certificateType = certificateType
-        self.passphrase = passphrase
-        self.name = name
-        self.data = data
-    }
-}
-
-class CertificateView: NSView {
+struct CertificateView: View, DropDelegate {
         
-    @IBOutlet private weak var label: NSTextField!
+    @EnvironmentObject var appService: AppService
     
-    private var isInDragDropProcess: Bool = false
+    @State private var certificateUpdating: Bool = false
+    @State private var isInDragDropProcessing: Bool = false
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.registerForDraggedTypes([.fileURL])
-        self.updateLabel()
-    }
-    
-    private func updateLabel() {
-        switch AppService.current.certificateObject.value {
-        case .some(let certificate):
-            self.label.stringValue = self.isInDragDropProcess ? "释放" : certificate.name
-        case .none:
-            self.label.stringValue = self.isInDragDropProcess ? "释放" : "拖拽证书文件到这里"
+    var body: some View {
+        GroupBox {
+            Text(
+                self.isInDragDropProcessing ?
+                    "释放以设置证书" :
+                    (
+                        self.certificateUpdating ?
+                        "..." :
+                        self.appService.apnsCertificate?.name ?? "拖拽证书文件到这里，支持cer、pem、p12、p8类型证书"
+                    )
+            )
+                .frame(maxWidth: .infinity, minHeight: 60.0, idealHeight: 60.0, maxHeight: 60.0)
+                .background(Color.textBackgroundColor)
         }
+        .onDrop(of: [kUTTypeFileURL as String], delegate: self)
     }
     
-    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
-        self.isInDragDropProcess = true
-        self.updateLabel()
-        return .copy
+    func validateDrop(info: DropInfo) -> Bool {
+        let providers = info.itemProviders(for: [kUTTypeFileURL as String])
+        return providers.count == 1
     }
     
-    override func draggingExited(_ sender: NSDraggingInfo?) {
-        self.isInDragDropProcess = false
-        self.updateLabel()
-    }
-    
-    override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
-        return .copy
-    }
-    
-    override func draggingEnded(_ sender: NSDraggingInfo) {
-        self.isInDragDropProcess = false
-        self.updateLabel()
-    }
-    
-    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        guard
-            let types = sender.draggingPasteboard.types, types.contains(.fileURL) else {
-                return false
-        }
-        guard
-            let fileURLs = sender.draggingPasteboard.readObjects(forClasses: [NSURL.self], options: nil) as? [URL],
-            let fileURL = fileURLs.first else {
+    func performDrop(info: DropInfo) -> Bool {
+        let typeIdentifier = kUTTypeFileURL as String
+        let providers = info.itemProviders(for: [typeIdentifier])
+        guard providers.count == 1 else {
             return false
         }
-        guard
-            let certificateType = CertificateType(rawValue: fileURL.pathExtension),
-            let data = try? Data(contentsOf: fileURL) else {
-                return false
+        let provider = providers[0]
+        provider.loadDataRepresentation(forTypeIdentifier: typeIdentifier) { data, _ in
+            guard
+                let dataRepresentation = data,
+                let fileURL = NSURL(dataRepresentation: dataRepresentation, relativeTo: nil).absoluteURL else {
+                    self.certificateUpdating = false
+                    return
+            }
+            guard
+                let certificateType = CertificateType(rawValue: fileURL.pathExtension),
+                let certificateData = try? Data(contentsOf: fileURL) else {
+                    self.certificateUpdating = false
+                    return
+            }
+            self.inputPassphrase(certificateType: certificateType) { passphrase in
+                self.appService.apnsCertificate = APNsCertificate(
+                    certificateType: certificateType,
+                    passphrase: passphrase,
+                    name: fileURL.lastPathComponent,
+                    data: certificateData
+                )
+                self.certificateUpdating = false
+            }
         }
-        let name = fileURL.lastPathComponent
-        let passphrase: String
-        if certificateType == .p12 {
-            let alert = NSAlert()
-            alert.messageText = "输入密码"
-            alert.informativeText = "如果未设置密码，请直接点击确定按钮"
-            alert.addButton(withTitle: "确定")
-            let textField = NSSecureTextField(frame: NSRect(origin: .zero, size: CGSize(width: 300, height: 20)))
-            alert.accessoryView = textField
-            textField.becomeFirstResponder()
-            alert.runModal()
-            passphrase = textField.stringValue
-        } else {
-            passphrase = ""
-        }
-        AppService.current.certificateObject.value = APNsCertificate(
-            certificateType: certificateType,
-            passphrase: passphrase,
-            name: name,
-            data: data
-        )
+        self.certificateUpdating = true
         return true
     }
-}
-
-extension URL {
     
-    var isCertificateFileURL: Bool {
-        return self.isFileURL && CertificateType.availableFileExtensions.contains(self.pathExtension)
+    private func inputPassphrase(certificateType: CertificateType, completion: @escaping (String) -> Void) {
+        DispatchQueue.main.async {
+            switch certificateType {
+            case .p12:
+                let alert = NSAlert()
+                alert.messageText = "输入密码"
+                alert.informativeText = "如果未设置密码，请直接点击确定按钮"
+                alert.addButton(withTitle: "确定")
+                let textField = NSSecureTextField(frame: NSRect(origin: .zero, size: CGSize(width: 300, height: 20)))
+                alert.accessoryView = textField
+                textField.becomeFirstResponder()
+                alert.beginSheetModal(for: AppDelegate.shared.window) { _ in
+                    completion(textField.stringValue)
+                }
+            case .cer, .pem, .p8:
+                completion("")
+            }
+        }
+    }
+    
+    func dropEntered(info: DropInfo) {
+        self.isInDragDropProcessing = true
+    }
+    
+    func dropUpdated(info: DropInfo) -> DropProposal? {
+        return DropProposal(operation: .copy)
+    }
+    
+    func dropExited(info: DropInfo) {
+        self.isInDragDropProcessing = false
     }
 }
