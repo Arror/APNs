@@ -16,9 +16,9 @@ public enum APNsService: String, Codable, Equatable, CaseIterable {
     var name: String {
         switch self {
         case .sandbox:
-            return "Sandbox"
+            return "测试"
         case .production:
-            return "Production"
+            return "生产"
         }
     }
 }

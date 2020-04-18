@@ -23,30 +23,30 @@ struct ContentView: View {
             
             if self.appService.apnsCertificate?.certificateType == .p8 {
                 TitleValueView(
-                    title: "Team ID",
+                    title: "组织",
                     value: self.$appService.teamID
                 )
                 TitleValueView(
-                    title: "Key ID",
+                    title: "钥匙",
                     value: self.$appService.keyID
                 )
             }
             TitleValueView(
-                title: "Bundle ID",
+                title: "套装",
                 value: self.$appService.bundleID
             )
             TitleValueView(
-                title: "Token",
+                title: "令牌",
                 value: self.$appService.token
             )
             
             Form {
-                Picker("Service", selection: self.$appService.apnsService) {
+                Picker("环境", selection: self.$appService.apnsService) {
                     ForEach(APNsService.allCases, id: \.self) { Text($0.name) }
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 
-                Picker("Priority", selection: self.$appService.priority) {
+                Picker("优先级", selection: self.$appService.priority) {
                     ForEach(1...10, id: \.self) { Text("\($0)") }
                 }
                 .pickerStyle(SegmentedPickerStyle())
@@ -65,7 +65,7 @@ struct ContentView: View {
                 Button(action: {
                     self.appService.pushSubject.send(())
                 }, label: {
-                    Text(self.appService.isInPushProcessing ? "Sending..." : "Send Push Notification")
+                    Text(self.appService.isInPushProcessing ? "正在发送" : "发送通知")
                 })
                 .disabled(self.appService.isInPushProcessing)
             }

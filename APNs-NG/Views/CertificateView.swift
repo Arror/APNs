@@ -21,11 +21,11 @@ struct CertificateView: View, DropDelegate {
         GroupBox {
             Text(
                 self.isInDragDropProcessing ?
-                    "放手" :
+                    "释放以设置证书" :
                     (
                         self.certificateUpdating ?
-                        "" :
-                        self.appService.apnsCertificate?.name ?? "拖拽证书文件到这里"
+                        "..." :
+                        self.appService.apnsCertificate?.name ?? "拖拽证书文件到这里，支持cer、pem、p12、p8类型证书"
                     )
             )
                 .frame(maxWidth: .infinity, minHeight: 60.0, idealHeight: 60.0, maxHeight: 60.0)
