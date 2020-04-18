@@ -65,8 +65,9 @@ struct ContentView: View {
                 Button(action: {
                     self.appService.pushSubject.send(())
                 }, label: {
-                    Text("Send Push Notification")
+                    Text(self.appService.isInPushProcessing ? "Sending..." : "Send Push Notification")
                 })
+                .disabled(self.appService.isInPushProcessing)
             }
         }
         .padding()

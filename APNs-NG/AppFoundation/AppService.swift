@@ -79,11 +79,27 @@ public enum APNsService: String, Codable, Equatable, CaseIterable {
     }
 }
 
-public enum APNsState {
+public enum APNsState: Equatable {
+    
     case idle
     case process
     case success
     case failure(String)
+    
+    public static func ==(lhs: APNsState, rhs: APNsState) -> Bool {
+        switch (lhs, rhs) {
+        case (.idle, .idle):
+            return true
+        case (.process, .process):
+            return true
+        case (.success, .success):
+            return true
+        case (.failure, .failure):
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 public final class AppService: ObservableObject {
@@ -144,6 +160,8 @@ public final class AppService: ObservableObject {
     
     private var cancellables: Set<AnyCancellable> = []
     
+    @Published var isInPushProcessing: Bool = false
+    
     public init() {
         
         let preference = AppService.loadPreference()
@@ -159,6 +177,7 @@ public final class AppService: ObservableObject {
             self.apnsStateSubject.send(.process)
             do {
                 try self.makeRawPushPublsher()
+                    .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: { completion in
                         switch completion {
                         case .finished:
@@ -176,6 +195,12 @@ public final class AppService: ObservableObject {
             }
         }
         .store(in: &self.cancellables)
+        
+        self.apnsStateSubject
+            .map({ $0 == .idle })
+            .map({ !$0 })
+            .assign(to: \.isInPushProcessing, on: self)
+            .store(in: &self.cancellables)
     }
 }
 
