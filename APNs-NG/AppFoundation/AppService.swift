@@ -9,130 +9,8 @@
 import Cocoa
 import Combine
 import SwiftUI
-import SwiftyJSON
-import Logging
-import LoggerAPI
-
-public struct Preference: Codable {
-    public let teamID: String
-    public let keyID: String
-    public let bundleID: String
-    public let service: APNsService
-    public let certificate: Optional<APNsCertificate>
-    public let token: String
-    public let priority: Int
-}
-
-public enum CertificateType: String, Equatable, Codable, CaseIterable {
-    
-    case cer    = "cer"
-    case pem    = "pem"
-    case p12    = "p12"
-    case p8     = "p8"
-    
-    public static let availableFileExtensions: Set<String> = Set(CertificateType.allCases.map(\.rawValue))
-    
-    public func loadData(from fileURL: URL) -> Data? {
-        switch self {
-        case .cer, .p12, .p8:
-            return nil
-        case .pem:
-            return nil
-        }
-    }
-}
-
-public struct APNsCertificate: Codable {
-    
-    public let certificateType: CertificateType
-    public let name: String
-    public let data: Data
-    public let passphrase: String
-    
-    public init(certificateType: CertificateType, passphrase: String, name: String, data: Data) {
-        self.certificateType = certificateType
-        self.passphrase = passphrase
-        self.name = name
-        self.data = data
-    }
-}
-
-extension String {
-    
-    public var trimmed: String {
-        return self.trimmingCharacters(in: CharacterSet(charactersIn: "\n "))
-    }
-}
-
-public enum APNsService: String, Codable, Equatable, CaseIterable {
-    
-    case sandbox
-    case production
-    
-    var name: String {
-        switch self {
-        case .sandbox:
-            return "Sandbox"
-        case .production:
-            return "Production"
-        }
-    }
-}
-
-public enum APNsState: Equatable {
-    
-    case idle
-    case process
-    case success
-    case failure(String)
-    
-    public static func ==(lhs: APNsState, rhs: APNsState) -> Bool {
-        switch (lhs, rhs) {
-        case (.idle, .idle):
-            return true
-        case (.process, .process):
-            return true
-        case (.success, .success):
-            return true
-        case (.failure, .failure):
-            return true
-        default:
-            return false
-        }
-    }
-}
 
 public final class AppService: ObservableObject {
-    
-    private static let preferenceStoreKey = "USER.PREFERENCE"
-    
-    private static func loadPreference() -> Preference? {
-        guard let data = UserDefaults.standard.data(forKey: AppService.preferenceStoreKey) else {
-            return nil
-        }
-        do {
-            return try JSONDecoder().decode(Preference.self, from: data)
-        } catch {
-            return nil
-        }
-    }
-
-    func savePreference() {
-        let preference = Preference(
-            teamID: self.teamID,
-            keyID: self.keyID,
-            bundleID: self.bundleID,
-            service: self.apnsService,
-            certificate: self.apnsCertificate,
-            token: self.token,
-            priority: self.priority
-        )
-        do {
-            UserDefaults.standard.set(try JSONEncoder().encode(preference), forKey: AppService.preferenceStoreKey)
-        } catch {
-            
-        }
-    }
     
     @Published public var apnsCertificate: Optional<APNsCertificate> = .none
     @Published public var teamID: String = ""
@@ -154,13 +32,12 @@ public final class AppService: ObservableObject {
         }
     }
     """
+    @Published var isInPushProcessing: Bool = false
     
     public let pushSubject = PassthroughSubject<Void, Never>()
     public let apnsStateSubject = CurrentValueSubject<APNsState, Never>(.idle)
     
     private var cancellables: Set<AnyCancellable> = []
-    
-    @Published var isInPushProcessing: Bool = false
     
     public init() {
         
@@ -202,11 +79,4 @@ public final class AppService: ObservableObject {
             .assign(to: \.isInPushProcessing, on: self)
             .store(in: &self.cancellables)
     }
-}
-
-extension Color {
-    
-    static let textColor = Color("text_color")
-    
-    static let textBackgroundColor = Color("text_input_background_color")
 }
