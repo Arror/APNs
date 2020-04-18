@@ -21,54 +21,20 @@
 		D31590592430AF5500E048AE /* APNsJWTController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31590582430AF5500E048AE /* APNsJWTController.swift */; };
 		D315905B2430AF7C00E048AE /* APNsClaims.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315905A2430AF7C00E048AE /* APNsClaims.swift */; };
 		D315905F2430F6C200E048AE /* APNsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315905E2430F6C200E048AE /* APNsError.swift */; };
-		D31591112433819900E048AE /* APNsCertificateBasedProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31590542430AF0D00E048AE /* APNsCertificateBasedProvider.swift */; };
-		D31591142433819900E048AE /* APNsJWTController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31590582430AF5500E048AE /* APNsJWTController.swift */; };
-		D31591152433819900E048AE /* APNsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315904A243065AC00E048AE /* APNsProvider.swift */; };
-		D31591172433819900E048AE /* APNsTokenBasedProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31590562430AF2F00E048AE /* APNsTokenBasedProvider.swift */; };
-		D315911A2433819900E048AE /* APNsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315905E2430F6C200E048AE /* APNsError.swift */; };
-		D315911D2433819900E048AE /* APNsProviderBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31590522430AEED00E048AE /* APNsProviderBase.swift */; };
-		D315911F2433819900E048AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3158FFC242E40D800E048AE /* AppDelegate.swift */; };
-		D31591242433819900E048AE /* AppService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315900E242E7CA500E048AE /* AppService.swift */; };
-		D31591292433819900E048AE /* APNsClaims.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315905A2430AF7C00E048AE /* APNsClaims.swift */; };
-		D315912A2433819900E048AE /* APNsResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31590502430AE9400E048AE /* APNsResponseError.swift */; };
-		D315912D2433819900E048AE /* SwiftJWT in Frameworks */ = {isa = PBXBuildFile; productRef = D315910E2433819900E048AE /* SwiftJWT */; };
-		D315912E2433819900E048AE /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = D315910C2433819900E048AE /* SwiftyJSON */; };
-		D31591302433819900E048AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3159000242E40DA00E048AE /* Assets.xcassets */; };
-		D31591312433819900E048AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3159002242E40DA00E048AE /* Main.storyboard */; };
 		D3E9432624476083002BB340 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9432524476083002BB340 /* ContentView.swift */; };
-		D3E9432724476083002BB340 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9432524476083002BB340 /* ContentView.swift */; };
 		D3E9432924476736002BB340 /* TitleValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9432824476736002BB340 /* TitleValueView.swift */; };
-		D3E9432A24476736002BB340 /* TitleValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9432824476736002BB340 /* TitleValueView.swift */; };
 		D3E9432C244893C1002BB340 /* PayloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9432B244893C1002BB340 /* PayloadView.swift */; };
-		D3E9432D244893C1002BB340 /* PayloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9432B244893C1002BB340 /* PayloadView.swift */; };
 		D3E9434E2449F8E5002BB340 /* CertificateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9434D2449F8E5002BB340 /* CertificateView.swift */; };
-		D3E9434F2449F8E5002BB340 /* CertificateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9434D2449F8E5002BB340 /* CertificateView.swift */; };
 		D3E94351244B02B9002BB340 /* Preference.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E94350244B02B9002BB340 /* Preference.swift */; };
-		D3E94352244B02B9002BB340 /* Preference.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E94350244B02B9002BB340 /* Preference.swift */; };
 		D3E94354244B0349002BB340 /* APNsCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E94353244B0349002BB340 /* APNsCertificate.swift */; };
-		D3E94355244B0349002BB340 /* APNsCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E94353244B0349002BB340 /* APNsCertificate.swift */; };
 		D3E94357244B0386002BB340 /* APNsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E94356244B0386002BB340 /* APNsService.swift */; };
-		D3E94358244B0386002BB340 /* APNsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E94356244B0386002BB340 /* APNsService.swift */; };
 		D3E9435A244B0397002BB340 /* APNsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E94359244B0397002BB340 /* APNsState.swift */; };
-		D3E9435B244B0397002BB340 /* APNsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E94359244B0397002BB340 /* APNsState.swift */; };
 		D3E9435D244B03BF002BB340 /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9435C244B03BF002BB340 /* Color+Ext.swift */; };
-		D3E9435E244B03BF002BB340 /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9435C244B03BF002BB340 /* Color+Ext.swift */; };
 		D3E94360244B03EF002BB340 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9435F244B03EF002BB340 /* String+Ext.swift */; };
-		D3E94361244B03EF002BB340 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9435F244B03EF002BB340 /* String+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		D3159026242F0A7500E048AE /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D31591322433819900E048AE /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -96,7 +62,6 @@
 		D31590582430AF5500E048AE /* APNsJWTController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsJWTController.swift; sourceTree = "<group>"; };
 		D315905A2430AF7C00E048AE /* APNsClaims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsClaims.swift; sourceTree = "<group>"; };
 		D315905E2430F6C200E048AE /* APNsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsError.swift; sourceTree = "<group>"; };
-		D31591362433819900E048AE /* APNs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APNs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D31591382433830300E048AE /* Info-Community.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Community.plist"; sourceTree = "<group>"; };
 		D3E9432524476083002BB340 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D3E9432824476736002BB340 /* TitleValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleValueView.swift; sourceTree = "<group>"; };
@@ -120,15 +85,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D315912C2433819900E048AE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D315912D2433819900E048AE /* SwiftJWT in Frameworks */,
-				D315912E2433819900E048AE /* SwiftyJSON in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -144,7 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				D3158FF9242E40D800E048AE /* APNs.app */,
-				D31591362433819900E048AE /* APNs.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -230,28 +185,6 @@
 			productReference = D3158FF9242E40D800E048AE /* APNs.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D315910B2433819900E048AE /* APNs-NG-Community */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D31591332433819900E048AE /* Build configuration list for PBXNativeTarget "APNs-NG-Community" */;
-			buildPhases = (
-				D31591102433819900E048AE /* Sources */,
-				D315912C2433819900E048AE /* Frameworks */,
-				D315912F2433819900E048AE /* Resources */,
-				D31591322433819900E048AE /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "APNs-NG-Community";
-			packageProductDependencies = (
-				D315910C2433819900E048AE /* SwiftyJSON */,
-				D315910E2433819900E048AE /* SwiftJWT */,
-			);
-			productName = "APNs-NG";
-			productReference = D31591362433819900E048AE /* APNs.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -285,7 +218,6 @@
 			projectRoot = "";
 			targets = (
 				D3158FF8242E40D800E048AE /* APNs-NG */,
-				D315910B2433819900E048AE /* APNs-NG-Community */,
 			);
 		};
 /* End PBXProject section */
@@ -297,15 +229,6 @@
 			files = (
 				D3159001242E40DA00E048AE /* Assets.xcassets in Resources */,
 				D3159004242E40DA00E048AE /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D315912F2433819900E048AE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D31591302433819900E048AE /* Assets.xcassets in Resources */,
-				D31591312433819900E048AE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,33 +259,6 @@
 				D3E9435D244B03BF002BB340 /* Color+Ext.swift in Sources */,
 				D3E94360244B03EF002BB340 /* String+Ext.swift in Sources */,
 				D31590512430AE9400E048AE /* APNsResponseError.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D31591102433819900E048AE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D31591112433819900E048AE /* APNsCertificateBasedProvider.swift in Sources */,
-				D3E9432724476083002BB340 /* ContentView.swift in Sources */,
-				D3E9432A24476736002BB340 /* TitleValueView.swift in Sources */,
-				D31591142433819900E048AE /* APNsJWTController.swift in Sources */,
-				D3E9434F2449F8E5002BB340 /* CertificateView.swift in Sources */,
-				D3E94355244B0349002BB340 /* APNsCertificate.swift in Sources */,
-				D3E94358244B0386002BB340 /* APNsService.swift in Sources */,
-				D31591152433819900E048AE /* APNsProvider.swift in Sources */,
-				D31591172433819900E048AE /* APNsTokenBasedProvider.swift in Sources */,
-				D315911A2433819900E048AE /* APNsError.swift in Sources */,
-				D315911D2433819900E048AE /* APNsProviderBase.swift in Sources */,
-				D315911F2433819900E048AE /* AppDelegate.swift in Sources */,
-				D3E94352244B02B9002BB340 /* Preference.swift in Sources */,
-				D3E9435B244B0397002BB340 /* APNsState.swift in Sources */,
-				D3E9432D244893C1002BB340 /* PayloadView.swift in Sources */,
-				D31591242433819900E048AE /* AppService.swift in Sources */,
-				D31591292433819900E048AE /* APNsClaims.swift in Sources */,
-				D3E9435E244B03BF002BB340 /* Color+Ext.swift in Sources */,
-				D3E94361244B03EF002BB340 /* String+Ext.swift in Sources */,
-				D315912A2433819900E048AE /* APNsResponseError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,58 +437,6 @@
 			};
 			name = Release;
 		};
-		D31591342433819900E048AE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "APNs-NG/APNs_NG.entitlements";
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 11;
-				DEVELOPMENT_TEAM = A8XWAF2UFT;
-				ENABLE_HARDENED_RUNTIME = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/APNs-NG/Info-Community.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MARKETING_VERSION = 2.2;
-				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Arror.APNs.Community;
-				PRODUCT_NAME = APNs;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG COMMUNITY";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		D31591352433819900E048AE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "APNs-NG/APNs_NG.entitlements";
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 11;
-				DEVELOPMENT_TEAM = A8XWAF2UFT;
-				ENABLE_HARDENED_RUNTIME = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/APNs-NG/Info-Community.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MARKETING_VERSION = 2.2;
-				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Arror.APNs.Community;
-				PRODUCT_NAME = APNs;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = COMMUNITY;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -610,15 +454,6 @@
 			buildConfigurations = (
 				D315900A242E40DA00E048AE /* Debug */,
 				D315900B242E40DA00E048AE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D31591332433819900E048AE /* Build configuration list for PBXNativeTarget "APNs-NG-Community" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D31591342433819900E048AE /* Debug */,
-				D31591352433819900E048AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -642,22 +477,6 @@
 				version = 3.6.1;
 			};
 		};
-		D315910D2433819900E048AE /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:SwiftyJSON/SwiftyJSON.git";
-			requirement = {
-				kind = exactVersion;
-				version = 5.0.0;
-			};
-		};
-		D315910F2433819900E048AE /* XCRemoteSwiftPackageReference "Swift-JWT" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:IBM-Swift/Swift-JWT.git";
-			requirement = {
-				kind = exactVersion;
-				version = 3.6.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -669,16 +488,6 @@
 		D3159042242FA72800E048AE /* SwiftJWT */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D3159041242FA72800E048AE /* XCRemoteSwiftPackageReference "Swift-JWT" */;
-			productName = SwiftJWT;
-		};
-		D315910C2433819900E048AE /* SwiftyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D315910D2433819900E048AE /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
-		};
-		D315910E2433819900E048AE /* SwiftJWT */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D315910F2433819900E048AE /* XCRemoteSwiftPackageReference "Swift-JWT" */;
 			productName = SwiftJWT;
 		};
 /* End XCSwiftPackageProductDependency section */
