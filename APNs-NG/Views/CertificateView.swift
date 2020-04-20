@@ -21,11 +21,11 @@ struct CertificateView: View, DropDelegate {
         GroupBox {
             Text(
                 self.isInDragDropProcessing ?
-                    "释放以设置证书" :
+                    String.localizedString(forKey: "CertificateView.CertificateRelease") :
                     (
                         self.certificateUpdating ?
                         "..." :
-                        self.appService.apnsCertificate?.name ?? "拖拽证书文件到这里，支持cer、pem、p12、p8类型证书"
+                        self.appService.apnsCertificate?.name ?? String.localizedString(forKey: "CertificateView.CertificatePlaceHolder")
                     )
             )
                 .frame(maxWidth: .infinity, minHeight: 60.0, idealHeight: 60.0, maxHeight: 60.0)
@@ -78,9 +78,9 @@ struct CertificateView: View, DropDelegate {
             switch certificateType {
             case .p12:
                 let alert = NSAlert()
-                alert.messageText = "输入密码"
-                alert.informativeText = "如果未设置密码，请直接点击确定按钮"
-                alert.addButton(withTitle: "确定")
+                alert.messageText = String.localizedString(forKey: "CertificateView.PassphaseInput")
+                alert.informativeText = String.localizedString(forKey: "CertificateView.PassphaseEmpty")
+                alert.addButton(withTitle: String.localizedString(forKey: "CertificateView.EnsureButton"))
                 let textField = NSSecureTextField(frame: NSRect(origin: .zero, size: CGSize(width: 300, height: 20)))
                 alert.accessoryView = textField
                 textField.becomeFirstResponder()

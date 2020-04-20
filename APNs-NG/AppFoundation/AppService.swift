@@ -80,3 +80,10 @@ public final class AppService: ObservableObject {
             .store(in: &self.cancellables)
     }
 }
+
+extension String {
+    
+    static func localizedString(forKey key: String) -> String {
+        return NSLocalizedString(key, comment: "Content")
+    }
+}

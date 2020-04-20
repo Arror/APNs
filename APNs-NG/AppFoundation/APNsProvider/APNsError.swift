@@ -15,7 +15,6 @@ public enum APNsError: LocalizedError {
     case keyIDEmpty
     case bundleIDEmpty
     case tokenEmpty
-    case noSimulator
     case invalidatePayload
     case loadCERFailed
     case loadPEMFailed
@@ -27,31 +26,29 @@ public enum APNsError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .certificateNotExist:
-            return "请添加证书信息"
+            return String.localizedString(forKey: "APNsError.CertificateNotExist")
         case .teamIDEmpty:
-            return "请添加组织信息"
+            return String.localizedString(forKey: "APNsError.TeamIDEmpty")
         case .keyIDEmpty:
-            return "请添加钥匙信息"
+            return String.localizedString(forKey: "APNsError.KeyIDEmpty")
         case .bundleIDEmpty:
-            return "请填写套装信息"
+            return String.localizedString(forKey: "APNsError.BundleIDEmpty")
         case .tokenEmpty:
-            return "请填写令牌"
-        case .noSimulator:
-            return "请选择模拟器"
+            return String.localizedString(forKey: "APNsError.TokenEmpty")
         case .invalidatePayload:
-            return "请检查负载信息"
+            return String.localizedString(forKey: "APNsError.InvalidatePayload")
         case .loadCERFailed:
-            return "获取CER证书失败"
+            return String.localizedString(forKey: "APNsError.LoadCERFailed")
         case .loadPEMFailed:
-            return "获取PEM证书失败"
+            return String.localizedString(forKey: "APNsError.LoadPEMFailed")
         case .createCERFailed:
-            return "创建CER证书失败"
+            return String.localizedString(forKey: "APNsError.CreateCERFailed")
         case .createP12Failed:
-            return "创建P12证书失败"
+            return String.localizedString(forKey: "APNsError.CreateP12Failed")
         case .invalidateRequest:
-            return "发送通知请求失败"
+            return String.localizedString(forKey: "APNsError.InvalidateRequest")
         case .invalidateResponse:
-            return "发送通知相应失败"
+            return String.localizedString(forKey: "APNsError.InvalidateResponse")
         }
     }
 }

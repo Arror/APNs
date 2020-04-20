@@ -44,14 +44,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     case .failure(let reason):
                         let alert = NSAlert()
                         alert.alertStyle = .critical
-                        alert.messageText = "错误"
+                        alert.messageText = String.localizedString(forKey: "Appdelegate.Alert.Failure")
                         alert.informativeText = reason
                         alert.beginSheetModal(for: self.window) { _ in }
                     case .success:
                         let alert = NSAlert()
                         alert.alertStyle = .informational
-                        alert.messageText = "成功"
-                        alert.informativeText = "推送成功"
+                        alert.messageText = String.localizedString(forKey: "Appdelegate.Alert.Success")
+                        alert.informativeText = String.localizedString(forKey: "Appdelegate.Alert.SuccessMessage")
                         alert.beginSheetModal(for: self.window) { _ in }
                     }
                 }
