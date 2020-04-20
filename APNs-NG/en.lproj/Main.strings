@@ -1,0 +1,69 @@
+
+/* Class = "NSMenuItem"; title = "APNs"; ObjectID = "1Xt-HY-uBw"; */
+"1Xt-HY-uBw.title" = "APNs";
+
+/* Class = "NSMenuItem"; title = "退出APNs"; ObjectID = "4sb-4s-VLi"; */
+"4sb-4s-VLi.title" = "Quit APNs";
+
+/* Class = "NSMenuItem"; title = "编辑"; ObjectID = "5QF-Oa-p0T"; */
+"5QF-Oa-p0T.title" = "Edit";
+
+/* Class = "NSMenuItem"; title = "关于 APNs"; ObjectID = "5kV-Vb-QxS"; */
+"5kV-Vb-QxS.title" = "About APNs";
+
+/* Class = "NSMenuItem"; title = "重做"; ObjectID = "6dh-zS-Vam"; */
+"6dh-zS-Vam.title" = "Redo";
+
+/* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
+"AYu-sK-qS6.title" = "Main Menu";
+
+/* Class = "NSMenuItem"; title = "显示全部"; ObjectID = "Kd2-mp-pUS"; */
+"Kd2-mp-pUS.title" = "Show All";
+
+/* Class = "NSMenuItem"; title = "移到最上方"; ObjectID = "LE2-aR-0XJ"; */
+"LE2-aR-0XJ.title" = "Bring All to Front";
+
+/* Class = "NSMenuItem"; title = "最小化"; ObjectID = "OY7-WF-poV"; */
+"OY7-WF-poV.title" = "Minimize";
+
+/* Class = "NSMenuItem"; title = "隐藏APNs"; ObjectID = "Olw-nP-bQN"; */
+"Olw-nP-bQN.title" = "Hide APNs";
+
+/* Class = "NSMenuItem"; title = "缩放"; ObjectID = "R4o-n2-Eq4"; */
+"R4o-n2-Eq4.title" = "Zoom";
+
+/* Class = "NSMenuItem"; title = "全选"; ObjectID = "Ruw-6m-B2m"; */
+"Ruw-6m-B2m.title" = "Select All";
+
+/* Class = "NSMenu"; title = "窗口"; ObjectID = "Td7-aD-5lo"; */
+"Td7-aD-5lo.title" = "Window";
+
+/* Class = "NSMenuItem"; title = "隐藏其他"; ObjectID = "Vdr-fp-XzO"; */
+"Vdr-fp-XzO.title" = "Hide Others";
+
+/* Class = "NSMenu"; title = "编辑"; ObjectID = "W48-6f-4Dl"; */
+"W48-6f-4Dl.title" = "Edit";
+
+/* Class = "NSMenuItem"; title = "窗口"; ObjectID = "aUF-d1-5bR"; */
+"aUF-d1-5bR.title" = "Window";
+
+/* Class = "NSMenuItem"; title = "撤销"; ObjectID = "dRJ-4n-Yzg"; */
+"dRJ-4n-Yzg.title" = "Undo";
+
+/* Class = "NSMenuItem"; title = "粘贴"; ObjectID = "gVA-U4-sdL"; */
+"gVA-U4-sdL.title" = "Paste";
+
+/* Class = "NSMenuItem"; title = "删除"; ObjectID = "pa3-QI-u2k"; */
+"pa3-QI-u2k.title" = "Delete";
+
+/* Class = "NSTextFieldCell"; title = "APNs Provider"; ObjectID = "q2S-Zx-JKk"; */
+"q2S-Zx-JKk.title" = "APNs Provider";
+
+/* Class = "NSMenu"; title = "APNs"; ObjectID = "uQy-DD-JDr"; */
+"uQy-DD-JDr.title" = "APNs";
+
+/* Class = "NSMenuItem"; title = "剪切"; ObjectID = "uRl-iY-unG"; */
+"uRl-iY-unG.title" = "Cut";
+
+/* Class = "NSMenuItem"; title = "复制"; ObjectID = "x3v-GG-iWU"; */
+"x3v-GG-iWU.title" = "Copy";
