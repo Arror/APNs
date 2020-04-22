@@ -16,9 +16,9 @@ public enum APNsService: String, Codable, Equatable, CaseIterable {
     var name: String {
         switch self {
         case .sandbox:
-            return "测试"
+            return String.localizedString(forKey: "APNsService.Sandbox")
         case .production:
-            return "生产"
+            return String.localizedString(forKey: "APNsService.Production")
         }
     }
 }

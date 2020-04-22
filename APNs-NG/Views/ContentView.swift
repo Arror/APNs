@@ -23,30 +23,30 @@ struct ContentView: View {
             
             if self.appService.apnsCertificate?.certificateType == .p8 {
                 TitleValueView(
-                    title: "组织",
+                    title: String.localizedString(forKey: "ContentView.TeamID"),
                     value: self.$appService.teamID
                 )
                 TitleValueView(
-                    title: "钥匙",
+                    title: String.localizedString(forKey: "ContentView.KeyID"),
                     value: self.$appService.keyID
                 )
             }
             TitleValueView(
-                title: "套装",
+                title: String.localizedString(forKey: "ContentView.BundleID"),
                 value: self.$appService.bundleID
             )
             TitleValueView(
-                title: "令牌",
+                title: String.localizedString(forKey: "ContentView.Token"),
                 value: self.$appService.token
             )
             
             Form {
-                Picker("环境", selection: self.$appService.apnsService) {
+                Picker(String.localizedString(forKey: "ContentView.Environment"), selection: self.$appService.apnsService) {
                     ForEach(APNsService.allCases, id: \.self) { Text($0.name) }
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 
-                Picker("优先级", selection: self.$appService.priority) {
+                Picker(String.localizedString(forKey: "ContentView.Priority"), selection: self.$appService.priority) {
                     ForEach(1...10, id: \.self) { Text("\($0)") }
                 }
                 .pickerStyle(SegmentedPickerStyle())
@@ -65,7 +65,7 @@ struct ContentView: View {
                 Button(action: {
                     self.appService.pushSubject.send(())
                 }, label: {
-                    Text(self.appService.isInPushProcessing ? "正在发送" : "发送通知")
+                    Text(self.appService.isInPushProcessing ? String.localizedString(forKey: "ContentView.Sending") : String.localizedString(forKey: "ContentView.SendNotification"))
                 })
                 .disabled(self.appService.isInPushProcessing)
             }

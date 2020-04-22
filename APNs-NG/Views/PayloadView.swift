@@ -22,7 +22,7 @@ struct PayloadView: NSViewRepresentable {
 
     func makeNSView(context: Context) -> NSScrollView {
         let text = NSTextView()
-        text.backgroundColor = NSColor(named: "") ?? .black
+        text.backgroundColor = NSColor(named: "text_input_background_color") ?? .black
         text.delegate = context.coordinator
         text.isRichText = false
         text.autoresizingMask = [.width]
