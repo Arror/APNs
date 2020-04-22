@@ -6,132 +6,84 @@
 //  Copyright © 2020 Arror. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 import Combine
-import SwiftyJSON
-import Logging
-import LoggerAPI
+import SwiftUI
 
-public struct Preference: Codable {
-    public let teamID: String
-    public let keyID: String
-    public let bundleID: String
-    public let environment: APNsEnvironment
-    public let certificate: Optional<APNsCertificate>
-    public let token: String
-    public let priority: Int
-}
-
-public class AppService {
+public final class AppService: ObservableObject {
     
-    private static let preferenceStoreKey = "USER.PREFERENCE"
-    
-    private static func loadPreference() -> Preference? {
-        guard let data = UserDefaults.standard.data(forKey: AppService.preferenceStoreKey) else {
-            return nil
-        }
-        do {
-            return try JSONDecoder().decode(Preference.self, from: data)
-        } catch {
-            return nil
+    @Published public var apnsCertificate: Optional<APNsCertificate> = .none
+    @Published public var teamID: String = ""
+    @Published public var keyID: String = ""
+    @Published public var bundleID: String = ""
+    @Published public var token: String = ""
+    @Published public var apnsService: APNsService = .sandbox
+    @Published public var priority: Int = 5
+    @Published public var payload: String = """
+    {
+        "aps": {
+            "content-available": 1,
+            "alert": {
+                "title": "Push Notification",
+                "body": "Notification from APNs Provider."
+            },
+            "badge": 9,
+            "sound": "default"
         }
     }
+    """
+    @Published var isInPushProcessing: Bool = false
     
-    func savePreference() throws {
-        let preference = Preference(
-            teamID: self.teamIDObject.value,
-            keyID: self.keyIDObject.value,
-            bundleID: self.bundleIDObject.value,
-            environment: self.environmentObject.value,
-            certificate: self.certificateObject.value,
-            token: self.tokenObject.value,
-            priority: self.priorityObject.value
-        )
-        UserDefaults.standard.set(try JSONEncoder().encode(preference), forKey: AppService.preferenceStoreKey)
-    }
-    
-    public static let current = AppService()
+    public let pushSubject = PassthroughSubject<Void, Never>()
+    public let apnsStateSubject = CurrentValueSubject<APNsState, Never>(.idle)
     
     private var cancellables: Set<AnyCancellable> = []
     
-    private init() {
-        LoggingSystem.bootstrap(APNsLogHandler.apnsLog)
-        LoggerAPI.Log.swiftLogger = Logging.Logger(label: "com.Arror.APNs")
+    public init() {
         
         let preference = AppService.loadPreference()
-        self.bundleIDObject     = ObservableWrapper<String>(preference?.bundleID ?? "")
-        self.certificateObject  = ObservableWrapper<Optional<APNsCertificate>>(preference?.certificate)
-        self.tokenObject        = ObservableWrapper<String>(preference?.token ?? "")
-        self.priorityObject     = ObservableWrapper<Int>(preference?.priority ?? 5)
-        self.teamIDObject       = ObservableWrapper<String>(preference?.teamID ?? "")
-        self.keyIDObject        = ObservableWrapper<String>(preference?.keyID ?? "")
-        self.environmentObject  = ObservableWrapper<APNsEnvironment>(preference?.environment ?? .sandbox)
+        self.apnsCertificate = preference?.certificate
+        self.teamID = preference?.teamID ?? ""
+        self.keyID = preference?.keyID ?? ""
+        self.bundleID = preference?.bundleID ?? ""
+        self.token = preference?.token ?? ""
+        self.apnsService = preference?.service ?? .sandbox
+        self.priority = preference?.priority ?? 5
         
-        let triggerToken = self.pushTrigger.sink { [unowned self] _ in
+        self.pushSubject.sink { _ in
+            self.apnsStateSubject.send(.process)
             do {
-                let provider = try APNsProviderFactory.provider(forCurrentService: self)
-                self.indicatorSubject.send(true)
-                APNsLog.info("正在发送。。。")
-                provider.send(payload: self.payloadObject.value.trimmed, token: self.tokenObject.value.trimmed, priorty: self.priorityObject.value) { result in
-                    self.indicatorSubject.send(false)
-                    switch result {
-                    case .success:
-                        APNsLog.info("发送成功")
-                    case .failure(let error):
-                        APNsLog.error(error.localizedDescription)
-                    }
-                }
+                try self.makeRawPushPublsher()
+                    .receive(on: DispatchQueue.main)
+                    .sink(receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            self.apnsStateSubject.send(.success)
+                            self.apnsStateSubject.send(.idle)
+                        case .failure(let error):
+                            self.apnsStateSubject.send(.failure(error.localizedDescription))
+                            self.apnsStateSubject.send(.idle)
+                        }
+                    }, receiveValue: { _ in })
+                    .store(in: &self.cancellables)
             } catch {
-                APNsLog.error(error.localizedDescription)
+                self.apnsStateSubject.send(.failure(error.localizedDescription))
+                self.apnsStateSubject.send(.idle)
             }
         }
-        self.cancellables.insert(triggerToken)
-    }
-    
-    public let bundleIDObject:      ObservableWrapper<String>
-    public let certificateObject:   ObservableWrapper<Optional<APNsCertificate>>
-    public let tokenObject:         ObservableWrapper<String>
-    public let priorityObject:      ObservableWrapper<Int>
-    public let teamIDObject:        ObservableWrapper<String>
-    public let keyIDObject:         ObservableWrapper<String>
-    public let environmentObject:   ObservableWrapper<APNsEnvironment>
-    
-    public let destinationObject    = ObservableWrapper<APNsDestination>(.device)
-    public let simulatorObject      = ObservableWrapper<Optional<SimulatorController.Simulator>>(.none)
-    public let applicationObject    = ObservableWrapper<Optional<SimulatorController.Simulator.Application>>(.none)
-    public let payloadObject        = ObservableWrapper<String>(
-        """
-        {
-            "aps": {
-                "content-available": 1,
-                "alert": {
-                    "title": "Title",
-                    "body": "Your message here."
-                },
-                "badge": 9,
-                "sound": "default"
-            }
-        }
-        """
-    )
-    public let logObject    = ObservableWrapper<String>("")
-    public let pushTrigger  = PassthroughSubject<Void, Never>()
-    
-    public let indicatorSubject = CurrentValueSubject<Bool, Never>(false)
-}
-
-public final class ObservableWrapper<Value>: ObservableObject {
-    
-    @Published public var value: Value
-    
-    public init(_ value: Value) {
-        self.value = value
+        .store(in: &self.cancellables)
+        
+        self.apnsStateSubject
+            .map({ $0 == .idle })
+            .map({ !$0 })
+            .assign(to: \.isInPushProcessing, on: self)
+            .store(in: &self.cancellables)
     }
 }
 
 extension String {
     
-    public var trimmed: String {
-        return self.trimmingCharacters(in: CharacterSet(charactersIn: "\n "))
+    static func localizedString(forKey key: String) -> String {
+        return NSLocalizedString(key, comment: "Content")
     }
 }

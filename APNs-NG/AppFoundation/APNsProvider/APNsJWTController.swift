@@ -1,5 +1,5 @@
 //
-//  APNsJWTTokenController.swift
+//  APNsJWTController.swift
 //  APNs-NG
 //
 //  Created by 马强 on 2020/3/29.
@@ -10,7 +10,7 @@ import Foundation
 import CryptoKit
 import SwiftJWT
 
-public final class APNsJWTTokenController {
+public final class APNsJWTController {
     
     let P8Data: Data, teamID: String, keyID: String
     
@@ -29,7 +29,7 @@ public final class APNsJWTTokenController {
         }()
     }
     
-    func makeJWTToken() -> String? {
+    func makeJSONWebToken() -> String? {
         do {
             let jwtString = UserDefaults.standard.string(forKey: self.storeKey) ?? ""
             if let jwt = try? JWT<APNsClaims>(jwtString: jwtString), jwt.validateClaims() == .success {

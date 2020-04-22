@@ -1,5 +1,5 @@
 //
-//  CertificateBasedProvider.swift
+//  APNsCertificateBasedProvider.swift
 //  APNs-NG
 //
 //  Created by 马强 on 2020/3/29.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class CertificateBasedProvider: APNsProviderBase {
+public final class APNsCertificateBasedProvider: APNsProviderBase {
     
     private class _URLSessionDelegate: NSObject, URLSessionDelegate {
         
@@ -32,26 +32,21 @@ public final class CertificateBasedProvider: APNsProviderBase {
     private let _sessionDelegate: _URLSessionDelegate
     private let _session: URLSession
     private let _queue: OperationQueue
-    private let _topic: String
     
     public override var session: URLSession {
         return self._session
     }
     
-    convenience init(pemData: Data, topic: String) throws {
+    convenience init(pemData: Data, service: APNsService, bundleID: String) throws {
         guard
             let pemString = String(data: pemData, encoding: .utf8),
             let data = Data(base64Encoded: pemString.components(separatedBy: "\n").filter({ !$0.hasPrefix("-----") }).joined()) else {
                 throw APNsError.loadPEMFailed
         }
-        try self.init(cerData: data, topic: topic)
+        try self.init(cerData: data, service: service, bundleID: bundleID)
     }
     
-    convenience init(cerData: Data, topic: String) throws {
-        guard
-            !topic.isEmpty else {
-                throw APNsError.bundleIDEmpty
-        }
+    convenience init(cerData: Data, service: APNsService, bundleID: String) throws {
         guard
             let certificate = SecCertificateCreateWithData(kCFAllocatorDefault, cerData as CFData) else {
                 throw APNsError.loadCERFailed
@@ -60,17 +55,13 @@ public final class CertificateBasedProvider: APNsProviderBase {
         
         guard
             SecIdentityCreateWithCertificate(nil, certificate, &reval) == errSecSuccess,
-            let identify = reval else {
+            let identity = reval else {
                 throw APNsError.createCERFailed
         }
-        self.init(identity: identify, certificate: certificate, topic: topic)
+        self.init(certificate: certificate, identity: identity, service: service, bundleID: bundleID)
     }
     
-    convenience init(P12Data: Data, passphrase: String, topic: String) throws {
-        guard
-            !topic.isEmpty else {
-                throw APNsError.bundleIDEmpty
-        }
+    convenience init(P12Data: Data, passphrase: String, service: APNsService, bundleID: String) throws {
         let options = [kSecImportExportPassphrase as String: passphrase] as CFDictionary
         var reval: CFArray?
         guard
@@ -84,16 +75,16 @@ public final class CertificateBasedProvider: APNsProviderBase {
             SecIdentityCopyCertificate(identity, &reval)
             return reval!
         }()
-        self.init(identity: identity, certificate: certificate, topic: topic)
+        self.init(certificate: certificate, identity: identity, service: service, bundleID: bundleID)
     }
     
-    private init(identity: SecIdentity, certificate: SecCertificate, topic: String) {
+    private init(certificate: SecCertificate, identity: SecIdentity, service: APNsService, bundleID: String) {
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 10
         let delegate = _URLSessionDelegate(identity: identity, certificate: certificate)
         self._sessionDelegate = delegate
         self._session = URLSession(configuration: .default, delegate: delegate, delegateQueue: queue)
         self._queue = queue
-        self._topic = topic
+        super.init(service: service, bundleID: bundleID)
     }
 }
