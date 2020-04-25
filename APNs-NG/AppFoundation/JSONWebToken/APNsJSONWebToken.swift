@@ -91,13 +91,13 @@ struct APNsJSONWebToken: Codable {
             let signature = try privateKey.signature(for: data)
             return "\(headerString).\(claimsString).\(signature.rawRepresentation.base64URLEncodedString())"
         } else {
-            return ""
+            throw APNsError.invalidatePKCS8Decoding
         }
     }
     
     func sign(using PKCS8DERData: Data) throws -> String {
         guard let representation = ASN1.exactX963Representation(fromPKCS8DERData: PKCS8DERData) else {
-            return ""
+            throw APNsError.invalidatePKCS8Decoding
         }
         let privateKey = try P256.Signing.PrivateKey(x963Representation: representation)
         return try self.sign(using: privateKey)
@@ -105,7 +105,7 @@ struct APNsJSONWebToken: Codable {
     
     func sign(usingPKCS8DERString PKCS8DERString: String) throws -> String {
         guard let representation = ASN1.exactX963Representation(fromPKCS8DERString: PKCS8DERString) else {
-            return ""
+            throw APNsError.invalidatePKCS8Decoding
         }
         let privateKey = try P256.Signing.PrivateKey(x963Representation: representation)
         return try self.sign(using: privateKey)
