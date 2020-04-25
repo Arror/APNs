@@ -21,6 +21,10 @@
 		D31590592430AF5500E048AE /* APNsJWTController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31590582430AF5500E048AE /* APNsJWTController.swift */; };
 		D315905B2430AF7C00E048AE /* APNsClaims.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315905A2430AF7C00E048AE /* APNsClaims.swift */; };
 		D315905F2430F6C200E048AE /* APNsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315905E2430F6C200E048AE /* APNsError.swift */; };
+		D367E04C2453BCEF00692536 /* ASN1.swift in Sources */ = {isa = PBXBuildFile; fileRef = D367E04B2453BCEF00692536 /* ASN1.swift */; };
+		D367E04E2453BDBD00692536 /* ASN1+X963Representation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D367E04D2453BDBD00692536 /* ASN1+X963Representation.swift */; };
+		D367E0502453BE8800692536 /* Data+Base64URLEncoded.swift in Sources */ = {isa = PBXBuildFile; fileRef = D367E04F2453BE8800692536 /* Data+Base64URLEncoded.swift */; };
+		D367E0522453BEB800692536 /* APNsJSONWebToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D367E0512453BEB800692536 /* APNsJSONWebToken.swift */; };
 		D3E9432624476083002BB340 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9432524476083002BB340 /* ContentView.swift */; };
 		D3E9432924476736002BB340 /* TitleValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9432824476736002BB340 /* TitleValueView.swift */; };
 		D3E9432C244893C1002BB340 /* PayloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9432B244893C1002BB340 /* PayloadView.swift */; };
@@ -64,6 +68,10 @@
 		D315905A2430AF7C00E048AE /* APNsClaims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsClaims.swift; sourceTree = "<group>"; };
 		D315905E2430F6C200E048AE /* APNsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsError.swift; sourceTree = "<group>"; };
 		D31591382433830300E048AE /* Info-Community.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Community.plist"; sourceTree = "<group>"; };
+		D367E04B2453BCEF00692536 /* ASN1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASN1.swift; sourceTree = "<group>"; };
+		D367E04D2453BDBD00692536 /* ASN1+X963Representation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASN1+X963Representation.swift"; sourceTree = "<group>"; };
+		D367E04F2453BE8800692536 /* Data+Base64URLEncoded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Base64URLEncoded.swift"; sourceTree = "<group>"; };
+		D367E0512453BEB800692536 /* APNsJSONWebToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsJSONWebToken.swift; sourceTree = "<group>"; };
 		D3E9432524476083002BB340 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D3E9432824476736002BB340 /* TitleValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleValueView.swift; sourceTree = "<group>"; };
 		D3E9432B244893C1002BB340 /* PayloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadView.swift; sourceTree = "<group>"; };
@@ -146,6 +154,7 @@
 				D3E94350244B02B9002BB340 /* Preference.swift */,
 				D3E9435C244B03BF002BB340 /* Color+Ext.swift */,
 				D3E9435F244B03EF002BB340 /* String+Ext.swift */,
+				D367E04A2453BCD600692536 /* JSONWebToken */,
 				D315904D2430ADDC00E048AE /* APNsProvider */,
 			);
 			path = AppFoundation;
@@ -164,6 +173,17 @@
 				D315905E2430F6C200E048AE /* APNsError.swift */,
 			);
 			path = APNsProvider;
+			sourceTree = "<group>";
+		};
+		D367E04A2453BCD600692536 /* JSONWebToken */ = {
+			isa = PBXGroup;
+			children = (
+				D367E04B2453BCEF00692536 /* ASN1.swift */,
+				D367E04D2453BDBD00692536 /* ASN1+X963Representation.swift */,
+				D367E04F2453BE8800692536 /* Data+Base64URLEncoded.swift */,
+				D367E0512453BEB800692536 /* APNsJSONWebToken.swift */,
+			);
+			path = JSONWebToken;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,17 +274,21 @@
 				D3E9434E2449F8E5002BB340 /* CertificateView.swift in Sources */,
 				D3E94354244B0349002BB340 /* APNsCertificate.swift in Sources */,
 				D3E94357244B0386002BB340 /* APNsService.swift in Sources */,
+				D367E04E2453BDBD00692536 /* ASN1+X963Representation.swift in Sources */,
 				D315904B243065AC00E048AE /* APNsProvider.swift in Sources */,
 				D31590572430AF2F00E048AE /* APNsTokenBasedProvider.swift in Sources */,
 				D315905F2430F6C200E048AE /* APNsError.swift in Sources */,
 				D31590532430AEED00E048AE /* APNsProviderBase.swift in Sources */,
+				D367E0522453BEB800692536 /* APNsJSONWebToken.swift in Sources */,
 				D3158FFD242E40D800E048AE /* AppDelegate.swift in Sources */,
 				D3E94351244B02B9002BB340 /* Preference.swift in Sources */,
 				D3E9435A244B0397002BB340 /* APNsState.swift in Sources */,
 				D3E9432C244893C1002BB340 /* PayloadView.swift in Sources */,
 				D315900F242E7CA500E048AE /* AppService.swift in Sources */,
+				D367E0502453BE8800692536 /* Data+Base64URLEncoded.swift in Sources */,
 				D315905B2430AF7C00E048AE /* APNsClaims.swift in Sources */,
 				D3E9435D244B03BF002BB340 /* Color+Ext.swift in Sources */,
+				D367E04C2453BCEF00692536 /* ASN1.swift in Sources */,
 				D3E94360244B03EF002BB340 /* String+Ext.swift in Sources */,
 				D31590512430AE9400E048AE /* APNsResponseError.swift in Sources */,
 			);
