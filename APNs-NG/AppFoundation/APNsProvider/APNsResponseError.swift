@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 public enum APNsResponseError: String, LocalizedError {
     
@@ -119,7 +118,14 @@ extension Result where Success == Void, Failure == Error {
         if httpURLResponse.statusCode == 200 {
             self = .success(())
         } else {
-            self = .failure(APNsResponseError(code: JSON(data)["reason"].stringValue))
+            let code: String
+            do {
+                let json = (try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]) ?? [:]
+                code = (json["reason"] as? String) ?? ""
+            } catch {
+                code = ""
+            }
+            self = .failure(APNsResponseError(code: code))
         }
     }
 }

@@ -8,9 +8,8 @@
 
 import Foundation
 import CryptoKit
-import SwiftJWT
 
-public final class APNsJWTController {
+public struct APNsJWTController {
     
     let P8Data: Data, teamID: String, keyID: String
     
@@ -30,15 +29,18 @@ public final class APNsJWTController {
     }
     
     func makeJSONWebToken() -> String? {
+        guard let PKCS8DERString = String(data: self.P8Data, encoding: .utf8) else {
+            return nil
+        }
         do {
-            let jwtString = UserDefaults.standard.string(forKey: self.storeKey) ?? ""
-            if let jwt = try? JWT<APNsClaims>(jwtString: jwtString), jwt.validateClaims() == .success {
-                return jwtString
+            let stored = UserDefaults.standard.string(forKey: self.storeKey) ?? ""
+            if let jwt = APNsJSONWebToken(jwtString: stored), jwt.claims.expireDate.compare(Date(timeIntervalSinceNow: 0)) == .orderedDescending {
+                return stored
             } else {
-                var jwt = JWT<APNsClaims>(keyID: self.keyID, teamID: self.teamID, issueDate: Date(timeIntervalSinceNow: 0))
-                let newJWTString = try jwt.sign(using: JWTSigner.es256(privateKey: self.P8Data))
-                UserDefaults.standard.set(newJWTString, forKey: self.storeKey)
-                return newJWTString
+                let jwt = APNsJSONWebToken(teamID: self.teamID, keyID: self.keyID, issueDate: Date(timeIntervalSinceNow: 0))
+                let jwtString = try jwt.sign(usingPKCS8DERString: PKCS8DERString)
+                UserDefaults.standard.set(jwtString, forKey: self.storeKey)
+                return jwtString
             }
         } catch {
             return nil

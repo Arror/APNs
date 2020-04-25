@@ -16,18 +16,19 @@
 "APNsService.Sandbox"       = "Sandbox";
 "APNsService.Production"    = "Production";
 
-"APNsError.CertificateNotExist" = "Please add a certificate";
-"APNsError.TeamIDEmpty"         = "Please enter team id";
-"APNsError.KeyIDEmpty"          = "Please enter the key id";
-"APNsError.BundleIDEmpty"       = "Please enter the bundle id";
-"APNsError.TokenEmpty"          = "Please enter the token";
-"APNsError.InvalidatePayload"   = "Please check whether the payload format is correct";
-"APNsError.LoadCERFailed"       = "Failed to get CER certificate";
-"APNsError.LoadPEMFailed"       = "Failed to get PEM certificate";
-"APNsError.CreateCERFailed"     = "Failed to load CER certificate";
-"APNsError.CreateP12Failed"     = "Failed to load P12 certificate";
-"APNsError.InvalidateRequest"   = "Failed to send notification request";
-"APNsError.InvalidateResponse"  = "Send notification response error";
+"APNsError.CertificateNotExist"     = "Please add a certificate";
+"APNsError.TeamIDEmpty"             = "Please enter team id";
+"APNsError.KeyIDEmpty"              = "Please enter the key id";
+"APNsError.BundleIDEmpty"           = "Please enter the bundle id";
+"APNsError.TokenEmpty"              = "Please enter the token";
+"APNsError.InvalidatePayload"       = "Please check whether the payload format is correct";
+"APNsError.LoadCERFailed"           = "Failed to get CER certificate";
+"APNsError.LoadPEMFailed"           = "Failed to get PEM certificate";
+"APNsError.CreateCERFailed"         = "Failed to load CER certificate";
+"APNsError.CreateP12Failed"         = "Failed to load P12 certificate";
+"APNsError.InvalidatePKCS8Decoding" = "Failed to load P8 certificate";
+"APNsError.InvalidateRequest"       = "Failed to send notification request";
+"APNsError.InvalidateResponse"      = "Send notification response error";
 
 "Appdelegate.Alert.Success"         = "Success";
 "Appdelegate.Alert.SuccessMessage"  = "Send push notification succeed";

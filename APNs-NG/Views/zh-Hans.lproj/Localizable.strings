@@ -16,18 +16,19 @@
 "APNsService.Sandbox"       = "测试";
 "APNsService.Production"    = "生产";
 
-"APNsError.CertificateNotExist" = "请输入证书信息";
-"APNsError.TeamIDEmpty"         = "请输入组织信息";
-"APNsError.KeyIDEmpty"          = "请输入钥匙信息";
-"APNsError.BundleIDEmpty"       = "请输入套装信息";
-"APNsError.TokenEmpty"          = "请输入令牌";
-"APNsError.InvalidatePayload"   = "请检查负载格式是否正确";
-"APNsError.LoadCERFailed"       = "获取CER证书失败";
-"APNsError.LoadPEMFailed"       = "获取PEM证书失败";
-"APNsError.CreateCERFailed"     = "加载CER证书失败";
-"APNsError.CreateP12Failed"     = "加载P12证书失败";
-"APNsError.InvalidateRequest"   = "发送通知请求失败";
-"APNsError.InvalidateResponse"  = "发送通知响应错误";
+"APNsError.CertificateNotExist"     = "请输入证书信息";
+"APNsError.TeamIDEmpty"             = "请输入组织信息";
+"APNsError.KeyIDEmpty"              = "请输入钥匙信息";
+"APNsError.BundleIDEmpty"           = "请输入套装信息";
+"APNsError.TokenEmpty"              = "请输入令牌";
+"APNsError.InvalidatePayload"       = "请检查负载格式是否正确";
+"APNsError.LoadCERFailed"           = "获取CER证书失败";
+"APNsError.LoadPEMFailed"           = "获取PEM证书失败";
+"APNsError.CreateCERFailed"         = "加载CER证书失败";
+"APNsError.CreateP12Failed"         = "加载P12证书失败";
+"APNsError.InvalidatePKCS8Decoding" = "加载P8证书失败";
+"APNsError.InvalidateRequest"       = "发送通知请求失败";
+"APNsError.InvalidateResponse"      = "发送通知响应错误";
 
 "Appdelegate.Alert.Success"         = "成功";
 "Appdelegate.Alert.SuccessMessage"  = "推送成功";
