@@ -57,7 +57,12 @@ struct JSONEditor: NSViewRepresentable {
 
     func makeCoordinator() -> Coordinator {
         return Coordinator(self, bridgeName: "bridge") { body in
-            self.text = body as! String
+            self.text = {
+                guard let message = body as? String else {
+                    return ""
+                }
+                return message
+            }()
         }
     }
 
