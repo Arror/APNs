@@ -97,7 +97,9 @@ struct JSONEditor: NSViewRepresentable {
         }
         
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            webView.isHidden = false
+            DispatchQueue.main.async {
+                webView.isHidden = false
+            }
         }
     }
 }
