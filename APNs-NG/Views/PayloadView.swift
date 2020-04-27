@@ -42,12 +42,14 @@ struct JSONEditor: NSViewRepresentable {
         let configuration = WKWebViewConfiguration()
         configuration.userContentController.add(context.coordinator, name: context.coordinator.bridgeName)
         let webView = WKWebView(frame: .zero, configuration: configuration)
+        webView.navigationDelegate = context.coordinator
         webView.setValue(false, forKey: "drawsBackground")
         if let bundleURL = Bundle.main.url(forResource: "Editor", withExtension: "bundle") {
             webView.loadFileURL(bundleURL.appendingPathComponent("index.html"), allowingReadAccessTo: bundleURL)
         } else {
             webView.loadHTMLString("", baseURL: nil)
-        }        
+        }
+        webView.isHidden = true
         return webView
     }
 
@@ -59,13 +61,17 @@ struct JSONEditor: NSViewRepresentable {
         }
     }
 
-    class Coordinator: JSBridge {
+    class Coordinator: JSBridge, WKNavigationDelegate {
         
         let parent: JSONEditor
 
         init(_ parent: JSONEditor, bridgeName: String, javascriptCall: @escaping (Any) -> Void) {
             self.parent = parent
             super.init(bridgeName: bridgeName, javascriptCall: javascriptCall)
+        }
+        
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            webView.isHidden = false
         }
     }
 }
