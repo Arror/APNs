@@ -53,7 +53,28 @@ struct JSONEditor: NSViewRepresentable {
         return webView
     }
 
-    func updateNSView(_ view: WKWebView, context: Context) {}
+    func updateNSView(_ view: WKWebView, context: Context) {
+        let style: String
+        switch context.environment.colorScheme {
+        case .dark:
+            style = "dark"
+        case .light:
+            style = "light"
+        @unknown default:
+            style = "light"
+        }
+        do {
+            let data = try JSONSerialization.data(withJSONObject: ["style": style], options: [])
+            guard let string = String(data: data, encoding: .utf8) else {
+                return
+            }
+            view.evaluateJavaScript("updateTheme(\(string))") { any, error in
+                print(error?.localizedDescription ?? "KSDFKSD")
+            }
+        } catch {
+            
+        }
+    }
 
     func makeCoordinator() -> Coordinator {
         return Coordinator(self, bridgeName: "bridge") { body in

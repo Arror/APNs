@@ -19,7 +19,7 @@
 <script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
     let editor = ace.edit("editor");
-    editor.setTheme("ace/theme/tomorrow_night_bright"); // tomorrow | tomorrow_night_bright
+    editor.setTheme("ace/theme/tomorrow_night_bright");
     editor.session.setMode("ace/mode/json");
     editor.on('change', function(e) {
         window.webkit.messageHandlers.bridge.postMessage(editor.getValue());
@@ -41,6 +41,15 @@
     }, null, '\t');
     editor.setValue(jsonString);
     editor.moveCursorTo(0, 0);
+    
+    function updateTheme(obj) {
+        if (obj.style == 'dark') {
+            editor.setTheme("ace/theme/tomorrow_night_bright");
+        } else {
+            editor.setTheme("ace/theme/tomorrow");
+        }
+    }
+    
 </script>
 </body>
 </html>
