@@ -18,6 +18,8 @@
 		D31590572430AF2F00E048AE /* APNsTokenBasedProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31590562430AF2F00E048AE /* APNsTokenBasedProvider.swift */; };
 		D31590592430AF5500E048AE /* APNsJWTController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31590582430AF5500E048AE /* APNsJWTController.swift */; };
 		D315905F2430F6C200E048AE /* APNsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D315905E2430F6C200E048AE /* APNsError.swift */; };
+		D33D4C5A24571E2100845B8B /* Editor.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D33D4C5924571E2100845B8B /* Editor.bundle */; };
+		D33D4C5C24571E2F00845B8B /* JSBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33D4C5B24571E2F00845B8B /* JSBridge.swift */; };
 		D367E04C2453BCEF00692536 /* ASN1.swift in Sources */ = {isa = PBXBuildFile; fileRef = D367E04B2453BCEF00692536 /* ASN1.swift */; };
 		D367E04E2453BDBD00692536 /* ASN1+X963Representation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D367E04D2453BDBD00692536 /* ASN1+X963Representation.swift */; };
 		D367E0502453BE8800692536 /* Data+Base64URLEncoded.swift in Sources */ = {isa = PBXBuildFile; fileRef = D367E04F2453BE8800692536 /* Data+Base64URLEncoded.swift */; };
@@ -64,6 +66,8 @@
 		D31590582430AF5500E048AE /* APNsJWTController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsJWTController.swift; sourceTree = "<group>"; };
 		D315905E2430F6C200E048AE /* APNsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsError.swift; sourceTree = "<group>"; };
 		D31591382433830300E048AE /* Info-Community.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Community.plist"; sourceTree = "<group>"; };
+		D33D4C5924571E2100845B8B /* Editor.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Editor.bundle; sourceTree = "<group>"; };
+		D33D4C5B24571E2F00845B8B /* JSBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSBridge.swift; sourceTree = "<group>"; };
 		D367E04B2453BCEF00692536 /* ASN1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASN1.swift; sourceTree = "<group>"; };
 		D367E04D2453BDBD00692536 /* ASN1+X963Representation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASN1+X963Representation.swift"; sourceTree = "<group>"; };
 		D367E04F2453BE8800692536 /* Data+Base64URLEncoded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Base64URLEncoded.swift"; sourceTree = "<group>"; };
@@ -119,6 +123,8 @@
 				D31590442430545700E048AE /* Views */,
 				D3159000242E40DA00E048AE /* Assets.xcassets */,
 				D3159002242E40DA00E048AE /* Main.storyboard */,
+				D33D4C5B24571E2F00845B8B /* JSBridge.swift */,
+				D33D4C5924571E2100845B8B /* Editor.bundle */,
 				D3159005242E40DA00E048AE /* Info.plist */,
 				D31591382433830300E048AE /* Info-Community.plist */,
 				D3159006242E40DA00E048AE /* APNs_NG.entitlements */,
@@ -243,6 +249,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D33D4C5A24571E2100845B8B /* Editor.bundle in Resources */,
 				D3159001242E40DA00E048AE /* Assets.xcassets in Resources */,
 				D3E9436F244DE12D002BB340 /* Localizable.strings in Resources */,
 				D3159004242E40DA00E048AE /* Main.storyboard in Resources */,
@@ -275,6 +282,7 @@
 				D3E9432C244893C1002BB340 /* PayloadView.swift in Sources */,
 				D315900F242E7CA500E048AE /* AppService.swift in Sources */,
 				D367E0502453BE8800692536 /* Data+Base64URLEncoded.swift in Sources */,
+				D33D4C5C24571E2F00845B8B /* JSBridge.swift in Sources */,
 				D3E9435D244B03BF002BB340 /* Color+Ext.swift in Sources */,
 				D367E04C2453BCEF00692536 /* ASN1.swift in Sources */,
 				D3E94360244B03EF002BB340 /* String+Ext.swift in Sources */,
@@ -432,7 +440,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = A8XWAF2UFT;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "APNs-NG/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -456,7 +464,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = A8XWAF2UFT;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "APNs-NG/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (

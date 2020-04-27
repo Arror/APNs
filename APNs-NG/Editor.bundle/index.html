@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>ACE in Action</title>
+<style type="text/css" media="screen">
+    #editor {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+</style>
+</head>
+<body>
+
+<div id="editor"></div>
+
+<script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    let editor = ace.edit("editor");
+    editor.setTheme("ace/theme/tomorrow_night_bright"); // tomorrow | tomorrow_night_bright
+    editor.session.setMode("ace/mode/json");
+    editor.on('change', function(e) {
+        window.webkit.messageHandlers.bridge.postMessage(editor.getValue());
+    })
+    editor.setOptions({
+        "showGutter": false,
+        "highlightActiveLine": false
+    })
+    let jsonString = JSON.stringify({
+        "aps": {
+            "content-available": 1,
+            "alert": {
+                "title": "Push Notification",
+                "body": "Notification from APNs Provider."
+            },
+            "badge": 9,
+            "sound": "default"
+        }
+    }, null, '\t');
+    editor.setValue(jsonString);
+    editor.moveCursorTo(0, 0);
+</script>
+</body>
+</html>

@@ -7,8 +7,26 @@
 //
 
 import SwiftUI
+import WebKit
 
-struct PayloadView: NSViewRepresentable {
+struct PayloadView: View {
+    
+    let editor: JSONEditor
+    
+    init(text: Binding<String>) {
+        self.editor = JSONEditor(text: text)
+    }
+    
+    var body: some View {
+        GeometryReader { proxy in
+            ScrollView {
+                self.editor.frame(height: proxy.size.height)
+            }.frame(height: proxy.size.height)
+        }
+    }
+}
+
+struct JSONEditor: NSViewRepresentable {
     
     @Binding private var text: String
 
@@ -20,58 +38,34 @@ struct PayloadView: NSViewRepresentable {
         self.init(text: Binding<String>.constant(text))
     }
 
-    func makeNSView(context: Context) -> NSScrollView {
-        let text = NSTextView()
-        text.backgroundColor = NSColor(named: "text_input_background_color") ?? .black
-        text.delegate = context.coordinator
-        text.isRichText = false
-        text.autoresizingMask = [.width]
-        text.translatesAutoresizingMaskIntoConstraints = true
-        text.isVerticallyResizable = true
-        text.isHorizontallyResizable = false
-        text.isAutomaticQuoteSubstitutionEnabled   = false
-        text.isAutomaticLinkDetectionEnabled       = false
-        text.isAutomaticSpellingCorrectionEnabled  = false
-        text.isAutomaticDataDetectionEnabled       = false
-        text.isAutomaticTextCompletionEnabled      = false
-        text.isAutomaticTextReplacementEnabled     = false
-        text.isAutomaticDashSubstitutionEnabled    = false
-        let scroll = NSScrollView()
-        scroll.hasVerticalScroller = true
-        scroll.documentView = text
-        scroll.drawsBackground = false
-
-        return scroll
+    func makeNSView(context: Context) -> WKWebView {
+        let configuration = WKWebViewConfiguration()
+        configuration.userContentController.add(context.coordinator, name: context.coordinator.bridgeName)
+        let webView = WKWebView(frame: .zero, configuration: configuration)
+        webView.setValue(false, forKey: "drawsBackground")
+        if let bundleURL = Bundle.main.url(forResource: "Editor", withExtension: "bundle") {
+            webView.loadFileURL(bundleURL.appendingPathComponent("index.html"), allowingReadAccessTo: bundleURL)
+        } else {
+            webView.loadHTMLString("", baseURL: nil)
+        }        
+        return webView
     }
 
-    func updateNSView(_ view: NSScrollView, context: Context) {
-        let text = view.documentView as? NSTextView
-        text?.string = self.text
-        guard context.coordinator.selectedRanges.count > 0 else {
-            return
-        }
-        text?.selectedRanges = context.coordinator.selectedRanges
-    }
+    func updateNSView(_ view: WKWebView, context: Context) {}
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        return Coordinator(self, bridgeName: "bridge") { body in
+            self.text = body as! String
+        }
     }
 
-    class Coordinator: NSObject, NSTextViewDelegate {
+    class Coordinator: JSBridge {
         
-        var parent: PayloadView
-        var selectedRanges = [NSValue]()
+        let parent: JSONEditor
 
-        init(_ parent: PayloadView) {
+        init(_ parent: JSONEditor, bridgeName: String, javascriptCall: @escaping (Any) -> Void) {
             self.parent = parent
-        }
-
-        func textDidChange(_ notification: Notification) {
-            guard let textView = notification.object as? NSTextView else {
-                return
-            }
-            self.parent.text = textView.string
-            self.selectedRanges = textView.selectedRanges
+            super.init(bridgeName: bridgeName, javascriptCall: javascriptCall)
         }
     }
 }
