@@ -28,6 +28,7 @@ struct PayloadView: View {
 
 struct JSONEditor: NSViewRepresentable {
     
+    @Environment(\.colorScheme) var colorScheme
     @Binding private var text: String
 
     init(text: Binding<String>) {
@@ -54,26 +55,7 @@ struct JSONEditor: NSViewRepresentable {
     }
 
     func updateNSView(_ view: WKWebView, context: Context) {
-        let style: String
-        switch context.environment.colorScheme {
-        case .dark:
-            style = "dark"
-        case .light:
-            style = "light"
-        @unknown default:
-            style = "light"
-        }
-        do {
-            let data = try JSONSerialization.data(withJSONObject: ["style": style], options: [])
-            guard let string = String(data: data, encoding: .utf8) else {
-                return
-            }
-            view.evaluateJavaScript("updateTheme(\(string))") { any, error in
-                print(error?.localizedDescription ?? "KSDFKSD")
-            }
-        } catch {
-            
-        }
+        context.coordinator.updateTheme(view: view, colorScheme: context.environment.colorScheme) {}
     }
 
     func makeCoordinator() -> Coordinator {
@@ -97,8 +79,22 @@ struct JSONEditor: NSViewRepresentable {
         }
         
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            DispatchQueue.main.async {
+            self.updateTheme(view: webView, colorScheme: self.parent.colorScheme) {
                 webView.isHidden = false
+            }
+        }
+        
+        func updateTheme(view: WKWebView, colorScheme: ColorScheme, completion: @escaping () -> Void) {
+            let theme = colorScheme == .dark ? "dark" : "light"
+            let themeData = try! JSONSerialization.data(withJSONObject: ["theme": theme], options: [])
+            let themeJSONString = String(data: themeData, encoding: .utf8)!
+            view.evaluateJavaScript("updateTheme(\(themeJSONString))") { _, error in
+                DispatchQueue.main.async {
+                    if let err = error {
+                        print(err.localizedDescription)
+                    }
+                    completion()
+                }
             }
         }
     }
