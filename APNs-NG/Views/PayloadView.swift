@@ -7,9 +7,28 @@
 //
 
 import SwiftUI
+import WebKit
 
-struct PayloadView: NSViewRepresentable {
+struct PayloadView: View {
     
+    let editor: JSONEditor
+    
+    init(text: Binding<String>) {
+        self.editor = JSONEditor(text: text)
+    }
+    
+    var body: some View {
+        GeometryReader { proxy in
+            ScrollView {
+                self.editor.frame(height: proxy.size.height)
+            }.frame(height: proxy.size.height)
+        }
+    }
+}
+
+struct JSONEditor: NSViewRepresentable {
+    
+    @Environment(\.colorScheme) var colorScheme
     @Binding private var text: String
 
     init(text: Binding<String>) {
@@ -20,58 +39,63 @@ struct PayloadView: NSViewRepresentable {
         self.init(text: Binding<String>.constant(text))
     }
 
-    func makeNSView(context: Context) -> NSScrollView {
-        let text = NSTextView()
-        text.backgroundColor = NSColor(named: "text_input_background_color") ?? .black
-        text.delegate = context.coordinator
-        text.isRichText = false
-        text.autoresizingMask = [.width]
-        text.translatesAutoresizingMaskIntoConstraints = true
-        text.isVerticallyResizable = true
-        text.isHorizontallyResizable = false
-        text.isAutomaticQuoteSubstitutionEnabled   = false
-        text.isAutomaticLinkDetectionEnabled       = false
-        text.isAutomaticSpellingCorrectionEnabled  = false
-        text.isAutomaticDataDetectionEnabled       = false
-        text.isAutomaticTextCompletionEnabled      = false
-        text.isAutomaticTextReplacementEnabled     = false
-        text.isAutomaticDashSubstitutionEnabled    = false
-        let scroll = NSScrollView()
-        scroll.hasVerticalScroller = true
-        scroll.documentView = text
-        scroll.drawsBackground = false
-
-        return scroll
+    func makeNSView(context: Context) -> WKWebView {
+        let configuration = WKWebViewConfiguration()
+        configuration.userContentController.add(context.coordinator, name: context.coordinator.bridgeName)
+        let webView = WKWebView(frame: .zero, configuration: configuration)
+        webView.navigationDelegate = context.coordinator
+        webView.setValue(false, forKey: "drawsBackground")
+        if let bundleURL = Bundle.main.url(forResource: "Editor", withExtension: "bundle") {
+            webView.loadFileURL(bundleURL.appendingPathComponent("index.html"), allowingReadAccessTo: bundleURL)
+        } else {
+            webView.loadHTMLString("", baseURL: nil)
+        }
+        webView.isHidden = true
+        return webView
     }
 
-    func updateNSView(_ view: NSScrollView, context: Context) {
-        let text = view.documentView as? NSTextView
-        text?.string = self.text
-        guard context.coordinator.selectedRanges.count > 0 else {
-            return
-        }
-        text?.selectedRanges = context.coordinator.selectedRanges
+    func updateNSView(_ view: WKWebView, context: Context) {
+        context.coordinator.updateTheme(view: view, colorScheme: context.environment.colorScheme) {}
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        return Coordinator(self, bridgeName: "bridge") { body in
+            self.text = {
+                guard let message = body as? String else {
+                    return ""
+                }
+                return message
+            }()
+        }
     }
 
-    class Coordinator: NSObject, NSTextViewDelegate {
+    class Coordinator: JSBridge, WKNavigationDelegate {
         
-        var parent: PayloadView
-        var selectedRanges = [NSValue]()
+        let parent: JSONEditor
 
-        init(_ parent: PayloadView) {
+        init(_ parent: JSONEditor, bridgeName: String, javascriptCall: @escaping (Any) -> Void) {
             self.parent = parent
+            super.init(bridgeName: bridgeName, javascriptCall: javascriptCall)
         }
-
-        func textDidChange(_ notification: Notification) {
-            guard let textView = notification.object as? NSTextView else {
-                return
+        
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            self.updateTheme(view: webView, colorScheme: self.parent.colorScheme) {
+                webView.isHidden = false
             }
-            self.parent.text = textView.string
-            self.selectedRanges = textView.selectedRanges
+        }
+        
+        func updateTheme(view: WKWebView, colorScheme: ColorScheme, completion: @escaping () -> Void) {
+            let theme = colorScheme == .dark ? "dark" : "light"
+            let themeData = try! JSONSerialization.data(withJSONObject: ["theme": theme], options: [])
+            let themeJSONString = String(data: themeData, encoding: .utf8)!
+            view.evaluateJavaScript("updateTheme(\(themeJSONString))") { _, error in
+                DispatchQueue.main.async {
+                    if let err = error {
+                        print(err.localizedDescription)
+                    }
+                    completion()
+                }
+            }
         }
     }
 }
