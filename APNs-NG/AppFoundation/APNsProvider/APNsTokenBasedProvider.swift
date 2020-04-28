@@ -15,19 +15,19 @@ public final class APNsTokenBasedProvider: APNsProviderBase {
     }
 
     public override var authorization: String? {
-        return self._tokenController.makeJSONWebToken()
+        return self._tokenController.jwt
     }
 
     private let _session: URLSession
     private let _queue: OperationQueue
-    private let _tokenController: APNsJWTController
+    private let _tokenController: APNsJSONWebTokenController
 
     public init(P8Data: Data, service: APNsService, teamID: String, keyID: String, bundleID: String) throws {
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 10
         self._session = URLSession(configuration: .default, delegate: nil, delegateQueue: queue)
         self._queue = queue
-        self._tokenController = APNsJWTController(P8Data: P8Data, teamID: teamID, keyID: keyID)
+        self._tokenController = APNsJSONWebTokenController(P8Data: P8Data, teamID: teamID, keyID: keyID)
         super.init(service: service, bundleID: bundleID)
     }
 }

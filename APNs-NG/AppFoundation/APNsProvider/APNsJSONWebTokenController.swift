@@ -1,5 +1,5 @@
 //
-//  APNsJWTController.swift
+//  APNsJSONWebTokenController.swift
 //  APNs-NG
 //
 //  Created by 马强 on 2020/3/29.
@@ -9,11 +9,13 @@
 import Foundation
 import CryptoKit
 
-public struct APNsJWTController {
+public struct APNsJSONWebTokenController {
     
-    let P8Data: Data, teamID: String, keyID: String
+    private let P8Data: Data
+    private let teamID: String
+    private let keyID: String
     
-    let storeKey: String
+    private let storeKey: String
     
     init(P8Data: Data, teamID: String, keyID: String) {
         self.P8Data = P8Data
@@ -28,15 +30,19 @@ public struct APNsJWTController {
         }()
     }
     
-    func makeJSONWebToken() -> String? {
-        guard let PKCS8DERString = String(data: self.P8Data, encoding: .utf8) else {
-            return nil
-        }
+    var jwt: String? {
+        return self.generateJWTIfNeeded()
+    }
+    
+    private func generateJWTIfNeeded() -> String? {
         do {
             let stored = UserDefaults.standard.string(forKey: self.storeKey) ?? ""
             if let jwt = APNsJSONWebToken(jwtString: stored), jwt.claims.expireDate.compare(Date(timeIntervalSinceNow: 0)) == .orderedDescending {
                 return stored
             } else {
+                guard let PKCS8DERString = String(data: self.P8Data, encoding: .utf8) else {
+                    return nil
+                }
                 let jwt = APNsJSONWebToken(teamID: self.teamID, keyID: self.keyID, issueDate: Date(timeIntervalSinceNow: 0))
                 let jwtString = try jwt.sign(usingPKCS8DERString: PKCS8DERString)
                 UserDefaults.standard.set(jwtString, forKey: self.storeKey)
