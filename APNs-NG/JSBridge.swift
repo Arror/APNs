@@ -9,21 +9,31 @@
 import Foundation
 import WebKit
 
-class JSBridge: NSObject, WKScriptMessageHandler {
+open class JSBridge: NSObject, WKScriptMessageHandler {
     
-    let bridgeName: String
-    let javascriptCall: (Any) -> Void
+    public let name: String
         
-    init(bridgeName: String, javascriptCall: @escaping (Any) -> Void) {
-        self.bridgeName = bridgeName
-        self.javascriptCall = javascriptCall
+    public init(name: String) {
+        self.name = name
         super.init()
     }
         
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        guard message.name.caseInsensitiveCompare(self.bridgeName) == .orderedSame else {
+    public final func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        guard let webView = message.webView, message.name.caseInsensitiveCompare(self.name) == .orderedSame else {
             return
         }
-        self.javascriptCall(message.body)
+        self.webView(webView, postMessage: message.body)
     }
+    
+    public final func webView(_ view: WKWebView, evaluateJavaScript javaScriptString: String, completion: @escaping (Result<Any?, Error>) -> Void) {
+        view.evaluateJavaScript(javaScriptString) { any, error in
+            if let err = error {
+                completion(.failure(err))
+            } else {
+                completion(.success(any))
+            }
+        }
+    }
+        
+    open func webView(_ view: WKWebView, postMessage messageBody: Any) {}
 }

@@ -41,7 +41,7 @@ struct JSONEditor: NSViewRepresentable {
 
     func makeNSView(context: Context) -> WKWebView {
         let configuration = WKWebViewConfiguration()
-        configuration.userContentController.add(context.coordinator, name: context.coordinator.bridgeName)
+        configuration.userContentController.add(context.coordinator, name: context.coordinator.name)
         let webView = WKWebView(frame: .zero, configuration: configuration)
         webView.navigationDelegate = context.coordinator
         webView.setValue(false, forKey: "drawsBackground")
@@ -59,23 +59,16 @@ struct JSONEditor: NSViewRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        return Coordinator(self, bridgeName: "bridge") { body in
-            self.text = {
-                guard let message = body as? String else {
-                    return ""
-                }
-                return message
-            }()
-        }
+        return Coordinator(parent: self, name: "bridge")
     }
 
     class Coordinator: JSBridge, WKNavigationDelegate {
         
         let parent: JSONEditor
 
-        init(_ parent: JSONEditor, bridgeName: String, javascriptCall: @escaping (Any) -> Void) {
+        init(parent: JSONEditor, name: String) {
             self.parent = parent
-            super.init(bridgeName: bridgeName, javascriptCall: javascriptCall)
+            super.init(name: name)
         }
         
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -88,14 +81,18 @@ struct JSONEditor: NSViewRepresentable {
             let theme = colorScheme == .dark ? "dark" : "light"
             let themeData = try! JSONSerialization.data(withJSONObject: ["theme": theme], options: [])
             let themeJSONString = String(data: themeData, encoding: .utf8)!
-            view.evaluateJavaScript("updateTheme(\(themeJSONString))") { _, error in
-                DispatchQueue.main.async {
-                    if let err = error {
-                        print(err.localizedDescription)
-                    }
-                    completion()
-                }
+            self.webView(view, evaluateJavaScript: "updateTheme(\(themeJSONString))") { _ in
+                DispatchQueue.main.async(execute: completion)
             }
+        }
+        
+        override func webView(_ view: WKWebView, postMessage messageBody: Any) {
+            self.parent.text = {
+                guard let jsonString = messageBody as? String else {
+                    return ""
+                }
+                return jsonString
+            }()
         }
     }
 }
