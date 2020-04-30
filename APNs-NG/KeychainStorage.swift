@@ -11,7 +11,7 @@ public final class KeychainStorage: DataBaseStorage, CodableItemStorage {
         super.init()
     }
     
-    struct TopLevel<Wrapped: Codable>: Codable {
+    struct PropertyListWrapper<Wrapped: Codable>: Codable {
         let wrapped: Wrapped
     }
     
@@ -42,7 +42,7 @@ public final class KeychainStorage: DataBaseStorage, CodableItemStorage {
             if value.self is Data.Type {
                 data = value as? Data
             } else {
-                let wrapped = TopLevel(wrapped: value)
+                let wrapped = PropertyListWrapper(wrapped: value)
                 let encoder = PropertyListEncoder()
                 encoder.outputFormat = .binary
                 data = try encoder.encode(wrapped)
@@ -60,7 +60,7 @@ public final class KeychainStorage: DataBaseStorage, CodableItemStorage {
         if Item.self is Data.Type {
             return data as? Item
         } else {
-            let topLevel = try PropertyListDecoder().decode(TopLevel<Item>.self, from: data)
+            let topLevel = try PropertyListDecoder().decode(PropertyListWrapper<Item>.self, from: data)
             return topLevel.wrapped
         }
     }
