@@ -115,10 +115,10 @@ extension AppDelegate {
         do {
             let preference = try JSONDecoder().decode(APNsPreference.self, from: data)
             try self.keychainStorage.set(item: preference, for: self.preferenceKey)
-            UserDefaults.standard.removeObject(forKey: self.preferenceKey.stringKey)
         } catch {
             
         }
+        UserDefaults.standard.removeObject(forKey: self.preferenceKey.stringKey)
     }
 }
 
