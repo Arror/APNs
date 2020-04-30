@@ -32,7 +32,7 @@
 		D3E9432924476736002BB340 /* TitleValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9432824476736002BB340 /* TitleValueView.swift */; };
 		D3E9432C244893C1002BB340 /* PayloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9432B244893C1002BB340 /* PayloadView.swift */; };
 		D3E9434E2449F8E5002BB340 /* CertificateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E9434D2449F8E5002BB340 /* CertificateView.swift */; };
-		D3E94351244B02B9002BB340 /* Preference.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E94350244B02B9002BB340 /* Preference.swift */; };
+		D3E94351244B02B9002BB340 /* APNsPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E94350244B02B9002BB340 /* APNsPreference.swift */; };
 		D3E94354244B0349002BB340 /* APNsCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E94353244B0349002BB340 /* APNsCertificate.swift */; };
 		D3E94357244B0386002BB340 /* APNsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E94356244B0386002BB340 /* APNsService.swift */; };
 		D3E9435A244B0397002BB340 /* APNsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E94359244B0397002BB340 /* APNsState.swift */; };
@@ -84,7 +84,7 @@
 		D3E9432824476736002BB340 /* TitleValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleValueView.swift; sourceTree = "<group>"; };
 		D3E9432B244893C1002BB340 /* PayloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadView.swift; sourceTree = "<group>"; };
 		D3E9434D2449F8E5002BB340 /* CertificateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateView.swift; sourceTree = "<group>"; };
-		D3E94350244B02B9002BB340 /* Preference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preference.swift; sourceTree = "<group>"; };
+		D3E94350244B02B9002BB340 /* APNsPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsPreference.swift; sourceTree = "<group>"; };
 		D3E94353244B0349002BB340 /* APNsCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsCertificate.swift; sourceTree = "<group>"; };
 		D3E94356244B0386002BB340 /* APNsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsService.swift; sourceTree = "<group>"; };
 		D3E94359244B0397002BB340 /* APNsState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNsState.swift; sourceTree = "<group>"; };
@@ -163,7 +163,7 @@
 				D3E94353244B0349002BB340 /* APNsCertificate.swift */,
 				D3E94356244B0386002BB340 /* APNsService.swift */,
 				D3E94359244B0397002BB340 /* APNsState.swift */,
-				D3E94350244B02B9002BB340 /* Preference.swift */,
+				D3E94350244B02B9002BB340 /* APNsPreference.swift */,
 				D3E9435C244B03BF002BB340 /* Color+Ext.swift */,
 				D3E9435F244B03EF002BB340 /* String+Ext.swift */,
 				D367E04A2453BCD600692536 /* JSONWebToken */,
@@ -291,7 +291,7 @@
 				D31590532430AEED00E048AE /* APNsProviderBase.swift in Sources */,
 				D367E0522453BEB800692536 /* APNsJSONWebToken.swift in Sources */,
 				D3158FFD242E40D800E048AE /* AppDelegate.swift in Sources */,
-				D3E94351244B02B9002BB340 /* Preference.swift in Sources */,
+				D3E94351244B02B9002BB340 /* APNsPreference.swift in Sources */,
 				D3E9435A244B0397002BB340 /* APNsState.swift in Sources */,
 				D3E9432C244893C1002BB340 /* PayloadView.swift in Sources */,
 				D315900F242E7CA500E048AE /* AppService.swift in Sources */,

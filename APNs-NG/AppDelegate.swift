@@ -13,10 +13,14 @@ import Combine
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
+    private static let keychainService      = "APNs"
+    private static let keycahinAccessGroup  = "A8XWAF2UFT.com.Arror.keychain.shared"
+    
+    private let preferenceKey = CodableStorageKey<APNsPreference>(stringKey: "USER.PREFERENCE")
+        
     @IBOutlet private weak var tooBar: NSToolbar!
     
     private var cancellables: Set<AnyCancellable> = []
-    private let service = AppService()
     
     let window = NSWindow(
         contentRect: .zero,
@@ -25,17 +29,36 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         defer: false
     )
     
+    let keychainStorage = KeychainStorage(
+        service: AppDelegate.keychainService,
+        accessGroup: AppDelegate.keycahinAccessGroup
+    )
+    
+    private var appService: AppService!
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
-        let contentView = ContentView().environmentObject(self.service)
+        self.migrateAPNsPreferenceIfNeeded()
+        
+        self.appService = {
+            let preference: Optional<APNsPreference>
+            do {
+                preference = try self.keychainStorage.item(for: self.preferenceKey)
+            } catch {
+                preference = .none
+            }
+            return AppService(preference: preference)
+        }()
+        
+        let contentView = ContentView().environmentObject(self.appService)
         self.window.titleVisibility = .hidden
         self.window.center()
         self.window.setFrameAutosaveName("Main Window")
         self.window.contentView = NSHostingView(rootView: contentView)
         self.window.makeKeyAndOrderFront(nil)
         self.window.toolbar = self.tooBar
-        
-        self.service.apnsStateSubject
+
+        appService.apnsStateSubject
             .sink { state in
                 DispatchQueue.main.async {
                     switch state {
@@ -62,8 +85,40 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {}
     
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        self.service.savePreference()
+        
+        let service: AppService = self.appService
+        let preference = APNsPreference(
+            teamID: service.teamID,
+            keyID: service.keyID,
+            bundleID: service.bundleID,
+            service: service.apnsService,
+            certificate: service.apnsCertificate,
+            token: service.token,
+            priority: service.priority
+        )
+        do {
+            try self.keychainStorage.set(item: preference, for: self.preferenceKey)
+        } catch {
+            
+        }
+        
         return true
+    }
+}
+
+extension AppDelegate {
+    
+    private func migrateAPNsPreferenceIfNeeded() {
+        guard let data = UserDefaults.standard.data(forKey: self.preferenceKey.stringKey) else {
+            return
+        }
+        do {
+            let preference = try JSONDecoder().decode(APNsPreference.self, from: data)
+            try self.keychainStorage.set(item: preference, for: self.preferenceKey)
+            UserDefaults.standard.removeObject(forKey: self.preferenceKey.stringKey)
+        } catch {
+            
+        }
     }
 }
 

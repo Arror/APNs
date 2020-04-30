@@ -12,13 +12,14 @@ import SwiftUI
 
 public final class AppService: ObservableObject {
     
-    @Published public var apnsCertificate: Optional<APNsCertificate> = .none
-    @Published public var teamID: String = ""
-    @Published public var keyID: String = ""
-    @Published public var bundleID: String = ""
-    @Published public var token: String = ""
-    @Published public var apnsService: APNsService = .sandbox
-    @Published public var priority: Int = 5
+    @Published public var apnsCertificate: Optional<APNsCertificate>
+    @Published public var teamID: String
+    @Published public var keyID: String
+    @Published public var bundleID: String
+    @Published public var token: String
+    @Published public var apnsService: APNsService
+    @Published public var priority: Int
+    
     @Published public var payload: String = """
     {
         "aps": {
@@ -39,9 +40,8 @@ public final class AppService: ObservableObject {
     
     private var cancellables: Set<AnyCancellable> = []
     
-    public init() {
+    public init(preference: Optional<APNsPreference>) {
         
-        let preference = AppService.loadPreference()
         self.apnsCertificate = preference?.certificate
         self.teamID = preference?.teamID ?? ""
         self.keyID = preference?.keyID ?? ""
