@@ -1,6 +1,6 @@
 import Foundation
 
-public final class KeychainStorage: DataBaseStorage, CodableItemStorage {
+public final class KeychainStorage: DataBaseStorage {
     
     public let service: String
     public let accessGroup: Optional<String>
@@ -9,10 +9,6 @@ public final class KeychainStorage: DataBaseStorage, CodableItemStorage {
         self.service = service
         self.accessGroup = accessGroup
         super.init()
-    }
-    
-    struct PropertyListWrapper<Wrapped: Codable>: Codable {
-        let wrapped: Wrapped
     }
     
     public override func set(data: Optional<Data>, forKey key: String) throws {
@@ -32,36 +28,6 @@ public final class KeychainStorage: DataBaseStorage, CodableItemStorage {
             return nil
         } catch {
             throw error
-        }
-    }
-    
-    public func set<Item>(item: Optional<Item>, for key: CodableStorageKey<Item>) throws {
-        let data: Optional<Data>
-        switch item {
-        case .some(let value):
-            if value.self is Data.Type {
-                data = value as? Data
-            } else {
-                let wrapped = PropertyListWrapper(wrapped: value)
-                let encoder = PropertyListEncoder()
-                encoder.outputFormat = .binary
-                data = try encoder.encode(wrapped)
-            }
-        case .none:
-            data = .none
-        }
-        try self.set(data: data, forKey: key.stringKey)
-    }
-    
-    public func item<Item>(for key: CodableStorageKey<Item>) throws -> Optional<Item> {
-        guard let data = try self.data(forKey: key.stringKey) else {
-            return .none
-        }
-        if Item.self is Data.Type {
-            return data as? Item
-        } else {
-            let topLevel = try PropertyListDecoder().decode(PropertyListWrapper<Item>.self, from: data)
-            return topLevel.wrapped
         }
     }
 }
