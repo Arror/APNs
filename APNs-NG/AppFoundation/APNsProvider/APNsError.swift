@@ -20,6 +20,7 @@ public enum APNsError: LocalizedError {
     case loadPEMFailed
     case createCERFailed
     case createP12Failed
+    case invalidatePKCS8Decoding
     case invalidateRequest
     case invalidateResponse
     
@@ -45,6 +46,8 @@ public enum APNsError: LocalizedError {
             return String.localizedString(forKey: "APNsError.CreateCERFailed")
         case .createP12Failed:
             return String.localizedString(forKey: "APNsError.CreateP12Failed")
+        case .invalidatePKCS8Decoding:
+            return String.localizedString(forKey: "APNsError.InvalidatePKCS8Decoding")
         case .invalidateRequest:
             return String.localizedString(forKey: "APNsError.InvalidateRequest")
         case .invalidateResponse:
