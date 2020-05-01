@@ -132,10 +132,6 @@
 				D3159000242E40DA00E048AE /* Assets.xcassets */,
 				D3159002242E40DA00E048AE /* Main.storyboard */,
 				D33D4C5B24571E2F00845B8B /* JSBridge.swift */,
-				D3057B51245B02D7009C771D /* KeychainDataItem.swift */,
-				D3057B53245B0AA1009C771D /* CodableItemStorage.swift */,
-				D3057B55245B11B0009C771D /* DataBaseStorage.swift */,
-				D3057B57245B2267009C771D /* KeychainStorage.swift */,
 				D33D4C5924571E2100845B8B /* Editor.bundle */,
 				D3159005242E40DA00E048AE /* Info.plist */,
 				D31591382433830300E048AE /* Info-Community.plist */,
@@ -166,6 +162,7 @@
 				D3E94350244B02B9002BB340 /* APNsPreference.swift */,
 				D3E9435C244B03BF002BB340 /* Color+Ext.swift */,
 				D3E9435F244B03EF002BB340 /* String+Ext.swift */,
+				D35B7761245C877E008E85DE /* Storage */,
 				D367E04A2453BCD600692536 /* JSONWebToken */,
 				D315904D2430ADDC00E048AE /* APNsProvider */,
 			);
@@ -184,6 +181,17 @@
 				D315905E2430F6C200E048AE /* APNsError.swift */,
 			);
 			path = APNsProvider;
+			sourceTree = "<group>";
+		};
+		D35B7761245C877E008E85DE /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				D3057B51245B02D7009C771D /* KeychainDataItem.swift */,
+				D3057B53245B0AA1009C771D /* CodableItemStorage.swift */,
+				D3057B55245B11B0009C771D /* DataBaseStorage.swift */,
+				D3057B57245B2267009C771D /* KeychainStorage.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		D367E04A2453BCD600692536 /* JSONWebToken */ = {
