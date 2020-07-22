@@ -3,14 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D3057B52245B02D7009C771D /* KeychainDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3057B51245B02D7009C771D /* KeychainDataItem.swift */; };
-		D3057B54245B0AA1009C771D /* CodableItemStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3057B53245B0AA1009C771D /* CodableItemStorage.swift */; };
-		D3057B56245B11B0009C771D /* DataBaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3057B55245B11B0009C771D /* DataBaseStorage.swift */; };
-		D3057B58245B2267009C771D /* KeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3057B57245B2267009C771D /* KeychainStorage.swift */; };
+		70CB5C8724C908FE0058F0E9 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 70CB5C8624C908FE0058F0E9 /* Storage */; };
 		D3158FFD242E40D800E048AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3158FFC242E40D800E048AE /* AppDelegate.swift */; };
 		D3159001242E40DA00E048AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3159000242E40DA00E048AE /* Assets.xcassets */; };
 		D3159004242E40DA00E048AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3159002242E40DA00E048AE /* Main.storyboard */; };
@@ -55,10 +52,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D3057B51245B02D7009C771D /* KeychainDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainDataItem.swift; sourceTree = "<group>"; };
-		D3057B53245B0AA1009C771D /* CodableItemStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableItemStorage.swift; sourceTree = "<group>"; };
-		D3057B55245B11B0009C771D /* DataBaseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseStorage.swift; sourceTree = "<group>"; };
-		D3057B57245B2267009C771D /* KeychainStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStorage.swift; sourceTree = "<group>"; };
 		D3158FF9242E40D800E048AE /* APNs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APNs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3158FFC242E40D800E048AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3159000242E40DA00E048AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -100,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70CB5C8724C908FE0058F0E9 /* Storage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,7 +154,6 @@
 				D3E94350244B02B9002BB340 /* APNsPreference.swift */,
 				D3E9435C244B03BF002BB340 /* Color+Ext.swift */,
 				D3E9435F244B03EF002BB340 /* String+Ext.swift */,
-				D35B7761245C877E008E85DE /* Storage */,
 				D367E04A2453BCD600692536 /* JSONWebToken */,
 				D315904D2430ADDC00E048AE /* APNsProvider */,
 			);
@@ -179,17 +172,6 @@
 				D315905E2430F6C200E048AE /* APNsError.swift */,
 			);
 			path = APNsProvider;
-			sourceTree = "<group>";
-		};
-		D35B7761245C877E008E85DE /* Storage */ = {
-			isa = PBXGroup;
-			children = (
-				D3057B51245B02D7009C771D /* KeychainDataItem.swift */,
-				D3057B53245B0AA1009C771D /* CodableItemStorage.swift */,
-				D3057B55245B11B0009C771D /* DataBaseStorage.swift */,
-				D3057B57245B2267009C771D /* KeychainStorage.swift */,
-			);
-			path = Storage;
 			sourceTree = "<group>";
 		};
 		D367E04A2453BCD600692536 /* JSONWebToken */ = {
@@ -221,6 +203,7 @@
 			);
 			name = "APNs-NG";
 			packageProductDependencies = (
+				70CB5C8624C908FE0058F0E9 /* Storage */,
 			);
 			productName = "APNs-NG";
 			productReference = D3158FF9242E40D800E048AE /* APNs.app */;
@@ -252,6 +235,7 @@
 			);
 			mainGroup = D3158FF0242E40D800E048AE;
 			packageReferences = (
+				70CB5C8524C908FE0058F0E9 /* XCRemoteSwiftPackageReference "Storage" */,
 			);
 			productRefGroup = D3158FFA242E40D800E048AE /* Products */;
 			projectDirPath = "";
@@ -288,12 +272,10 @@
 				D3E9434E2449F8E5002BB340 /* CertificateView.swift in Sources */,
 				D3E94354244B0349002BB340 /* APNsCertificate.swift in Sources */,
 				D3E94357244B0386002BB340 /* APNsService.swift in Sources */,
-				D3057B56245B11B0009C771D /* DataBaseStorage.swift in Sources */,
 				D367E04E2453BDBD00692536 /* ASN1+X963Representation.swift in Sources */,
 				D315904B243065AC00E048AE /* APNsProvider.swift in Sources */,
 				D31590572430AF2F00E048AE /* APNsTokenBasedProvider.swift in Sources */,
 				D315905F2430F6C200E048AE /* APNsError.swift in Sources */,
-				D3057B54245B0AA1009C771D /* CodableItemStorage.swift in Sources */,
 				D31590532430AEED00E048AE /* APNsProviderBase.swift in Sources */,
 				D367E0522453BEB800692536 /* APNsJSONWebToken.swift in Sources */,
 				D3158FFD242E40D800E048AE /* AppDelegate.swift in Sources */,
@@ -306,9 +288,7 @@
 				D3E9435D244B03BF002BB340 /* Color+Ext.swift in Sources */,
 				D367E04C2453BCEF00692536 /* ASN1.swift in Sources */,
 				D3E94360244B03EF002BB340 /* String+Ext.swift in Sources */,
-				D3057B58245B2267009C771D /* KeychainStorage.swift in Sources */,
 				D31590512430AE9400E048AE /* APNsResponseError.swift in Sources */,
-				D3057B52245B02D7009C771D /* KeychainDataItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,6 +504,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		70CB5C8524C908FE0058F0E9 /* XCRemoteSwiftPackageReference "Storage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:Arror/Storage.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		70CB5C8624C908FE0058F0E9 /* Storage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 70CB5C8524C908FE0058F0E9 /* XCRemoteSwiftPackageReference "Storage" */;
+			productName = Storage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D3158FF1242E40D800E048AE /* Project object */;
 }
