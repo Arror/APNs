@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		70CB5C8724C908FE0058F0E9 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 70CB5C8624C908FE0058F0E9 /* Storage */; };
+		70CB5C8A24C9D8510058F0E9 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 70CB5C8924C9D8510058F0E9 /* Storage */; };
 		D3158FFD242E40D800E048AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3158FFC242E40D800E048AE /* AppDelegate.swift */; };
 		D3159001242E40DA00E048AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3159000242E40DA00E048AE /* Assets.xcassets */; };
 		D3159004242E40DA00E048AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3159002242E40DA00E048AE /* Main.storyboard */; };
@@ -93,7 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70CB5C8724C908FE0058F0E9 /* Storage in Frameworks */,
+				70CB5C8A24C9D8510058F0E9 /* Storage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,7 +203,7 @@
 			);
 			name = "APNs-NG";
 			packageProductDependencies = (
-				70CB5C8624C908FE0058F0E9 /* Storage */,
+				70CB5C8924C9D8510058F0E9 /* Storage */,
 			);
 			productName = "APNs-NG";
 			productReference = D3158FF9242E40D800E048AE /* APNs.app */;
@@ -235,7 +235,7 @@
 			);
 			mainGroup = D3158FF0242E40D800E048AE;
 			packageReferences = (
-				70CB5C8524C908FE0058F0E9 /* XCRemoteSwiftPackageReference "Storage" */,
+				70CB5C8824C9D8510058F0E9 /* XCRemoteSwiftPackageReference "Storage" */,
 			);
 			productRefGroup = D3158FFA242E40D800E048AE /* Products */;
 			projectDirPath = "";
@@ -506,20 +506,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		70CB5C8524C908FE0058F0E9 /* XCRemoteSwiftPackageReference "Storage" */ = {
+		70CB5C8824C9D8510058F0E9 /* XCRemoteSwiftPackageReference "Storage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:Arror/Storage.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		70CB5C8624C908FE0058F0E9 /* Storage */ = {
+		70CB5C8924C9D8510058F0E9 /* Storage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 70CB5C8524C908FE0058F0E9 /* XCRemoteSwiftPackageReference "Storage" */;
+			package = 70CB5C8824C9D8510058F0E9 /* XCRemoteSwiftPackageReference "Storage" */;
 			productName = Storage;
 		};
 /* End XCSwiftPackageProductDependency section */
