@@ -9,6 +9,7 @@
 import Cocoa
 import SwiftUI
 import Combine
+import Storage
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {

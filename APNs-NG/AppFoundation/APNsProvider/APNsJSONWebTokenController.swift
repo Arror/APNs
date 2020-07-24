@@ -37,7 +37,7 @@ public struct APNsJSONWebTokenController {
     private func generateJWTIfNeeded() -> String? {
         do {
             let stored = UserDefaults.standard.string(forKey: self.storeKey) ?? ""
-            if let jwt = APNsJSONWebToken(jwtString: stored), jwt.claims.expireDate.compare(Date(timeIntervalSinceNow: 0)) == .orderedDescending {
+            if let jwt = APNsJSONWebToken(jwtString: stored), jwt.isValid {
                 return stored
             } else {
                 guard let PKCS8DERString = String(data: self.P8Data, encoding: .utf8) else {
