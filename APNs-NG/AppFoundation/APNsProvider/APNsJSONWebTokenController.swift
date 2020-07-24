@@ -8,6 +8,7 @@
 
 import Foundation
 import CryptoKit
+import JSONWebToken
 
 public struct APNsJSONWebTokenController {
     
@@ -37,14 +38,14 @@ public struct APNsJSONWebTokenController {
     private func generateJWTIfNeeded() -> String? {
         do {
             let stored = UserDefaults.standard.string(forKey: self.storeKey) ?? ""
-            if let jwt = APNsJSONWebToken(jwtString: stored), jwt.isValid {
+            if let jwt = try? JSONWebToken(JSONWebTokenString: stored), jwt.isValid {
                 return stored
             } else {
                 guard let PKCS8DERString = String(data: self.P8Data, encoding: .utf8) else {
                     return nil
                 }
-                let jwt = APNsJSONWebToken(teamID: self.teamID, keyID: self.keyID, issueDate: Date(timeIntervalSinceNow: 0))
-                let jwtString = try jwt.sign(usingPKCS8DERString: PKCS8DERString)
+                let jwt = JSONWebToken(teamID: self.teamID, keyID: self.keyID, issueDate: Date(timeIntervalSinceNow: 0))
+                let jwtString = try jwt.sign(using: try P256.Signing.PrivateKey(PKCS8DERString: PKCS8DERString))
                 UserDefaults.standard.set(jwtString, forKey: self.storeKey)
                 return jwtString
             }
