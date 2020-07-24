@@ -81,7 +81,7 @@ struct APNsJSONWebToken: Codable {
     }
     
     var isValid: Bool {
-        return true
+        return self.claims.expireDate.compare(Date(timeIntervalSinceNow: 0)) == .orderedDescending
     }
     
     func sign(using privateKey: P256.Signing.PrivateKey) throws -> String {

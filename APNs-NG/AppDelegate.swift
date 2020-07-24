@@ -9,6 +9,7 @@
 import Cocoa
 import SwiftUI
 import Combine
+import Storage
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -53,7 +54,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let contentView = ContentView().environmentObject(self.appService)
         self.window.titleVisibility = .hidden
         self.window.center()
-        self.window.setFrameAutosaveName("Main Window")
         self.window.contentView = NSHostingView(rootView: contentView)
         self.window.makeKeyAndOrderFront(nil)
         self.window.toolbar = self.tooBar
