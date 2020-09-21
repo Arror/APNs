@@ -38,11 +38,7 @@ public enum APNsResponseError: String, LocalizedError {
     case internalServerError            = "InternalServerError"
     case serviceUnavailable             = "ServiceUnavailable"
     case shutdown                       = "Shutdown"
-    case other                          = "Other"
-    
-    public init(code: String) {
-        self = APNsResponseError(rawValue: code) ?? .other
-    }
+    case invalidResponse                = "InvalidResponse"
     
     public var errorDescription: String? {
         switch self {
@@ -102,9 +98,24 @@ public enum APNsResponseError: String, LocalizedError {
             return "The service is unavailable."
         case .shutdown:
             return "The APNs server is shutting down."
-        case .other:
-            return "Unknown error."
+        case .invalidResponse:
+            return "The response is not valid."
         }
+    }
+}
+
+extension APNsResponseError: Decodable {
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guard let reval = APNsResponseError(rawValue: try container.decode(String.self, forKey: .reason)) else {
+            throw DecodingError.dataCorruptedError(forKey: CodingKeys.reason, in: container, debugDescription: "Unknown reason.")
+        }
+        self = reval
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        case reason
     }
 }
 
@@ -112,20 +123,17 @@ extension Result where Success == Void, Failure == Error {
     
     init(response: URLResponse, data: Data) {
         guard let httpURLResponse = response as? HTTPURLResponse else {
-            self = .failure(APNsResponseError(code: "Other"))
+            self = .failure(APNsResponseError.invalidResponse)
             return
         }
         if httpURLResponse.statusCode == 200 {
             self = .success(())
         } else {
-            let code: String
             do {
-                let json = (try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]) ?? [:]
-                code = (json["reason"] as? String) ?? ""
+                self = .failure(try JSONDecoder().decode(APNsResponseError.self, from: data))
             } catch {
-                code = ""
+                self = .failure(APNsResponseError.invalidResponse)
             }
-            self = .failure(APNsResponseError(code: code))
         }
     }
 }
